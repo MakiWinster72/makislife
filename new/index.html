@@ -7,6 +7,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/theme.css" />
     <link rel="stylesheet" href="assets/css/fonts.css" />
   </head>
 
@@ -30,10 +31,12 @@
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto h-screen relative scroll-smooth">
           <!-- Theme Toggle Button - Desktop (Fixed to viewport) -->
-          <div class="fixed bottom-8 left-8 z-[100] hidden md:block">
+          <div
+            class="fixed bottom-6 left-6 z-[9999] hidden md:flex pointer-events-auto"
+          >
             <button
               id="theme-toggle"
-              class="flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border rounded-2xl h-14 w-14 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all hover:-translate-y-1"
+              class="flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border rounded-lg h-14 w-14 min-w-14 min-h-14 flex-shrink-0 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all hover:-translate-y-1"
               aria-label="切换明暗模式"
             >
               <!-- Sun Icon -->
@@ -96,7 +99,7 @@
                 <img
                   alt="Cozy Cafe"
                   class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  src="img.png"
+                  src="assets/images/img.png"
                 />
                 <div
                   class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"
@@ -123,7 +126,7 @@
                         class="text-muted-foreground mt-2 max-w-md font-body text-lg animate-slide-up"
                         style="animation-delay: 0.3s"
                       >
-                        记录，分享，存储
+                        记录，存储，分享
                       </p>
                     </div>
 
@@ -320,106 +323,6 @@
       </div>
     </div>
 
-    <script>
-      // Theme Management - Simplified
-      (function () {
-        const html = document.documentElement;
-        const themeToggle = document.getElementById("theme-toggle");
-        const themeToggleMobile = document.getElementById(
-          "theme-toggle-mobile",
-        );
-        const sunIcon = document.getElementById("sun-icon");
-        const moonIcon = document.getElementById("moon-icon");
-        const sunIconMobile = document.getElementById("sun-icon-mobile");
-        const moonIconMobile = document.getElementById("moon-icon-mobile");
-
-        // 获取保存的主题，默认为亮色
-        function getStoredTheme() {
-          return localStorage.getItem("theme") || "light";
-        }
-
-        // 更新主题和图标
-        function updateTheme(theme) {
-          if (theme === "dark") {
-            html.classList.add("dark");
-            // 暗色模式显示太阳图标
-            if (sunIcon) sunIcon.style.display = "block";
-            if (moonIcon) moonIcon.style.display = "none";
-            if (sunIconMobile) sunIconMobile.style.display = "block";
-            if (moonIconMobile) moonIconMobile.style.display = "none";
-          } else {
-            html.classList.remove("dark");
-            // 亮色模式显示月亮图标
-            if (sunIcon) sunIcon.style.display = "none";
-            if (moonIcon) moonIcon.style.display = "block";
-            if (sunIconMobile) sunIconMobile.style.display = "none";
-            if (moonIconMobile) moonIconMobile.style.display = "block";
-          }
-          localStorage.setItem("theme", theme);
-        }
-
-        // 切换主题
-        function toggleTheme() {
-          const current = html.classList.contains("dark") ? "dark" : "light";
-          const next = current === "dark" ? "light" : "dark";
-          updateTheme(next);
-        }
-
-        // 初始化 - 默认亮色模式
-        updateTheme(getStoredTheme());
-
-        // 事件监听
-        if (themeToggle) {
-          themeToggle.addEventListener("click", toggleTheme);
-        }
-        if (themeToggleMobile) {
-          themeToggleMobile.addEventListener("click", toggleTheme);
-        }
-      })();
-
-      // Date and Greeting
-      (function () {
-        const dateEl = document.getElementById("current-date");
-        const greetEl = document.getElementById("greeting");
-
-        function formatDateCN(now) {
-          const year = now.getFullYear();
-          const month = now.getMonth() + 1;
-          const day = now.getDate();
-          const weekdays = [
-            "星期日",
-            "星期一",
-            "星期二",
-            "星期三",
-            "星期四",
-            "星期五",
-            "星期六",
-          ];
-          const weekday = weekdays[now.getDay()];
-          return `${year}年${month}月${day}日 ${weekday}`;
-        }
-
-        function selectGreeting(now) {
-          const h = now.getHours();
-          if (h >= 5 && h < 12) {
-            return "早上好👋";
-          } else if (h >= 12 && h < 18) {
-            return "下午好👋";
-          } else if (h >= 18 && h < 23) {
-            return "晚上好👋";
-          } else {
-            return "早点睡觉!";
-          }
-        }
-
-        function updateOnce() {
-          const now = new Date();
-          if (dateEl) dateEl.textContent = formatDateCN(now);
-          if (greetEl) greetEl.textContent = selectGreeting(now);
-        }
-
-        updateOnce();
-      })();
-    </script>
+    <script src="assets/js/greeting.js" defer></script>
   </body>
 </html>

@@ -1,6 +1,4 @@
-/* 保留原有的所有CSS内容，只需在文件末尾添加以下亮色模式变量 */
-
-/* Light Mode (默认) - 已在 :root 中定义 */
+/* Light Mode (默认)  */
 :root {
   --background: 36 33% 97%;
   --foreground: 25 15% 25%;
@@ -37,7 +35,7 @@
   --sidebar-ring: 28 67% 45%;
 }
 
-/* Dark Mode - 已在原CSS中定义 */
+/* Dark Mode */
 .dark {
   --background: 25 15% 12%;
   --foreground: 36 40% 90%;
@@ -86,4 +84,21 @@ html:not(.dark) body {
 #theme-toggle,
 #theme-toggle-mobile {
   position: relative;
+}
+
+/* Dark mode: ensure mobile and desktop icons are white for visibility */
+html.dark #theme-toggle-mobile svg,
+html.dark #theme-toggle svg,
+html.dark #theme-toggle-mobile svg *,
+html.dark #theme-toggle svg * {
+  stroke: #fff !important;
+  color: #fff !important;
+  fill: #fff !important;
+}
+
+/* Also ensure svg uses currentColor for fill/stroke where applicable */
+#theme-toggle svg,
+#theme-toggle-mobile svg {
+  stroke: currentColor;
+  fill: none;
 }

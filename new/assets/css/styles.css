@@ -566,6 +566,32 @@
   .w-64 {
     width: calc(var(--spacing) * 64);
   }
+  /* Added utility classes to support theme button sizing and spacing */
+  .w-14 {
+    width: calc(var(--spacing) * 14);
+  }
+  .min-w-14 {
+    min-width: calc(var(--spacing) * 14);
+  }
+  .min-h-14 {
+    min-height: calc(var(--spacing) * 14);
+  }
+  .flex-shrink-0 {
+    flex-shrink: 0;
+  }
+  .left-6 {
+    left: calc(var(--spacing) * 6);
+  }
+  .bottom-6 {
+    bottom: calc(var(--spacing) * 6);
+  }
+  .z-\[9999\] {
+    z-index: 9999;
+  }
+
+  .w-64 {
+    width: calc(var(--spacing) * 64);
+  }
   .w-\[80\%\] {
     width: 80%;
   }
@@ -670,6 +696,12 @@
   }
   .rounded-full {
     border-radius: 3.40282e38px;
+  }
+  .rounded-md {
+    border-radius: calc(var(--radius) / 2);
+  }
+  .rounded-lg {
+    border-radius: calc(var(--radius) - 8px);
   }
   .rounded-md {
     border-radius: calc(var(--radius) - 2px);
