@@ -269,20 +269,21 @@
         font-family: "wenfeng-ibmps", cursive;
       }
 
-      /* Navigation */
       .article-nav {
         display: flex;
         justify-content: space-between;
+        gap: 1rem;
+        align-items: stretch;
+        min-width: 0;
         margin-top: 4rem;
         padding-top: 2rem;
         border-top: 2px solid hsl(var(--border));
-        gap: 1rem;
+        flex-wrap: nowrap;
+        box-sizing: border-box;
       }
 
       .nav-button {
         display: flex;
-        align-items: center;
-        gap: 0.5rem;
         padding: 1rem 1.5rem;
         background: hsl(var(--card));
         border: 1px solid hsl(var(--border));
@@ -290,8 +291,49 @@
         color: hsl(var(--foreground));
         text-decoration: none;
         transition: all 0.3s;
-        flex: 1;
+        flex: 1 1 45%;
         max-width: 45%;
+        min-width: 0;
+        box-sizing: border-box;
+        white-space: normal !important;
+        overflow: visible;
+      }
+
+      .nav-button > div {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+      }
+
+      .nav-label {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0.7;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
+      }
+
+      .nav-title {
+        font-weight: 600;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal !important;
+        word-break: break-word;
+        overflow-wrap: break-word;
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
       }
 
       .nav-button:hover {
@@ -302,24 +344,42 @@
         box-shadow: 0 4px 20px hsl(var(--primary) / 0.3);
       }
 
-      .nav-button.prev {
-        justify-content: flex-start;
+      .nav-button.prev > div {
+        align-items: flex-start;
+      }
+      .nav-button.prev .nav-label {
+        text-align: left;
       }
 
-      .nav-button.next {
-        justify-content: flex-end;
-        margin-left: auto;
+      .nav-button.next > div {
+        align-items: flex-end;
+      }
+      .nav-button.next .nav-label {
+        text-align: right;
+      }
+      .nav-button.next .nav-title {
+        align-self: flex-start;
+        text-align: left;
       }
 
-      .nav-label {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        opacity: 0.7;
-      }
-
-      .nav-title {
-        font-weight: 600;
+      @media (max-width: 520px) {
+        .article-nav {
+          flex-direction: column;
+          gap: 0.75rem;
+        }
+        .nav-button {
+          flex: 1 1 100%;
+          max-width: 100%;
+        }
+        .nav-button.next > div {
+          align-items: flex-start;
+        }
+        .nav-button.next .nav-label {
+          text-align: left;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
 
       /* Reading Progress Bar */
@@ -765,18 +825,7 @@
 
               <!-- Article Navigation -->
               <nav class="article-nav">
-                <a href="entry.html?id=2" class="nav-button prev">
-                  <div>
-                    <div class="nav-label">← 上一篇</div>
-                    <div class="nav-title">探索未知的旅程</div>
-                  </div>
-                </a>
-                <a href="entry.html?id=3" class="nav-button next">
-                  <div>
-                    <div class="nav-label">下一篇 →</div>
-                    <div class="nav-title">技术笔记：前端开发心得</div>
-                  </div>
-                </a>
+                <!-- Navigation will be dynamically generated -->
               </nav>
             </article>
           </div>
@@ -855,137 +904,119 @@
       </div>
     </div>
 
+    <script src="articles.js"></script>
     <script src="assets/js/greeting.js" defer></script>
     <script>
-      // ====== 文章数据配置说明 ======
-      // 在这里配置您的文章内容。每篇文章需要以下字段：
-      //
-      // articles对象的key应该与calendar.html中文章的id对应
-      // 例如：calendar.html中 id: 1 的文章，这里应该有 articles[1] 的配置
-      //
-      // 必填字段：
-      // - title: 文章标题
-      // - date: 发布日期 (YYYY-MM-DD格式)
-      // - tags: 标签数组 ["life", "tech", "travel", "thoughts"]
-      // - banner: banner图片路径
-      // - content: Markdown格式的文章正文
-      //
-      // 可选字段：
-      // - readingTime: 阅读时长（如 "5 分钟阅读"）
-      // - viewCount: 浏览次数
-      // =============================
-
-      const articles = {
-        1: {
-          title: "Reflections on the Rainy Evening",
-          date: "2024-11-19",
-          tags: ["life", "thoughts"],
-          banner: "assets/images/img.png",
-          readingTime: "5 分钟阅读",
-          viewCount: "128",
-          content: `
-# 雨夜的思考
-
-雨水打在窗户上的声音总是能带来一种特殊的清晰感。今天我坐在窗边好几个小时,只是看着雨滴在玻璃上竞赛...
-
-## 关于时间的流逝
-
-时间就像这些雨滴,不停地向下流淌,我们无法阻止它,只能欣赏它的美丽。
-
-### 每一刻都很重要
-
-> 不要浪费时间去做那些不重要的事情。专注于真正让你快乐的事情。
-
-这是我最近学到的最重要的一课。生活太短暂了,不能把时间浪费在不重要的事情上。
-
-## 代码示例
-
-有时候,代码也能表达哲学:
-
-\`\`\`javascript
-function enjoy(moment) {
-  if (moment.isPresent()) {
-    return moment.appreciate();
-  }
-  return null;
-}
-\`\`\`
-
-## 生活的艺术
-
-生活本身就是一门艺术。我们需要:
-
-1. 学会欣赏当下
-2. 珍惜身边的人
-3. 追求内心的平静
-4. 保持好奇心
-
-![美丽的雨夜](assets/images/img.png)
-
----
-
-### 结语
-
-雨夜给了我很多思考的时间。这些思考让我更加明白,**生活的意义不在于拥有多少,而在于体验多少**。
-
-让我们一起珍惜每一个雨夜,每一个思考的时刻。
-          `,
-        },
-      };
+      // ====== 使用说明 ======
+      // 1. 文章配置在 articles.js 中管理
+      // 2. 文章正文存储在 articles/ 目录的 .md 文件中
+      // 3. 添加新文章：
+      //    a. 在 articles.js 中添加配置
+      //    b. 在 articles/ 目录创建对应的 .md 文件
+      // ======================
 
       // Get article ID from URL
       const urlParams = new URLSearchParams(window.location.search);
       const articleId = urlParams.get("id") || "1";
-      const article = articles[articleId] || articles["1"];
+
+      // Get article config from articles.js
+      const articleConfig = getArticleConfig(articleId);
+
+      if (!articleConfig) {
+        document.body.innerHTML =
+          '<div style="text-align: center; padding: 4rem;"><h1>文章不存在</h1><a href="calendar.html">返回列表</a></div>';
+      }
 
       // Render article
-      document.addEventListener("DOMContentLoaded", () => {
-        renderArticle(article);
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loadAndRenderArticle(articleConfig);
         setupScrollEffects();
         setupShareButtons();
+        renderNavigation(articleId);
       });
 
-      function renderArticle(article) {
-        document.title = article.title + " - Pinned Notes";
-        document.getElementById("articleTitle").textContent = article.title;
+      async function loadAndRenderArticle(config) {
+        // 设置基本信息
+        document.title = config.title + " - Pinned Notes";
+        document.getElementById("articleTitle").textContent = config.title;
         document.getElementById("articleDate").textContent = formatDate(
-          article.date,
+          config.date,
         );
-        document.getElementById("bannerImage").src = article.banner;
-        document.getElementById("readingTime").textContent =
-          article.readingTime;
+        document.getElementById("bannerImage").src = config.banner;
+        document.getElementById("readingTime").textContent = config.readingTime;
         document.getElementById("viewCount").textContent =
-          article.viewCount + " 次浏览";
-        document.getElementById("articleTags").textContent = article.tags
+          config.viewCount + " 次浏览";
+        document.getElementById("articleTags").textContent = config.tags
           .map(getTagName)
           .join(", ");
 
         // Render tags in banner
         const tagsBanner = document.getElementById("articleTagsBanner");
-        tagsBanner.innerHTML = article.tags
+        tagsBanner.innerHTML = config.tags
           .map((tag) => `<span class="tag-banner">${getTagName(tag)}</span>`)
           .join("");
 
-        // Configure marked options
-        marked.setOptions({
-          highlight: function (code, lang) {
-            if (lang && hljs.getLanguage(lang)) {
-              return hljs.highlight(code, { language: lang }).value;
-            }
-            return hljs.highlightAuto(code).value;
-          },
-          breaks: true,
-          gfm: true,
-        });
+        // 加载Markdown文件
+        try {
+          const response = await fetch(config.contentFile);
+          if (!response.ok) throw new Error("文章文件不存在");
 
-        // Render markdown content
-        const contentEl = document.getElementById("articleContent");
-        contentEl.innerHTML = marked.parse(article.content);
+          const markdownContent = await response.text();
 
-        // Highlight code blocks
-        contentEl.querySelectorAll("pre code").forEach((block) => {
-          hljs.highlightElement(block);
-        });
+          // Configure marked options
+          marked.setOptions({
+            highlight: function (code, lang) {
+              if (lang && hljs.getLanguage(lang)) {
+                return hljs.highlight(code, { language: lang }).value;
+              }
+              return hljs.highlightAuto(code).value;
+            },
+            breaks: true,
+            gfm: true,
+          });
+
+          // Render markdown content
+          const contentEl = document.getElementById("articleContent");
+          contentEl.innerHTML = marked.parse(markdownContent);
+
+          // Highlight code blocks
+          contentEl.querySelectorAll("pre code").forEach((block) => {
+            hljs.highlightElement(block);
+          });
+        } catch (error) {
+          console.error("加载文章失败:", error);
+          document.getElementById("articleContent").innerHTML =
+            '<p style="color: red;">文章加载失败，请检查文章文件是否存在。</p>';
+        }
+      }
+
+      function renderNavigation(currentId) {
+        const adjacent = getAdjacentArticles(currentId);
+        const navContainer = document.querySelector(".article-nav");
+
+        navContainer.innerHTML = "";
+
+        if (adjacent.prev) {
+          navContainer.innerHTML += `
+            <a href="entry.html?id=${adjacent.prev.id}" class="nav-button prev">
+              <div>
+                <div class="nav-label">← 上一篇</div>
+                <div class="nav-title">${adjacent.prev.title}</div>
+              </div>
+            </a>
+          `;
+        }
+
+        if (adjacent.next) {
+          navContainer.innerHTML += `
+            <a href="entry.html?id=${adjacent.next.id}" class="nav-button next">
+              <div>
+                <div class="nav-label">下一篇 →</div>
+                <div class="nav-title">${adjacent.next.title}</div>
+              </div>
+            </a>
+          `;
+        }
       }
 
       function formatDate(dateStr) {

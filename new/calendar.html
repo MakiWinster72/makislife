@@ -548,76 +548,16 @@
       </div>
     </div>
 
+    <script src="articles.js"></script>
     <script src="assets/js/greeting.js" defer></script>
     <script>
-      // ====== 文章配置说明 ======
-      // 要将文章链接到对应的entry.html页面，请按以下方式配置：
-      // 1. id: 文章的唯一标识符，会作为URL参数传递（如 entry.html?id=1）
-      // 2. title: 文章标题
-      // 3. date: 发布日期，格式为 YYYY-MM-DD
-      // 4. excerpt: 文章摘要/预览文本
-      // 5. tags: 文章标签数组，可用值：["life", "tech", "travel", "thoughts"]
-      // 6. thumbnail: 缩略图路径
-      //
-      // 在entry.html中，需要在articles对象中添加对应id的完整文章数据
-      // ============================
+      // ====== 使用说明 ======
+      // 1. 所有文章配置在 articles.js 中管理
+      // 2. 添加新文章只需要在 articles.js 中添加配置
+      // 3. 文章正文存储在 articles/目录下的 .md 文件中
+      // ======================
 
-      const articles = [
-        {
-          id: 1,
-          title: "Reflections on the Rainy Evening",
-          date: "2024-11-19",
-          excerpt:
-            "我的天哪😧The sound of the rain against the window always brings a certain clarity. Today I sat by the window for hours, just watching the droplets race down the glass...",
-          tags: ["life", "thoughts"],
-          thumbnail: "assets/images/img.png",
-        },
-        {
-          id: 2,
-          title: "探索未知的旅程",
-          date: "2024-11-18",
-          excerpt:
-            "每一次旅行都是一次心灵的洗礼。在陌生的城市里漫步,感受不同的文化氛围,品尝当地的美食,遇见有趣的人...",
-          tags: ["travel", "life"],
-          thumbnail: "assets/images/img.png",
-        },
-        {
-          id: 3,
-          title: "技术笔记：前端开发心得",
-          date: "2024-11-15",
-          excerpt:
-            "在前端开发的道路上,我学到了很多宝贵的经验。从最初的HTML、CSS到现在的React、Vue,每一步都是成长...",
-          tags: ["tech"],
-          thumbnail: "assets/images/img.png",
-        },
-        {
-          id: 4,
-          title: "午后的咖啡时光",
-          date: "2024-11-12",
-          excerpt:
-            "阳光透过窗户洒在桌面上,一杯香浓的咖啡,一本喜欢的书,这就是最惬意的午后时光...",
-          tags: ["life"],
-          thumbnail: "assets/images/img.png",
-        },
-        {
-          id: 5,
-          title: "关于创造力的思考",
-          date: "2024-11-08",
-          excerpt:
-            "创造力不是凭空而来的,它需要持续的积累、观察和思考。灵感往往在最意想不到的时刻出现...",
-          tags: ["thoughts"],
-          thumbnail: "assets/images/img.png",
-        },
-        {
-          id: 6,
-          title: "秋天的故事",
-          date: "2024-11-05",
-          excerpt:
-            "落叶纷飞的季节,总是让人感到一丝淡淡的忧伤。但这也是收获的季节,是思考和沉淀的时光...",
-          tags: ["life", "thoughts"],
-          thumbnail: "assets/images/img.png",
-        },
-      ];
+      const articles = getAllArticles(); // 从 articles.js 获取文章列表
 
       let currentPage = 1;
       const articlesPerPage = 9;
