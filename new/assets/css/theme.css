@@ -1,0 +1,89 @@
+/* 保留原有的所有CSS内容，只需在文件末尾添加以下亮色模式变量 */
+
+/* Light Mode (默认) - 已在 :root 中定义 */
+:root {
+  --background: 36 33% 97%;
+  --foreground: 25 15% 25%;
+  --card: 36 33% 94%;
+  --card-foreground: 25 15% 25%;
+  --popover: 36 33% 97%;
+  --popover-foreground: 25 15% 25%;
+  --primary: 28 67% 45%;
+  --primary-foreground: 36 33% 97%;
+  --secondary: 35 40% 85%;
+  --secondary-foreground: 25 15% 25%;
+  --muted: 36 20% 90%;
+  --muted-foreground: 25 10% 50%;
+  --accent: 40 70% 60%;
+  --accent-foreground: 25 15% 20%;
+  --destructive: 0 60% 60%;
+  --destructive-foreground: 36 33% 97%;
+  --border: 30 20% 85%;
+  --input: 30 20% 85%;
+  --ring: 28 67% 45%;
+  --radius: 1rem;
+  --chart-1: 28 67% 45%;
+  --chart-2: 40 70% 60%;
+  --chart-3: 160 30% 40%;
+  --chart-4: 200 30% 40%;
+  --chart-5: 280 30% 40%;
+  --sidebar: 36 33% 94%;
+  --sidebar-foreground: 25 15% 25%;
+  --sidebar-primary: 28 67% 45%;
+  --sidebar-primary-foreground: 36 33% 97%;
+  --sidebar-accent: 35 40% 85%;
+  --sidebar-accent-foreground: 25 15% 25%;
+  --sidebar-border: 30 20% 85%;
+  --sidebar-ring: 28 67% 45%;
+}
+
+/* Dark Mode - 已在原CSS中定义 */
+.dark {
+  --background: 25 15% 12%;
+  --foreground: 36 40% 90%;
+  --card: 25 15% 16%;
+  --card-foreground: 36 40% 90%;
+  --popover: 25 15% 16%;
+  --popover-foreground: 36 40% 90%;
+  --primary: 35 80% 55%;
+  --primary-foreground: 25 15% 15%;
+  --secondary: 25 15% 22%;
+  --secondary-foreground: 36 40% 90%;
+  --muted: 25 10% 25%;
+  --muted-foreground: 36 20% 65%;
+  --accent: 35 80% 55%;
+  --accent-foreground: 25 15% 15%;
+  --destructive: 0 50% 40%;
+  --destructive-foreground: 36 40% 90%;
+  --border: 25 15% 25%;
+  --input: 25 15% 25%;
+  --ring: 35 80% 55%;
+  --sidebar: 25 15% 14%;
+  --sidebar-foreground: 36 40% 90%;
+  --sidebar-primary: 35 80% 55%;
+  --sidebar-primary-foreground: 25 15% 15%;
+  --sidebar-accent: 25 15% 22%;
+  --sidebar-accent-foreground: 36 40% 90%;
+  --sidebar-border: 25 15% 25%;
+  --sidebar-ring: 35 80% 55%;
+}
+
+/* 为亮色模式调整body背景渐变 */
+html:not(.dark) body {
+  background-image: radial-gradient(circle at 50% 0, #e89c3015, #0000 70%);
+}
+
+/* 主题切换按钮的过渡效果 */
+#theme-toggle svg,
+#theme-toggle-mobile svg {
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  position: absolute;
+}
+
+/* 确保图标在同一位置叠加 */
+#theme-toggle,
+#theme-toggle-mobile {
+  position: relative;
+}
