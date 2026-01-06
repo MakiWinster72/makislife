@@ -1,0 +1,584 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hyr</title>
+
+    <!-- Marked.js for Markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&family=Ma+Shan+Zheng&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      @font-face {
+        font-family: "PingFangSC";
+        src: url("https://res.makis-life.cn/fonts/PingFangSC-Regular.woff2")
+          format("woff2");
+        font-weight: normal;
+        font-style: normal;
+      }
+
+      :root {
+        --bg-primary: #fdfbf7;
+        --bg-secondary: #f8f4ed;
+        --text-primary: #2d2a26;
+        --text-secondary: #6b6560;
+        --accent: #d4a373;
+        --accent-dark: #b8865a;
+        --border: #e8e3da;
+        --shadow: rgba(45, 42, 38, 0.08);
+        --shadow-heavy: rgba(45, 42, 38, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Noto Serif SC", serif;
+        background: linear-gradient(135deg, #fdfbf7 0%, #f8f4ed 100%);
+        color: var(--text-primary);
+        line-height: 1.8;
+        min-height: 100vh;
+        padding: 0;
+        overflow-x: hidden;
+      }
+
+      /* Decorative background elements */
+      body::before {
+        content: "";
+        position: fixed;
+        top: -50%;
+        right: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(212, 163, 115, 0.03) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        animation: float 20s ease-in-out infinite;
+      }
+
+      body::after {
+        content: "";
+        position: fixed;
+        bottom: -50%;
+        left: -50%;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(212, 163, 115, 0.02) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+        animation: float 25s ease-in-out infinite reverse;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(0, 0) rotate(0deg);
+        }
+        33% {
+          transform: translate(30px, -30px) rotate(2deg);
+        }
+        66% {
+          transform: translate(-20px, 20px) rotate(-2deg);
+        }
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        position: relative;
+        z-index: 1;
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        animation: slideDown 0.8s ease-out 0.2s both;
+      }
+
+      @keyframes slideDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header h1 {
+        font-family: "PingFangSC", cursive;
+        font-size: 2.5rem;
+        color: var(--accent-dark);
+        margin-bottom: 0.5rem;
+        font-weight: 400;
+        letter-spacing: 0.05em;
+      }
+
+      .header .subtitle {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        font-weight: 300;
+      }
+
+      /* Audio Player */
+      .audio-container {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow:
+          0 10px 40px var(--shadow),
+          0 2px 8px var(--shadow-heavy);
+        border: 1px solid var(--border);
+        animation: scaleIn 0.6s ease-out 0.4s both;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .audio-container::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          var(--accent) 0%,
+          var(--accent-dark) 100%
+        );
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .audio-title {
+        font-family: PingFangSC, sans-serif;
+        font-size: 1.1rem;
+        margin-bottom: 1.5rem;
+        color: var(--text-primary);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 500;
+      }
+
+      .audio-title::before {
+        content: "🎵";
+        font-size: 1.3rem;
+      }
+
+      .audio-player {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .play-button {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: linear-gradient(
+          135deg,
+          var(--accent) 0%,
+          var(--accent-dark) 100%
+        );
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 12px rgba(212, 163, 115, 0.3);
+        flex-shrink: 0;
+      }
+
+      .play-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(212, 163, 115, 0.4);
+      }
+
+      .play-button:active {
+        transform: scale(0.98);
+      }
+
+      .play-button svg {
+        width: 24px;
+        height: 24px;
+        fill: white;
+      }
+
+      .audio-controls {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .progress-container {
+        position: relative;
+        width: 100%;
+        height: 6px;
+        background: var(--bg-secondary);
+        border-radius: 3px;
+        cursor: pointer;
+        overflow: hidden;
+      }
+
+      .progress-bar {
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          var(--accent) 0%,
+          var(--accent-dark) 100%
+        );
+        border-radius: 3px;
+        width: 0%;
+        transition: width 0.1s linear;
+        position: relative;
+      }
+
+      .progress-bar::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 12px;
+        height: 12px;
+        background: white;
+        border: 2px solid var(--accent-dark);
+        border-radius: 50%;
+        box-shadow: 0 2px 4px var(--shadow);
+      }
+
+      .time-display {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        font-family: "Noto Sans SC", sans-serif;
+      }
+
+      /* Content Area */
+      .content {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        box-shadow:
+          0 10px 40px var(--shadow),
+          0 2px 8px var(--shadow-heavy);
+        border: 1px solid var(--border);
+        animation: slideUp 0.8s ease-out 0.6s both;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .markdown-content p {
+        margin-bottom: 1.2rem;
+        text-align: justify;
+        font-size: 1.05rem;
+        line-height: 2;
+      }
+
+      .markdown-content p:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        margin-top: 3rem;
+        padding: 2rem 0;
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        animation: fadeIn 1s ease-out 0.8s both;
+      }
+
+      /* Responsive Design - Mobile First */
+      @media (max-width: 768px) {
+        .container {
+          padding: 1.5rem 1rem;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .header .subtitle {
+          font-size: 0.9rem;
+        }
+
+        .audio-container {
+          padding: 1.5rem;
+          border-radius: 16px;
+          margin-bottom: 2rem;
+        }
+
+        .audio-title {
+          font-size: 1rem;
+          margin-bottom: 1.25rem;
+        }
+
+        .play-button {
+          width: 52px;
+          height: 52px;
+        }
+
+        .play-button svg {
+          width: 22px;
+          height: 22px;
+        }
+
+        .content {
+          padding: 1.75rem;
+          border-radius: 16px;
+        }
+
+        .markdown-content p {
+          font-size: 1rem;
+          line-height: 1.9;
+        }
+
+        .footer {
+          font-size: 0.85rem;
+          margin-top: 2rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .container {
+          padding: 1rem 0.75rem;
+        }
+
+        .header {
+          margin-bottom: 2rem;
+        }
+
+        .header h1 {
+          font-size: 1.75rem;
+        }
+
+        .audio-container {
+          padding: 1.25rem;
+        }
+
+        .audio-player {
+          gap: 0.75rem;
+        }
+
+        .content {
+          padding: 1.5rem;
+        }
+
+        .markdown-content p {
+          font-size: 0.95rem;
+        }
+      }
+
+      /* Loading animation */
+      .loading {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 3px solid var(--bg-secondary);
+        border-top-color: var(--accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>hyr</h1>
+        <!-- <div class="subtitle">一段真挚的独白</div> -->
+      </div>
+
+      <div class="audio-container">
+        <div class="audio-title">语音(戴耳机!)</div>
+        <div class="audio-player">
+          <button class="play-button" id="playButton" aria-label="播放/暂停">
+            <svg id="playIcon" viewBox="0 0 24 24">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            <svg id="pauseIcon" viewBox="0 0 24 24" style="display: none">
+              <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
+            </svg>
+          </button>
+          <div class="audio-controls">
+            <div class="progress-container" id="progressContainer">
+              <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="time-display">
+              <span id="currentTime">0:00</span>
+              <span id="duration">0:00</span>
+            </div>
+          </div>
+        </div>
+        <audio
+          id="audioElement"
+          src="https://res.makis-life.cn/my/hyrv.m4a"
+          preload="metadata"
+        ></audio>
+      </div>
+
+      <div class="content">
+        <div class="markdown-content" id="markdownContent"></div>
+      </div>
+
+      <!-- <div class="footer"> -->
+      <!--   <p>📝 用心记录每一刻</p> -->
+      <!-- </div> -->
+    </div>
+
+    <script>
+      // Markdown content
+      const markdownText = `不行,等不到什么机会了 hh ,一会你觉得我对你们不认真那我不完了🫠
+
+我就是觉得我们不太像一类人。第一次吃饭的时候,就感觉了,你们的话题都是比如奖学金,比如入党这样。你们都去参加什么部门,当班级的职位。我们好像不太一样,现在的我,我早就没了那种乐意承担责任,帮别人的时期吧。
+
+如果是以前的我还好,那时候的我可真是朝气蓬勃,什么事都想干。当各种干部,而且要干就干最大的,当会长班长队长,基本上是有事都帮的那类人。而且当了点小职位,有点能力,有点人际关系什么的,就常常能帮到很多人。从小一直到大二吧,开始觉得我还得发展好自己的家庭就把所有职位都取消了,要专注个人发展搞大钱还有和对象培养感情,后续也证明确实是对的选择。我不再希望把自己'摊开'来给很多人用,再加上什么,踏入成年人的世界吧。对社会挺失望的,对学校也挺失望的,对入党也很失望。
+
+我没什么激情了,像写这封信我也,昨晚一晚拖了很久吧,玩了各种脑残游戏,真,脑残游戏。就是刷视频看到的广告那种,什么黑洞吞噬,什么找出十处婆婆很有钱的证据。我根本想不到我也会去点击这些垃圾广告消磨时间。我就是,什么也不想想,不想做,而这时候刷视频和玩垃圾广告就成为了很合适的选择。一玩,就过去了好几个小时,困了就睡了。
+
+所以要是早点认识你们就好了 hh
+
+挺好的,和你们很好聊天,你们都是很可爱的女孩子,可惜了我不是女生哈哈。其实我不是很会玩啊,和你们出门去玩我其实不是很会找话题,也不知道该去哪里玩。我觉得可能是我,还并不习惯没有社交吧。自从分手后我基本上都不会打开微信,每天基本上也就十分钟。认识你们后就经常聊天了,但我也能意识到只是我对这个三人小组很有需求(不是说你们不好啊!),每个人都有自己的生活,不过是我稍微有点落魄罢了hhh,所以有点沉迷和你们的接触,这么说的我好像好功利啊,但不是啊你也能感受到我并不是随便对待你们的吧。啊说的好奇怪,说疏远了好像我不看重我们的关系,有些轻蔑一样,说亲密了怪怪的哈哈哈哈哈哈哈。可惜我不是可爱小妹妹
+
+诶其实你们都不用担心我想法不纯啊哈哈哈哈,我其实都没再打算谈恋爱了,怎么说呢结婚这事不适合我这个普通人 。有客观原因也有主观原因吧。所以我不用担心前程啊,当然了我不会啃老,你看我也不像是喜欢依赖别人的人吧(哎呀虽然爸妈也不能叫做是"别人")。如果婚礼和家庭不在计划内,那么说实话即使是两三千的工作都够我过日子了,还挺潇洒挺轻松。
+
+到后面过了大数据这门课,然后选修也不重复了。然后我们玩的游戏也不一样,暂时没想到后面还能有什么事情和你们能聊,不知道怎么和你们找话题。诶倒是还有几门必修,要是组小组我还和你们一起,不过要是你们要和其他人的话就去吧也没关系,我大概率也会是自己。
+
+感觉我当不了你们的朋友啊,如果没有话题聊,关系一般都慢慢淡下去了不是吗,当然我也可能太消极了吧,我也不知道`;
+
+      // Render markdown
+      document.getElementById("markdownContent").innerHTML =
+        marked.parse(markdownText);
+
+      // Audio player functionality
+      const audio = document.getElementById("audioElement");
+      const playButton = document.getElementById("playButton");
+      const playIcon = document.getElementById("playIcon");
+      const pauseIcon = document.getElementById("pauseIcon");
+      const progressBar = document.getElementById("progressBar");
+      const progressContainer = document.getElementById("progressContainer");
+      const currentTimeEl = document.getElementById("currentTime");
+      const durationEl = document.getElementById("duration");
+
+      let isPlaying = false;
+
+      // Format time
+      function formatTime(seconds) {
+        if (isNaN(seconds)) return "0:00";
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, "0")}`;
+      }
+
+      // Update duration when metadata is loaded
+      audio.addEventListener("loadedmetadata", () => {
+        durationEl.textContent = formatTime(audio.duration);
+      });
+
+      // Play/Pause toggle
+      playButton.addEventListener("click", () => {
+        if (isPlaying) {
+          audio.pause();
+        } else {
+          audio.play();
+        }
+      });
+
+      audio.addEventListener("play", () => {
+        isPlaying = true;
+        playIcon.style.display = "none";
+        pauseIcon.style.display = "block";
+      });
+
+      audio.addEventListener("pause", () => {
+        isPlaying = false;
+        playIcon.style.display = "block";
+        pauseIcon.style.display = "none";
+      });
+
+      // Update progress bar
+      audio.addEventListener("timeupdate", () => {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+      });
+
+      // Seek functionality
+      progressContainer.addEventListener("click", (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percentage = clickX / rect.width;
+        audio.currentTime = percentage * audio.duration;
+      });
+
+      // Reset on end
+      audio.addEventListener("ended", () => {
+        isPlaying = false;
+        playIcon.style.display = "block";
+        pauseIcon.style.display = "none";
+        progressBar.style.width = "0%";
+        audio.currentTime = 0;
+      });
+    </script>
+  </body>
+</html>

@@ -379,11 +379,11 @@
   h1,
   h2,
   h3 {
-    font-family: wenfeng-ibmps, cursive;
+    font-family: "wenfeng-ibmps", cursive;
   }
   p {
     --tw-leading: var(--leading-relaxed);
-    font-family: Lora, serif;
+    font-family: "wenfeng-ibmps", serif;
   }
 }
 @layer components;
