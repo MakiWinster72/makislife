@@ -379,11 +379,11 @@
   h1,
   h2,
   h3 {
-    font-family: "wenfeng-ibmps", cursive;
+    font-family: "hm", cursive;
   }
   p {
     --tw-leading: var(--leading-relaxed);
-    font-family: "wenfeng-ibmps", serif;
+    font-family: "hm", serif;
   }
 }
 @layer components;
@@ -991,10 +991,10 @@
     text-align: center;
   }
   .font-body {
-    font-family: "wenfeng-ibmps", serif;
+    font-family: "hm", serif;
   }
   .font-display {
-    font-family: "wenfeng-ibmps", cursive;
+    font-family: "hm", cursive;
   }
   .text-2xl {
     font-size: var(--text-2xl);

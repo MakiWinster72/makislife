@@ -11,8 +11,8 @@ const articlesConfig = {
     excerpt:
       "我的天哪😧The sound of the rain against the window always brings a certain clarity. Today I sat by the window for hours, just watching the droplets race down the glass...",
     tags: ["life", "thoughts"],
-    thumbnail: "assets/images/img.png",
-    banner: "assets/images/img.png",
+    thumbnail: "assets/images/defaultBanner.png",
+    banner: "assets/images/defaultBanner.png",
     readingTime: "5 分钟阅读",
     viewCount: "128",
     // 文章内容文件路径
@@ -25,8 +25,8 @@ const articlesConfig = {
     excerpt:
       "每一次旅行都是一次心灵的洗礼。在陌生的城市里漫步,感受不同的文化氛围,品尝当地的美食,遇见有趣的人...",
     tags: ["travel", "life"],
-    thumbnail: "assets/images/img.png",
-    banner: "assets/images/img.png",
+    thumbnail: "assets/images/defaultBanner.png",
+    banner: "assets/images/defaultBanner.png",
     readingTime: "8 分钟阅读",
     viewCount: "256",
     contentFile: "articles/2.md",
@@ -38,8 +38,8 @@ const articlesConfig = {
     excerpt:
       "在前端开发的道路上,我学到了很多宝贵的经验。从最初的HTML、CSS到现在的React、Vue,每一步都是成长...",
     tags: ["tech"],
-    thumbnail: "assets/images/img.png",
-    banner: "assets/images/img.png",
+    thumbnail: "assets/images/defaultBanner.png",
+    banner: "assets/images/defaultBanner.png",
     readingTime: "10 分钟阅读",
     viewCount: "512",
     contentFile: "articles/3.md",
@@ -51,8 +51,8 @@ const articlesConfig = {
     excerpt:
       "阳光透过窗户洒在桌面上,一杯香浓的咖啡,一本喜欢的书,这就是最惬意的午后时光...",
     tags: ["life"],
-    thumbnail: "assets/images/img.png",
-    banner: "assets/images/img.png",
+    thumbnail: "assets/images/defaultBanner.png",
+    banner: "assets/images/defaultBanner.png",
     readingTime: "4 分钟阅读",
     viewCount: "189",
     contentFile: "articles/4.md",
@@ -64,8 +64,8 @@ const articlesConfig = {
     excerpt:
       "创造力不是凭空而来的,它需要持续的积累、观察和思考。灵感往往在最意想不到的时刻出现...",
     tags: ["thoughts"],
-    thumbnail: "assets/images/img.png",
-    banner: "assets/images/img.png",
+    thumbnail: "assets/images/defaultBanner.png",
+    banner: "assets/images/defaultBanner.png",
     readingTime: "6 分钟阅读",
     viewCount: "342",
     contentFile: "articles/5.md",
@@ -77,8 +77,8 @@ const articlesConfig = {
     excerpt:
       "落叶纷飞的季节,总是让人感到一丝淡淡的忧伤。但这也是收获的季节,是思考和沉淀的时光...",
     tags: ["life", "thoughts"],
-    thumbnail: "assets/images/img.png",
-    banner: "assets/images/img.png",
+    thumbnail: "assets/images/defaultBanner.png",
+    banner: "assets/images/defaultBanner.png",
     readingTime: "7 分钟阅读",
     viewCount: "421",
     contentFile: "articles/6.md",
