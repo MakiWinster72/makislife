@@ -6,13 +6,14 @@
 const articlesConfig = {
   1: {
     id: 1,
-    title: "Reflections on the Rainy Evening",
-    date: "2024-11-19",
+    title: "📝 生活成了一场RAG",
+    date: "2025-06-07",
     excerpt:
-      "我的天哪😧The sound of the rain against the window always brings a certain clarity. Today I sat by the window for hours, just watching the droplets race down the glass...",
+      "近期在学习LLM的内容，在我dive in RAG时有感。用RAG比喻生活与人际关系，讲述在信息与时间筛选中，\
+    如何保留那些重要但易被忽略的温暖片段。",
     tags: ["life", "thoughts"],
-    thumbnail: "assets/images/defaultBanner.png",
-    banner: "assets/images/defaultBanner.png",
+    thumbnail: "assets/images/cover/rag.png",
+    banner: "assets/images/cover/rag.png",
     readingTime: "5 分钟阅读",
     viewCount: "128",
     // 文章内容文件路径
