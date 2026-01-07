@@ -12,6 +12,32 @@
     <link rel="stylesheet" href="assets/css/fonts.css" />
     <!-- Markdown Rendering with marked.js -->
     <script src="https://cdn.jsdelivr.net/npm/marked/lib/marked.umd.js"></script>
+    <script>
+      // Marked.js extension for highlight (==text==)
+      const highlightExtension = {
+        name: "highlight",
+        level: "inline",
+        start(src) {
+          return src.indexOf("==");
+        },
+        tokenizer(src, tokens) {
+          const rule = /^==([^=\n]+)==/;
+          const match = rule.exec(src);
+          if (match) {
+            return {
+              type: "highlight",
+              raw: match[0],
+              text: match[1],
+            };
+          }
+        },
+        renderer(token) {
+          return `<mark>${token.text}</mark>`;
+        },
+      };
+
+      marked.use({ extensions: [highlightExtension] });
+    </script>
     <!-- Syntax highlighting with highlight.js -->
     <link
       rel="stylesheet"
@@ -19,6 +45,10 @@
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
+      :root {
+        --yellow-light: 220 90% 90%; /* A light yellow for background */
+        --yellow-dark: 40 100% 20%; /* A dark yellow for text */
+      }
       /* Article Header Banner */
       .article-banner {
         position: relative;
@@ -234,6 +264,14 @@
         color: #abb2bf;
         padding: 0;
         font-size: 0.95rem;
+      }
+
+      .markdown-content mark {
+        background-color: hsl(var(--yellow-light));
+        color: hsl(var(--yellow-dark));
+        padding: 0.1em 0.3em;
+        border-radius: 0.2em;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
       }
 
       .markdown-content img {
@@ -906,6 +944,7 @@
 
     <script src="articles.js"></script>
     <script src="assets/js/greeting.js" defer></script>
+    <script src="assets/js/photoZoom.js"></script>
     <script>
       // ====== 使用说明 ======
       // 1. 文章配置在 articles.js 中管理
@@ -965,12 +1004,12 @@
 
           // Configure marked options
           marked.setOptions({
-            highlight: function (code, lang) {
-              if (lang && hljs.getLanguage(lang)) {
-                return hljs.highlight(code, { language: lang }).value;
-              }
-              return hljs.highlightAuto(code).value;
-            },
+            // highlight: function (code, lang) {
+            //   if (lang && hljs.getLanguage(lang)) {
+            //     return hljs.highlight(code, { language: lang }).value;
+            //   }
+            //   return hljs.highlightAuto(code).value;
+            // },
             breaks: true,
             gfm: true,
           });
