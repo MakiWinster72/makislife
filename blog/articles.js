@@ -49,7 +49,7 @@ const articlesConfig = {
     title: "📝 停止花里胡哨的炫技",
     date: "2025-09-17",
     excerpt:
-      "软考高级，系统分析师。进考场发现全是大师。简说了这三个月的备考，以及我的思维进化。",
+      "看到很多文章推崇“高级技巧”“优雅代码”，但我越来越觉得，这些花哨并不等于高效。本文记录了我对这些技术花招的思考：什么时候真的有用，什么时候只是为了炫技，以及如何写出既可靠又易维护的代码。",
     tags: ["tech", "thoughts"],
     thumbnail: "assets/images/cover/stopUsingCodingSuger.png",
     banner: "assets/images/cover/stopUsingCodingSuger.png",

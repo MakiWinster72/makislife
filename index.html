@@ -1,142 +1,57 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Maki Winster — Home</title>
-    <meta
-      name="description"
-      content="Maki Winster — 我在成为“万里挑一”的路上"
-    />
-    <link rel="stylesheet" href="assets/css/fonts.css" />
-    <link rel="stylesheet" href="assets/css/index.css" />
-  </head>
-  <body>
-    <canvas id="particles" aria-hidden="true"></canvas>
-
-    <main class="wrap" role="main">
-      <section class="card" aria-labelledby="site-title">
-        <div class="avatar-box" id="avatar-3d" aria-hidden="false">
-          <div class="avatar" id="avatar">
-            <img
-              src="https://img.makis-life.cn//images/20250530065245456.png"
-              alt="Maki Winster logo"
-            />
-          </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Maki Winster — Home</title>
+  <meta name="description" content="Maki Winster — 我在成为"万里挑一"的路上">
+  <link rel="preconnect" href="https://img.makis-life.cn">
+  <link rel="stylesheet" href="assets/css/index.css">
+  <link rel="stylesheet" href="assets/css/fonts.css">
+</head>
+<body>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  
+  <main class="wrap">
+    <section class="card">
+      <div class="avatar-box" id="avatar-3d">
+        <div class="avatar" id="avatar">
+          <img src="https://img.makis-life.cn//images/20250530065245456.png" alt="Maki Winster logo" loading="lazy">
         </div>
-        <div class="meta">
-          <h1 id="site-title" class="name">Maki Winster</h1>
-          <p>Linux fan. Rustaceans</p>
-          GPG PKey:
-          <a
-            href="https://keys.openpgp.org/search?q=0F8EFF9D25063A59D756EA9E46BA4E906D6BB3FA"
-            target="_blank"
-            style="
-              color: white;
-              text-decoration: underline dashed;
-              position: relative;
-            "
-          >
-            4E90 6D6B B3FA
-            <!-- 右上角小图标 -->
-            <span
-              style="
-                font-size: 0.7em;
-                position: absolute;
-                top: -0.3em;
-                right: -1.2em;
-              "
-              >🔗</span
-            >
-          </a>
-
-          <br />
-
-          <p>成为独当一面，成为万里挑一，追求自由，追求热爱。</p>
-          <br />
-
-          <div class="actions" role="group" aria-label="主要操作">
-            <a class="btn btn-primary" href="blog/index.html" id="blog-btn"
-              >博客</a
-            >
-            <a class="btn btn-ghost" href="./life.html" id="life-btn">life</a>
-            <a
-              class="btn btn-ghost"
-              href="./archInstallForCNUser/index.html"
-              id="archlinux-guide-btn"
-              >ArchLinuxForCNUser</a
-            >
-          </div>
-        </div>
-      </section>
-
-      <!-- 所有链接统一放在主卡片下方，垂直排列（上下排）
-    <section class="link-section" aria-label="外部链接">
-      <div class="links-container" role="list">
-        <a role="listitem" class="link-chip" href="https://github.com/MakiWinster72/" aria-label="GitHub">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577 0-.285-.01-1.04-.016-2.04-3.338.726-4.042-1.416-4.042-1.416-.546-1.387-1.333-1.757-1.333-1.757-1.09-.745.083-.73.083-.73 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.418-1.305.762-1.605-2.665-.305-5.466-1.332-5.466-5.931 0-1.31.469-2.381 1.236-3.221-.124-.303-.536-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.29-1.552 3.296-1.23 3.296-1.23.655 1.653.243 2.874.12 3.176.77.84 1.235 1.911 1.235 3.221 0 4.61-2.805 5.624-5.475 5.921.43.371.815 1.102.815 2.222 0 1.604-.014 2.897-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297 24 5.67 18.627.297 12 .297z"/></svg>
-          GitHub
-        </a>
-
-        <a role="listitem" class="link-chip" href="https://blog.csdn.net/mumoyan472" aria-label="CSDN">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 2H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11v-2H8V4h11v14h2V4c0-1.1-.9-2-2-2zM6 6H4v14c0 1.1.9 2 2 2h12v-2H6V6z"/></svg>
-          CSDN
-        </a>
-
-        <a role="listitem" class="link-chip" href="https://leetcode.cn/u/makiwinster72/" aria-label="LeetCode">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 3.5L8 9v6h2v-4.5l5.5-5.5L13.5 3.5zM5 17v2h14v-2H5z"/></svg>
-          LeetCode
-        </a>
-
-        <a role="listitem" class="link-chip" href="https://www.instagram.com/makiwinst?igsh=M3Awd2hyZXNmZmRz&utm_source=qr" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zM12 7a5 5 0 100 10 5 5 0 000-10zm6.5-1.25a1.25 1.25 0 11.001 2.501A1.25 1.25 0 0118.5 5.75zM12 9.5a2.5 2.5 0 110 5 2.5 2.5 0 010-5z"/></svg>
-          Instagram
-        </a>
-
-        <a role="listitem" class="link-chip" href="https://space.bilibili.com/198739872?spm_id_from=333.337.0.0" aria-label="Bilibili">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 6.5s-.2-1.5-1.6-1.5c-1.3 0-1.8.9-1.8.9L12 9 6.4 5.9s-.5-.9-1.8-.9C2.9 5 2.7 6.5 2.7 6.5L2 19.5s.1 1.5 1.9 1.5c1.7 0 2-1.1 2-1.1l.2-1.7h9.9l.2 1.7s.3 1.1 2 1.1c1.8 0 1.9-1.5 1.9-1.5L21 6.5zM9.2 10.5l-1.5 5h-1l1.5-5h1zm8.6 0l-1.5 5h-1l1.5-5h1z"/></svg>
-          Bilibili
-        </a>
-
-        <a role="listitem" class="link-chip" href="mailto:makiwinster@makis-life.cn" aria-label="Email 1">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-          makiwinster@makis-life.cn
-        </a>
-
-        <a role="listitem" class="link-chip" href="mailto:makiiiiiiiho@gmail.com" aria-label="Email 2">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20 8l-8 5-8-5V6l8 5 8-5v2zM4 8v9c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-8 5-8-5z"/></svg>
-          makiiiiiiiho@gmail.com
-        </a>
       </div>
-    </section> -->
-    </main>
-
-    <footer>
-      <span class="footer-copy"
-        >Maki's life · Copyright © 2024-2025 all rights reserved</span
-      >
-      <span class="footer-icp">
-        <a
-          href="http://www.miitbeian.gov.cn"
-          target="_blank"
-          style="color: inherit; text-decoration: none"
-        >
-          粤ICP备2024180652号-1
-        </a>
-      </span>
-    </footer>
-
-    <script src="assets/js/index.js"></script>
-    <script>
-      // Inline fallback: ensure particles init if external script didn't run yet
-      (function () {
-        if (window.__particlesInitDone) return;
-        window.__particlesInitDone = true;
-        const s = document.createElement("script");
-        s.src = "assets/js/index.js";
-        s.defer = true;
-        document.body.appendChild(s);
-      })();
-    </script>
-  </body>
+      
+      <div class="meta">
+        <h1 class="name">Maki Winster</h1>
+        <p class="motto">Linux Fan. Rustaceans.</p>
+        <p class="gpg-info">
+          GPG PKey: 
+          <a href="https://keys.openpgp.org/search?q=0F8EFF9D25063A59D756EA9E46BA4E906D6BB3FA" 
+             target="_blank" 
+             rel="noopener"
+             class="gpg-link">
+            4E90 6D6B B3FA<span class="link-icon">🔗</span>
+          </a>
+        </p>
+        <p class="subtitle">成为独当一面，成为万里挑一，追求自由，追求热爱。</p>
+        
+        <div class="actions">
+          <a class="btn btn-primary" href="blog/index.html">博客</a>
+          <a class="btn btn-ghost" href="./life.html">life</a>
+          <a class="btn btn-ghost" href="./archInstallForCNUser/index.html">Arch</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <footer>
+    <span class="footer-copy desktop-only">Maki’s Life · Copyright © 2024–2026. All Rights Reserved.</span>
+    <span class="footer-copy mobile-only" style="font-size: 18px;">Maki's Life</span>
+    <span class="footer-copy mobile-only">Copyright © 2024-2026. All Rights Reserved.</span>
+    <span class="footer-icp">
+      <a href="http://www.miitbeian.gov.cn" target="_blank" rel="noopener">粤ICP备2024180652号-1</a>
+    </span>
+  </footer>
+  
+  <script src="assets/js/index.js" defer></script>
+</body>
 </html>
