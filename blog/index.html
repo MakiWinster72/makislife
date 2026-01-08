@@ -30,7 +30,9 @@
         class="min-h-screen bg-background text-foreground flex flex-col md:flex-row overflow-hidden"
       >
         <!-- Main Content -->
-        <main class="flex-1 overflow-y-auto h-screen relative scroll-smooth">
+        <main
+          class="flex-1 overflow-y-auto relative scroll-smooth flex flex-col"
+        >
           <!-- Theme Toggle Button - Desktop (Fixed to viewport) -->
           <div
             class="fixed bottom-6 left-6 z-[9999] hidden md:flex pointer-events-auto"
@@ -306,6 +308,41 @@
               </div>
             </div>
           </div>
+          <footer class="py-8 md:py-12 mt-auto">
+            <div class="container max-w-4xl mx-auto px-4 text-center">
+              <h2
+                class="text-xl md:text-2xl font-bold font-display text-foreground mb-3"
+              >
+                Maki's life
+              </h2>
+
+              <!-- Desktop -->
+              <p class="text-sm text-muted-foreground mb-2 desktop-only">
+                Copyright © 2024-2026 All Rights Reserved ·
+                <a
+                  href="https://beian.miit.gov.cn/#/Integrated/index"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
+                >
+                  粤ICP备2024180652号-1
+                </a>
+              </p>
+
+              <!-- Mobile -->
+              <p class="text-sm text-muted-foreground mb-2 mobile-only">
+                Copyright © 2024-2026 All Rights Reserved <br />
+                <a
+                  href="https://beian.miit.gov.cn/#/Integrated/index"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
+                >
+                  粤ICP备2024180652号-1
+                </a>
+              </p>
+            </div>
+          </footer>
         </main>
 
         <!-- Mobile Navigation with Theme Toggle -->
@@ -359,42 +396,6 @@
         </nav>
       </div>
     </div>
-
-    <footer class="py-8 md:py-12 mt-auto">
-      <div class="container max-w-4xl mx-auto px-4 text-center">
-        <h2
-          class="text-xl md:text-2xl font-bold font-display text-foreground mb-3"
-        >
-          Maki's life
-        </h2>
-
-        <!-- Desktop -->
-        <p class="text-sm text-muted-foreground mb-2 desktop-only">
-          Copyright © 2024-2026 all rights reserved ·
-          <a
-            href="https://beian.miit.gov.cn/#/Integrated/index"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
-          >
-            粤ICP备2024180652号-1
-          </a>
-        </p>
-
-        <!-- Mobile -->
-        <p class="text-sm text-muted-foreground mb-2 mobile-only">
-          Copyright © 2024-2026 all rights reserved <br />
-          <a
-            href="https://beian.miit.gov.cn/#/Integrated/index"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
-          >
-            粤ICP备2024180652号-1
-          </a>
-        </p>
-      </div>
-    </footer>
     <script src="assets/js/greeting.js" defer></script>
   </body>
 </html>
