@@ -6,6 +6,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1"
     />
+    <link rel="stylesheet" href="assets/css/keyframes.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="stylesheet" href="assets/css/theme.css" />
     <link rel="stylesheet" href="assets/css/fonts.css" />
@@ -365,9 +366,24 @@
           class="text-xl md:text-2xl font-bold font-display text-foreground mb-3"
         >
           Maki's life
-        </h3>
-        <p class="text-sm text-muted-foreground mb-2">
+        </h2>
+
+        <!-- Desktop -->
+        <p class="text-sm text-muted-foreground mb-2 desktop-only">
           Copyright © 2024-2026 all rights reserved ·
+          <a
+            href="https://beian.miit.gov.cn/#/Integrated/index"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
+          >
+            粤ICP备2024180652号-1
+          </a>
+        </p>
+
+        <!-- Mobile -->
+        <p class="text-sm text-muted-foreground mb-2 mobile-only">
+          Copyright © 2024-2026 all rights reserved <br />
           <a
             href="https://beian.miit.gov.cn/#/Integrated/index"
             target="_blank"
