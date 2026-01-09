@@ -73,6 +73,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  transition: background 0.3s ease;
 }
 
 html {
@@ -934,16 +935,16 @@ body {
 }
 
 .markdown-content mark {
-  background: #fef08a;
-  color: #713f12;
+  background: #b9dbff;
+  color: var(--text-primary);
   padding: 0.1em 0.3em;
   border-radius: 0.2em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="dark"] .markdown-content mark {
-  background: #854d0e;
-  color: #fef08a;
+  background: #3e4851;
+  color: var(--text-primary);
 }
 
 /* ========== 文章底部导航 ========== */
