@@ -68,6 +68,13 @@
   --code-text: rgb(212, 212, 212);
 }
 
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
 /* ========== 全局样式 ========== */
 * {
   margin: 0;
@@ -1113,6 +1120,14 @@ body {
   .nav-btn {
     width: 100%;
     justify-content: center;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
   }
 }
 
