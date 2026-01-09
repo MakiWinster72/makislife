@@ -268,11 +268,18 @@ class ArticleTree {
       if (!response.ok) throw new Error("文章加载失败");
       const markdown = await response.text();
 
-      // 配置 marked
-      marked.setOptions({
-        breaks: true,
-        gfm: true,
-      });
+       // 配置 marked
+       marked.setOptions({
+         breaks: true,
+         gfm: true,
+         highlight: function(code, lang) {
+           if (lang && hljs.getLanguage(lang)) {
+             return hljs.highlight(lang, code).value;
+           } else {
+             return hljs.highlightAuto(code).value;
+           }
+         }
+       });
 
       let html = marked.parse(markdown);
 
@@ -290,10 +297,51 @@ class ArticleTree {
 
       document.getElementById("articleContent").innerHTML = html;
 
-      // 代码高亮
-      document.querySelectorAll("pre code").forEach((block) => {
-        hljs.highlightElement(block);
-      });
+       // 代码高亮
+        document.querySelectorAll("pre code").forEach((block) => {
+          hljs.highlightElement(block);
+        });
+
+        // 添加语言标签
+        document.querySelectorAll("pre").forEach((pre) => {
+          const code = pre.querySelector("code");
+          if (code && code.className) {
+            const langClass = code.className.split(' ').find(cls => cls.startsWith('language-') || cls.startsWith('hljs '));
+            if (langClass) {
+              let lang = '';
+              if (langClass.startsWith('language-')) {
+                lang = langClass.replace('language-', '');
+              } else if (langClass.includes(' ')) {
+                const classes = langClass.split(' ');
+                const langCls = classes.find(cls => cls.startsWith('language-'));
+                if (langCls) lang = langCls.replace('language-', '');
+              }
+              if (lang && lang !== 'plain') {
+                const langLabel = document.createElement('span');
+                langLabel.className = 'code-lang-label';
+                langLabel.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+                pre.appendChild(langLabel);
+              }
+            }
+          }
+        });
+
+       // 添加复制按钮
+       document.querySelectorAll("pre:not(:has(.copy-btn))").forEach((pre) => {
+         const btn = document.createElement("button");
+         btn.className = "copy-btn";
+         btn.textContent = "Copy";
+
+         btn.addEventListener("click", () => {
+           const code = pre.querySelector("code").innerText;
+           navigator.clipboard.writeText(code);
+
+           btn.textContent = "Copied";
+           setTimeout(() => (btn.textContent = "Copy"), 1500);
+         });
+
+         pre.appendChild(btn);
+       });
 
       // 增强图片
       enhanceImages();

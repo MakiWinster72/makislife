@@ -10,6 +10,7 @@
   --card-foreground: 25 15% 25%;
   --popover: 36 33% 97%;
   --popover-foreground: 25 15% 25%;
+  --highlight: 0, 96.7%, 88.2%;
 
   --primary: 28 67% 45%;
   --primary-foreground: 36 33% 97%;
@@ -56,6 +57,7 @@
   --card-foreground: 36 40% 90%;
   --popover: 25 15% 16%;
   --popover-foreground: 36 40% 90%;
+  --highlight: 193.8, 40.4%, 31.6%;
 
   --primary: 35 80% 55%;
   --primary-foreground: 25 15% 15%;

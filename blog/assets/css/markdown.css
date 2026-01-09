@@ -1,0 +1,232 @@
+/* Markdown Content Styles */
+.markdown-content {
+  font-family: "hm", serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: hsl(var(--foreground));
+}
+
+.markdown-content h1,
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  font-family: "hm", cursive;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.3;
+  color: hsl(var(--foreground));
+}
+
+.markdown-content h1 {
+  font-size: 2.5rem;
+  border-bottom: 3px solid hsl(var(--primary));
+  padding-bottom: 0.5rem;
+}
+
+.markdown-content h2 {
+  font-size: 2rem;
+  border-bottom: 2px solid hsl(var(--border));
+  padding-bottom: 0.5rem;
+}
+
+.markdown-content h3 {
+  font-size: 1.5rem;
+}
+
+.markdown-content h4 {
+  font-size: 1.25rem;
+}
+
+.markdown-content p {
+  margin-bottom: 1.5rem;
+}
+
+.markdown-content a {
+  color: hsl(var(--primary));
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: all 0.3s;
+}
+
+.markdown-content a:hover {
+  color: hsl(var(--accent));
+  text-decoration-thickness: 3px;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+.markdown-content li {
+  margin-bottom: 0.5rem;
+}
+
+.markdown-content blockquote {
+  border-left: 4px solid hsl(35.4, 24.8%, 44.3%);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--card));
+  padding: 1.5rem;
+}
+
+/* ---------- 内联代码 ---------- */
+.markdown-content code {
+  font-family: "code", "hm", Consolas, Monaco, monospace;
+  font-size: 0.9em;
+  background: var(--card);
+  color: var(--accent);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+}
+
+.markdown-content :not(pre) > code {
+  font-family: "code", "hm", Consolas, Monaco, monospace;
+  font-size: 0.9em;
+  background: var(--card);
+  color: var(--card-foreground);
+  padding: 0.15em 0.4em;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* ---------- 代码块容器 ---------- */
+.markdown-content pre {
+  position: relative;
+  background: var(--card);
+  color: var(--card-foreground);
+  border-radius: 0.5rem;
+  padding: 1rem 1rem;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 2px solid hsl(var(--border) / 0.3);
+}
+
+/* ---------- 代码语言标签 ---------- */
+.code-lang-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--border);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.markdown-content pre:hover .code-lang-label {
+  opacity: 1;
+}
+
+/* ---------- 代码主体 ---------- */
+.markdown-content pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  font-size: 1em;
+  line-height: 1.4;
+  display: block;
+  white-space: pre;
+}
+
+.markdown-content pre code.hljs {
+  background: transparent;
+}
+
+/* ---------- 复制按钮 ---------- */
+.markdown-content pre .copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: var(--secondary);
+  color: var(--secondary-foreground);
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.2s ease;
+}
+
+.markdown-content pre:hover .copy-btn {
+  opacity: 1;
+}
+
+.markdown-content pre .copy-btn:hover {
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.markdown-content mark {
+  background-color: hsl(var(--highlight));
+  color: hsl(var(--foreground));
+  padding: 0.1em 0.3em;
+  border-radius: 0.2em;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin: auto 0.2em;
+}
+
+.markdown-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius-2xl);
+  margin: 2rem 0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.markdown-content hr {
+  border: none;
+  border-top: 2px solid hsl(var(--border));
+  margin: 3rem 0;
+}
+
+.markdown-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+
+.markdown-content th,
+.markdown-content td {
+  border: 1px solid hsl(var(--border));
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.markdown-content th {
+  background: hsl(var(--card));
+  font-weight: 700;
+  font-family: "hm", cursive;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .markdown-content {
+    font-size: 1rem;
+  }
+
+  .markdown-content h1 {
+    font-size: 2rem;
+  }
+
+  .markdown-content h2 {
+    font-size: 1.5rem;
+  }
+}
