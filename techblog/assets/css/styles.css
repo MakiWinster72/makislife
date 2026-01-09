@@ -533,6 +533,7 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 400;
 }
 
 .toc-link:hover {
@@ -547,18 +548,38 @@ body {
   font-weight: 500;
 }
 
-.toc-link.toc-h2 {
+.toc-link.toc-h1 {
   padding-left: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  border-left-color: var(--border-hover);
+}
+
+.toc-link.toc-h2 {
+  padding-left: 32px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 .toc-link.toc-h3 {
-  padding-left: 28px;
+  padding-left: 48px;
   font-size: 12px;
+  color: var(--text-secondary);
 }
 
 .toc-link.toc-h4 {
-  padding-left: 40px;
+  padding-left: 64px;
   font-size: 12px;
+  color: var(--text-muted);
+}
+
+.toc-link.toc-h5,
+.toc-link.toc-h6 {
+  padding-left: 80px;
+  font-size: 11px;
+  color: var(--text-muted);
 }
 .toc-toggle-btn {
   width: 32px;
