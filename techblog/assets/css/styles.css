@@ -158,7 +158,7 @@ body {
 }
 
 .site-title {
-  font-size: 14px;
+  font-size: 18px;
   font-weight: 500;
   display: flex;
   align-items: center;
@@ -395,6 +395,7 @@ body {
 
 .tree-label {
   flex: 1;
+  font-size: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -715,7 +716,7 @@ body {
 
 /* 面包屑导航 */
 .breadcrumb {
-  font-size: 13px;
+  font-size: 1rem;
   color: var(--text-muted);
   margin-bottom: 16px;
   display: flex;
@@ -770,7 +771,7 @@ body {
 
 /* ========== Markdown 内容样式 ========== */
 .markdown-content {
-  font-size: 16px;
+  font-size: 20px;
   line-height: 1.8;
   color: var(--text-primary);
 }
@@ -824,7 +825,14 @@ body {
 }
 
 .markdown-content p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1em;
+  line-height: 1.5em;
+}
+
+.markdown-content br {
+  content: "";
+  display: block;
+  margin-bottom: 1em;
 }
 
 .markdown-content a {
@@ -1128,6 +1136,10 @@ body {
 
   .mobile-only {
     display: block;
+  }
+
+  .breadcrumb {
+    font-size: 0.8rem;
   }
 }
 
