@@ -12,12 +12,6 @@
 ## 2. **上传证书到服务器**
 
 - 将下载的证书文件上传到服务器指定目录（如：`/etc/nginx/ssl/`）。
-- 使用 `scp` 或其他文件传输工具上传：
-
-  ```bash
-  scp example.com.key example.com.pem DigiCertCA.crt user@server:/etc/nginx/ssl/
-      <--------------要上传的文件--------------->  <--用户名@服务器ip:存放地址-->
-  ```
 
 ## 3. **安装 Nginx**
 
@@ -129,13 +123,4 @@
   sudo tail -f /var/log/nginx/error.log
   ```
 
----
-
-## 小结
-
-1. **申请证书并上传到服务器**：申请并下载域名证书，上传到服务器。
-2. **配置 Nginx**：配置 Nginx 使其支持 SSL。
-3. **检查配置并重新加载 Nginx**：确保配置正确并重新加载 Nginx。
-4. **测试 SSL**：使用浏览器或 SSL 测试工具检查 SSL 配置是否正确。
-
-这份笔记整理了从证书申请到配置 Nginx 的完整流程，可以帮助你部署 `example.com` 的 HTTPS 站点。
+- [ ] 

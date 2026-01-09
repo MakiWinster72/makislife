@@ -1,33 +1,30 @@
 # 安装前的准备
 
-本文统一以 UEFI + GPT 方式安装，传统 BIOS/MBR 不再赘述。
-文中带有 EULA 的软件为专有软件，请自行斟酌是否使用。
-
 ## 1. 确保网络环境
 
 - **有线网络**：若通过路由器 DHCP 自动上网，无需额外设置。
-- **无线网络**：请提前将 Wi‑Fi 改为**英文名称**。
+- **无线网络**：请提前将 Wi‑Fi 改为**英文数字组合名称**。
 
 ## 2. 下载安装镜像
 
-可从开源镜像站或 Arch 官方页面下载 ISO。国内常用镜像站（择一即可）：
+可从开源镜像站或 Arch 官方页面下载 ISO。国内常用镜像站：
 
 - [阿里巴巴](https://mirrors.aliyun.com/archlinux/iso/)
 - [清华大学开源软件镜像站（TUNA）](https://mirrors.tuna.tsinghua.edu.cn/archlinux/iso/)
 
 镜像通常路径为 iso > 20XX.XX.XX > archlinux-20XX.XX.XX-x86_64.iso。
 
-请务必下载最新 ISO。
+> Arch Linux 是滚动更新系统，不存在版本号的概念，直接下载最新就行。不同月份iso在`sudo pacman -Syu`后是一样的。
 
 ## 3. 刻录安装 U 盘（≥5GB）
 
 - **Windows**：推荐 Ventoy、Rufus。
 - **Linux**：可用 Ventoy、balenaEtcher，或直接使用 dd 命令。
 
-## 4. 为 Arch 分出硬盘空间（可选，双系统）
+## 4. 为 Arch 分出硬盘空间（双系统在同一个硬盘）
 
-- **系统盘**：若与 Windows 共用同一硬盘，建议在 Windows 的“磁盘管理”中压缩出至少 128GB 空间给 Arch。仅压缩卷，**不要在空闲空间内新建分区**。
-- **EFI 分区**：与 Windows 同盘时，请确认 EFI 分区容量 ≥256MB。若不足，建议扩容，或参考 ArchWiki 采用额外挂载点的方案。
+- **系统盘**：若与 Windows 共用同一硬盘，建议在 Windows 的“磁盘管理”中压缩出至少 30GB 空间给 Arch。**不用新建分区**。
+- **EFI 分区**：与 Windows 同盘时，请确认 EFI 分区容量 ≥256MB。
 
 ## 5. 获取 BitLocker 恢复密钥(如果启用)
 
@@ -36,7 +33,7 @@
 
 ## 6. 进入 BIOS 关闭 Secure Boot
 
-在 Security 相关选项中将 Secure Boot 设置为 Disabled。极少数设备无法关闭且仅允许加载 Windows 签名，此类设备不适合原生安装。
+查询“xx品牌电脑如何进入BIOS”，一般可能为F2/F8/F10/DEL等，乱按总有一次会进的。在 Security 相关选项中将 Secure Boot 设置为 Disabled。极少数设备无法关闭且仅允许加载 Windows 签名，此类设备不适合原生安装。
 
 ## 7. 启动方式调整为 UEFI
 
