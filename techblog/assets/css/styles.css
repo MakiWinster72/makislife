@@ -433,7 +433,7 @@ body {
 .toc-sidebar {
   position: fixed;
   right: 20px;
-  top: 80px;
+  top: calc(80px + env(safe-area-inset-top));
   max-height: calc(100vh - 120px);
 
   /* 半透明 + 模糊背景 */
@@ -1040,7 +1040,15 @@ body {
 /* ========== 响应式设计 ========== */
 @media (max-width: 768px) {
   .toolbar {
-    padding: 0 12px;
+    padding: 0px 12px 0px 12px;
+    position: fixed;
+    top: env(safe-area-inset-top);
+    width: 100%;
+    z-index: 200;
+  }
+
+  .main-container {
+    margin-top: calc(48px + env(safe-area-inset-top));
   }
 
   .site-title span {
@@ -1049,7 +1057,7 @@ body {
 
   .sidebar {
     position: fixed;
-    top: 48px;
+    top: calc(48px + env(safe-area-inset-top));
     left: 0;
     bottom: 0;
     z-index: 100;
@@ -1061,7 +1069,7 @@ body {
   }
 
   .article-container {
-    padding: 24px 16px;
+    padding: 60px 16px 24px;
   }
 
   .article-title {
