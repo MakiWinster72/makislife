@@ -34,6 +34,18 @@
     );
   });
 
+  // 移动端点击外部关闭侧边栏
+  document.addEventListener("click", (e) => {
+    if (
+      window.innerWidth <= 768 &&
+      !sidebar.contains(e.target) &&
+      !sidebarToggle.contains(e.target) &&
+      !sidebar.classList.contains("collapsed")
+    ) {
+      sidebar.classList.add("collapsed");
+    }
+  });
+
   // 恢复侧边栏状态（仅在桌面端）
   if (window.innerWidth > 768) {
     const wasCollapsed = localStorage.getItem("sidebarCollapsed") === "true";
