@@ -1045,6 +1045,11 @@ body {
     top: env(safe-area-inset-top);
     width: 100%;
     z-index: 200;
+    transition: transform 0.3s ease;
+  }
+
+  .toolbar.hidden {
+    transform: translateY(-100%);
   }
 
   .main-container {

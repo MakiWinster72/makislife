@@ -682,6 +682,52 @@ document.addEventListener("click", (e) => {
   }
 });
 
+// ========== 移动端toolbar滚动隐藏 ==========
+(function initMobileToolbar() {
+  const toolbar = document.querySelector('.toolbar');
+  const contentArea = document.querySelector('.content-area');
+
+  if (!toolbar || !contentArea) return;
+
+  let lastScrollTop = 0;
+  let isToolbarHidden = false;
+
+  function toggleToolbar(show) {
+    if (show && isToolbarHidden) {
+      toolbar.classList.remove('hidden');
+      isToolbarHidden = false;
+    } else if (!show && !isToolbarHidden) {
+      toolbar.classList.add('hidden');
+      isToolbarHidden = true;
+    }
+  }
+
+  contentArea.addEventListener('scroll', () => {
+    // 只在移动端生效
+    if (window.innerWidth > 768) return;
+
+    const currentScrollTop = contentArea.scrollTop;
+
+    // 向下滚动（用户往下阅读）时隐藏toolbar
+    if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
+      toggleToolbar(false);
+    }
+    // 向上滚动时显示toolbar
+    else if (currentScrollTop < lastScrollTop) {
+      toggleToolbar(true);
+    }
+
+    lastScrollTop = currentScrollTop;
+  });
+
+  // 滚动到顶部时确保toolbar可见
+  contentArea.addEventListener('scroll', () => {
+    if (window.innerWidth <= 768 && contentArea.scrollTop <= 50) {
+      toggleToolbar(true);
+    }
+  });
+})();
+
 // ========== 响应式处理 ==========
 window.addEventListener("resize", () => {
   const sidebar = document.getElementById("sidebar");
