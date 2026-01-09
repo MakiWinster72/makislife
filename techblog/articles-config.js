@@ -11,8 +11,8 @@ const articlesConfig = {
   children: [
     {
       type: "folder",
-      id: "life",
-      title: "📝 生活随笔",
+      id: "tech",
+      title: "Arch Linux",
       children: [
         {
           type: "article",
@@ -56,7 +56,7 @@ const articlesConfig = {
     {
       type: "folder",
       id: "tech",
-      title: "💻 技术笔记",
+      title: "Windows",
       children: [
         {
           type: "article",
@@ -127,27 +127,27 @@ const articlesConfig = {
     {
       type: "folder",
       id: "thinking",
-      title: "💭 思考感悟",
+      title: "💭 Tools",
       children: [
         {
           type: "article",
           id: "thinking-1",
-          title: "学习的意义",
-          icon: "💡",
-          date: "2025-09-09",
-          readingTime: "8 分钟",
-          tags: ["思考", "学习"],
-          contentFile: "articles/thinking/learning.md",
+          title: "重置Cursor",
+          icon: "",
+          date: "2026-01-10",
+          readingTime: "1 分钟",
+          tags: ["工具"],
+          contentFile: "articles/Tools/resetCursor.md",
         },
         {
           type: "article",
           id: "thinking-2",
-          title: "可能我们一辈子只见这一面",
-          icon: "🚗",
-          date: "2025-09-01",
-          readingTime: "8 分钟",
-          tags: ["生活", "人生"],
-          contentFile: "articles/thinking/taxi.md",
+          title: "smartInput显示输入法状态",
+          icon: "⌨️",
+          date: "2024-09-29",
+          readingTime: "2 分钟",
+          tags: ["工具"],
+          contentFile: "articles/Tools/smartInput.md",
         },
       ],
     },
