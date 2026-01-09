@@ -1053,10 +1053,6 @@ body {
     transform: translateY(-100%);
   }
 
-  .main-container {
-    margin-top: calc(48px + env(safe-area-inset-top));
-  }
-
   .site-title span {
     display: none;
   }
