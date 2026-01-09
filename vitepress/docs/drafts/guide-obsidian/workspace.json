@@ -1,0 +1,234 @@
+{
+  "main": {
+    "id": "1cddd4e3b6e4ab6b",
+    "type": "split",
+    "children": [
+      {
+        "id": "dd7f46b9bf2a6823",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "083b9110d9562665",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "installation.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "installation"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "96f26b34b1615bae",
+    "type": "split",
+    "children": [
+      {
+        "id": "5c090d8c0ac55bdb",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "de76869c2f1dec76",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "8b71d0a4c755906c",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "90586cba5a92d460",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 252
+  },
+  "right": {
+    "id": "88786b04e5109dfb",
+    "type": "split",
+    "children": [
+      {
+        "id": "bd22c70bd44db9af",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "5b621899385ea59c",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "大三下/需求分析与系统设计/实验课1.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for 实验课1"
+            }
+          },
+          {
+            "id": "2de7ac992ba5859a",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "常用软件.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from 常用软件"
+            }
+          },
+          {
+            "id": "61e25c127d54a0d0",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "df9e186accb84eed",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "常用软件.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of 常用软件"
+            }
+          },
+          {
+            "id": "0243b8c92eb2091d",
+            "type": "leaf",
+            "state": {
+              "type": "advanced-tables-toolbar",
+              "state": {},
+              "icon": "lucide-ghost",
+              "title": "advanced-tables-toolbar"
+            }
+          }
+        ],
+        "currentTab": 4
+      }
+    ],
+    "direction": "horizontal",
+    "width": 200,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-kanban:Create new board": false,
+      "table-editor-obsidian:Advanced Tables Toolbar": false
+    }
+  },
+  "active": "083b9110d9562665",
+  "lastOpenFiles": [
+    "assets/2025-09-18-16.png",
+    "assets/2025-09-18-15.png",
+    "assets/2025-09-18-14.png",
+    "assets/2025-09-18-13.png",
+    "assets/2025-09-18-12.png",
+    "assets/2025-09-18-11.png",
+    "assets/2025-09-18-10.png",
+    "assets/2025-09-18-9.png",
+    "assets/2025-09-18-8.png",
+    "assets/2025-09-18-7.png",
+    "assets/2025-09-18-6.png",
+    "index.md",
+    "installation.md",
+    "fcitx5+pinyin.md",
+    "BeforeInstallation.md",
+    "Software/IDE.md",
+    "software/wechat.md",
+    "software/VirtualBox.md",
+    "software/Onedrive.md",
+    "software/IDE.md",
+    "software",
+    "Software/VirtualBox.md",
+    "Software/Untitled.md",
+    "Software/wechat.md",
+    "Software/Onedrive.md",
+    "Software",
+    "assets",
+    "archLinuxForCNUser/修复alist无法访问pdf.md",
+    "archLinuxForCNUser/更改默认字体.md",
+    "archLinuxForCNUser/dotsFiles/kitty.md",
+    "archLinuxForCNUser/软件/Onedrive.md",
+    "大三下/大数据技术原理/大数据技术原理.md",
+    "大三下/大数据技术原理/内容.md",
+    "大三下/大数据技术原理/大学生领取阿里云2c2g服务器.md",
+    "大三下/Untitled Kanban.md",
+    "life/sentence.md",
+    "life",
+    "大三下/需求分析与系统设计/要求.md",
+    "大三下/需求分析与系统设计/实验课1.md",
+    "archLinuxForCNUser/部署服务器 SSL 访问并配置 Nginx.md",
+    "myDotsfiles/fonts/HarmonyOS_Sans_SC_Thin.ttf",
+    "myDotsfiles/fonts/HarmonyOS_Sans_SC_Regular.ttf",
+    "myDotsfiles/fonts/HarmonyOS_Sans_SC_Medium.ttf",
+    "myDotsfiles/fonts/HarmonyOS_Sans_SC_Light.ttf",
+    "myDotsfiles/fonts/HarmonyOS_Sans_SC_Bold.ttf",
+    "myDotsfiles/fonts/HarmonyOS_Sans_SC_Black.ttf"
+  ]
+}

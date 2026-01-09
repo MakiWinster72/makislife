@@ -1,0 +1,9 @@
+{
+  "newFileLocation": "current",
+  "trashOption": "local",
+  "useMarkdownLinks": true,
+  "newLinkFormat": "relative",
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "assets",
+  "promptDelete": false
+}
