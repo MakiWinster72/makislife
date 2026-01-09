@@ -428,7 +428,10 @@ class ArticleTree {
         const targetId = link.getAttribute("href").slice(1);
         const target = document.getElementById(targetId);
         if (target) {
-          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          // 手动滚动到目标位置，考虑scroll-margin-top
+          const contentArea = document.querySelector(".content-area");
+          const targetTop = target.offsetTop - 70; // 70px scroll-margin-top
+          contentArea.scrollTo({ top: targetTop, behavior: "smooth" });
 
           // 更新活动状态
           tocContent
