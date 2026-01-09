@@ -35,7 +35,7 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
 
-  --code-bg: rgb(246, 248, 250);
+  --code-bg: rgb(255, 252, 234);
   --code-text: rgb(36, 41, 47);
 
   --transition: all 0.2s ease;
@@ -879,7 +879,7 @@ body {
 }
 
 .markdown-content code {
-  font-family: "code", "Consolas", "Monaco", monospace;
+  font-family: "code", "hm", "Consolas", "Monaco", monospace;
   font-size: 0.9em;
   background: var(--code-bg);
   color: var(--accent);
@@ -887,21 +887,91 @@ body {
   border-radius: 4px;
 }
 
-.markdown-content pre {
-  background: #282c34;
+.markdown-content :not(pre) > code {
+  font-family: "code", "hm", Consolas, Monaco, monospace;
+  font-size: 0.9em;
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 0.15em 0.4em;
   border-radius: 6px;
-  padding: 1.5rem;
-  overflow-x: auto;
-  margin: 2rem 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--border-color);
+
+  white-space: normal;
+  word-break: break-word;
 }
 
+/* 代码块容器样式 */
+.markdown-content pre {
+  position: relative;
+  background: var(--code-bg);
+  color: var(--code-text);
+  border-radius: 8px;
+  padding: 0.5em 0.5em;
+  margin: 1.6rem 0;
+  overflow-x: auto;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+}
+
+/* 代码语言标签 */
+.code-lang-label {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--bg-secondary);
+  color: var(--text-muted);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid var(--border-color);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.markdown-content pre:hover .code-lang-label {
+  opacity: 1;
+}
+
+/* 代码主体 */
 .markdown-content pre code {
   background: transparent;
-  color: #abb2bf;
+  color: inherit;
   padding: 0;
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 1em;
+  line-height: 1.2;
+  display: block;
+  white-space: pre;
+}
+
+.markdown-content pre code.hljs {
+  background: transparent;
+}
+.markdown-content pre .copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  cursor: pointer;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.markdown-content pre:hover .copy-btn {
+  opacity: 1;
+}
+
+.markdown-content pre .copy-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
 }
 
 .markdown-content blockquote {
@@ -909,7 +979,6 @@ body {
   padding-left: 1.5rem;
   padding: 1.5rem;
   margin: 2rem 0;
-  font-style: italic;
   color: var(--text-secondary);
   background: var(--bg-secondary);
   border-radius: 6px;

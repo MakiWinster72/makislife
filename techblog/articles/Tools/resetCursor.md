@@ -1,4 +1,4 @@
-> 原项目地址：https://github.com/yuaotian/go-cursor-help
+> 原项目地址：<https://github.com/yuaotian/go-cursor-help>
 
 这是一款用于 **重置 Cursor 本地设备标识** 的工具，适用于 Cursor 2.x.x 版本，支持 Windows / macOS / Linux。使用方式分为 **一键脚本** 和 **手动可执行文件** 两种。
 
@@ -12,14 +12,14 @@ Windows 需要管理员权限（Administrator）。
 macOS
 在终端（Terminal）执行：
 
-```shell
+```bash
 curl -fsSL https://raw.githubusercontent.com/yuaotian/go-cursor-help/refs/heads/master/scripts/run/cursor_mac_id_modifier.sh -o ./cursor_mac_id_modifier.sh && sudo bash ./cursor_mac_id_modifier.sh && rm ./cursor_mac_id_modifier.sh
 ```
 
 Linux
 在终端执行：
 
-```shell
+```bash
 curl -fsSL https://raw.githubusercontent.com/yuaotian/go-cursor-help/refs/heads/master/scripts/run/cursor_linux_id_modifier.sh | sudo bash
 ```
 
