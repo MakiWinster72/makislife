@@ -1,15 +1,4 @@
-/* ========== 字体定义 ========== */
-@font-face {
-  font-family: "code";
-  src: url("../fonts/Recursive.woff2") format("woff2");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "hm";
-  src: url("../fonts/hm-m.woff2") format("woff2");
-  font-display: swap;
-}
+@import url(../../../assets/css/fonts.css);
 
 /* ========== CSS 变量 ========== */
 :root {

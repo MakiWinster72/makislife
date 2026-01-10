@@ -89,7 +89,7 @@
 .markdown-content :not(pre) > code {
   font-family: "code", "hm", Consolas, Monaco, monospace;
   font-size: 0.9em;
-  background: var(--card);
+  background: var(--inline-code-background);
   color: var(--card-foreground);
   padding: 0.15em 0.4em;
   border-radius: 6px;
@@ -104,7 +104,7 @@
   background: var(--card);
   color: var(--card-foreground);
   border-radius: 0.5rem;
-  padding: 1rem 1rem;
+  padding: 0.5rem 0.5rem;
   margin: 1.5rem 0;
   overflow-x: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
