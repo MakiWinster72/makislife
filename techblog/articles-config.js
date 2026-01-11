@@ -12,116 +12,35 @@ const articlesConfig = {
     {
       type: "folder",
       id: "tech",
-      title: "Arch Linux",
-      children: [
-        {
-          type: "article",
-          id: "life-1",
-          title: "生活？还是RAG？",
-          icon: "📄",
-          date: "2025-06-07",
-          readingTime: "4 分钟",
-          tags: ["生活", "思考", "技术"],
-          contentFile: "articles/arch/install.md",
-        },
-        {
-          type: "article",
-          id: "life-2",
-          title: "系分考试总结",
-          icon: "📄",
-          date: "2025-05-26",
-          readingTime: "12 分钟",
-          tags: ["生活", "考试"],
-          contentFile: "articles/windows/music.md",
-        },
-        {
-          type: "folder",
-          id: "life-2025",
-          title: "📁 2025 年",
-          children: [
-            {
-              type: "article",
-              id: "life-2025-1",
-              title: "新年计划",
-              icon: "📄",
-              date: "2025-01-01",
-              readingTime: "5 分钟",
-              tags: ["生活", "计划"],
-              contentFile: "articles/life/2025/new-year.md",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      type: "folder",
-      id: "tech",
       title: "Windows",
       children: [
         {
           type: "article",
           id: "tech-1",
-          title: "初入 Linux",
+          title: "本地计算机上的 MySQL80 服务启动后停止",
           icon: "🐧",
-          date: "2025-08-25",
-          readingTime: "5 分钟",
-          tags: ["Linux", "Ubuntu", "ArchLinux"],
-          contentFile: "articles/windows/music.md",
+          date: "2025-02-23",
+          readingTime: "2 分钟",
+          tags: ["Mysql", "Windows"],
+          contentFile: "./articles/windows/mysql80.md",
         },
-        {
-          type: "article",
-          id: "tech-2",
-          title: "停止花里胡哨的炫技",
-          icon: "📄",
-          date: "2025-09-17",
-          readingTime: "4 分钟",
-          tags: ["编程", "思考"],
-          contentFile: "articles/tech/coding.md",
-        },
-        {
-          type: "folder",
-          id: "frontend",
-          title: "📁 前端开发",
-          children: [
-            {
-              type: "article",
-              id: "frontend-1",
-              title: "React Hooks 最佳实践",
-              icon: "⚛️",
-              date: "2025-03-15",
-              readingTime: "8 分钟",
-              tags: ["React", "JavaScript"],
-              contentFile: "articles/tech/frontend/react-hooks.md",
-            },
-            {
-              type: "article",
-              id: "frontend-2",
-              title: "CSS 动画技巧",
-              icon: "🎨",
-              date: "2025-04-20",
-              readingTime: "6 分钟",
-              tags: ["CSS", "动画"],
-              contentFile: "articles/tech/frontend/css-animation.md",
-            },
-          ],
-        },
-        {
-          type: "folder",
-          id: "backend",
-          title: "📁 后端开发",
-          children: [
-            {
-              type: "article",
-              id: "backend-1",
-              title: "Node.js 性能优化",
-              icon: "🟢",
-              date: "2025-02-10",
-              readingTime: "10 分钟",
-              tags: ["Node.js", "性能优化"],
-              contentFile: "articles/tech/backend/nodejs.md",
-            },
-          ],
-        },
+        // {
+        //   type: "folder",
+        //   id: "backend",
+        //   title: "📁 后端开发",
+        //   children: [
+        //     {
+        //       type: "article",
+        //       id: "backend-1",
+        //       title: "Node.js 性能优化",
+        //       icon: "🟢",
+        //       date: "2025-02-10",
+        //       readingTime: "10 分钟",
+        //       tags: ["Node.js", "性能优化"],
+        //       contentFile: "articles/tech/backend/nodejs.md",
+        //     },
+        //   ],
+        // },
       ],
     },
     {
@@ -137,7 +56,7 @@ const articlesConfig = {
           date: "2026-01-10",
           readingTime: "1 分钟",
           tags: ["工具"],
-          contentFile: "articles/Tools/resetCursor.md",
+          contentFile: "./articles/tools/resetCursor.md",
         },
         {
           type: "article",
@@ -147,16 +66,12 @@ const articlesConfig = {
           date: "2024-09-29",
           readingTime: "2 分钟",
           tags: ["工具"],
-          contentFile: "articles/Tools/smartInput.md",
+          contentFile: "./articles/tools/smartInput.md",
         },
       ],
     },
   ],
 };
-
-// 如果你希望添加更多文章，只需要按照上面的格式继续添加即可
-// 支持任意深度的文件夹嵌套
-// 例如：技术笔记 > 前端开发 > React > Hooks > useState 详解
 
 /*
 完整的文章对象属性说明：
