@@ -1,401 +1,443 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1"
-    />
-    <link rel="stylesheet" href="assets/css/tw.css" />
-    <link rel="stylesheet" href="assets/css/styles.css" />
-    <link rel="stylesheet" href="assets/css/theme.css" />
-    <link rel="stylesheet" href="assets/css/fonts.css" />
-  </head>
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1"
+        />
+        <link rel="stylesheet" href="assets/css/tw.css" />
+        <link rel="stylesheet" href="assets/css/styles.css" />
+        <link rel="stylesheet" href="assets/css/theme.css" />
+        <link rel="stylesheet" href="assets/css/fonts.css" />
 
-  <body>
-    <div id="root">
-      <div
-        role="region"
-        aria-label="Notifications (F8)"
-        tabindex="-1"
-        style="pointer-events: none"
-      >
-        <ol
-          tabindex="-1"
-          class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"
-        ></ol>
-      </div>
+        <link
+            rel="icon"
+            type="image/png"
+            href="https://img.makis-life.cn//images/20250530065245456.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="https://img.makis-life.cn//images/20250530065245456.png"
+        />
+        <meta
+            name="msapplication-TileImage"
+            content="https://img.makis-life.cn//images/20250530065245456.png"
+        />
+    </head>
 
-      <div
-        class="min-h-screen bg-background text-foreground flex flex-col md:flex-row overflow-hidden"
-      >
-        <!-- Main Content -->
-        <main
-          class="flex-1 overflow-y-auto relative scroll-smooth flex flex-col"
-        >
-          <!-- Theme Toggle Button - Desktop (Fixed to viewport) -->
-          <div
-            class="fixed bottom-6 left-6 z-[9999] hidden md:flex pointer-events-auto"
-          >
-            <button
-              id="theme-toggle"
-              class="flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border rounded-lg h-14 w-14 min-w-14 min-h-14 flex-shrink-0 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all hover:-translate-y-1"
-              aria-label="切换明暗模式"
+    <body>
+        <div id="root">
+            <div
+                role="region"
+                aria-label="Notifications (F8)"
+                tabindex="-1"
+                style="pointer-events: none"
             >
-              <!-- Sun Icon -->
-              <svg
-                id="sun-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-6 h-6"
-                style="display: none"
-              >
-                <circle cx="12" cy="12" r="4"></circle>
-                <path d="M12 2v2"></path>
-                <path d="M12 20v2"></path>
-                <path d="m4.93 4.93 1.41 1.41"></path>
-                <path d="m17.66 17.66 1.41 1.41"></path>
-                <path d="M2 12h2"></path>
-                <path d="M20 12h2"></path>
-                <path d="m6.34 17.66-1.41 1.41"></path>
-                <path d="m19.07 4.93-1.41 1.41"></path>
-              </svg>
-              <!-- Moon Icon -->
-              <svg
-                id="moon-icon"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="w-6 h-6"
-                style="display: block"
-              >
-                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-              </svg>
-            </button>
-          </div>
+                <ol
+                    tabindex="-1"
+                    class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]"
+                ></ol>
+            </div>
 
-          <div
-            class="md:hidden flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50 sf-hidden"
-          ></div>
-
-          <div
-            class="container max-w-4xl mx-auto p-4 md:p-8 pb-24 md:pb-8 animate-fade-in"
-          >
-            <div class="space-y-8">
-              <!-- Header -->
-              <header
-                class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/5 h-64 md:h-80 group"
-              >
-                <img
-                  alt="Cozy Cafe"
-                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                  src="assets/images/defaultBanner.png"
-                />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"
-                ></div>
-
-                <div class="absolute bottom-0 left-0 p-6 md:p-10 z-10 w-full">
-                  <div class="flex items-end justify-between">
-                    <div>
-                      <p
-                        id="current-date"
-                        class="text-primary font-display text-lg mb-1 animate-slide-up"
-                        style="animation-delay: 0.1s"
-                      >
-                        <!-- 日期在下面js -->
-                      </p>
-                      <h1
-                        id="greeting"
-                        class="text-4xl md:text-6xl font-bold font-display text-foreground tracking-tight animate-slide-up"
-                        style="animation-delay: 0.2s"
-                      >
-                        <!-- 早上好 -->
-                      </h1>
-                      <p
-                        class="text-muted-foreground mt-2 max-w-md font-body text-lg animate-slide-up"
-                        style="animation-delay: 0.3s"
-                      >
-                        记录，存储，分享
-                      </p>
+            <div
+                class="min-h-screen bg-background text-foreground flex flex-col md:flex-row overflow-hidden"
+            >
+                <!-- Main Content -->
+                <main
+                    class="flex-1 overflow-y-auto relative scroll-smooth flex flex-col"
+                >
+                    <!-- Theme Toggle Button - Desktop (Fixed to viewport) -->
+                    <div
+                        class="fixed bottom-6 left-6 z-[9999] hidden md:flex pointer-events-auto"
+                    >
+                        <button
+                            id="theme-toggle"
+                            class="flex items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border rounded-lg h-14 w-14 min-w-14 min-h-14 flex-shrink-0 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all hover:-translate-y-1"
+                            aria-label="切换明暗模式"
+                        >
+                            <!-- Sun Icon -->
+                            <svg
+                                id="sun-icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="w-6 h-6"
+                                style="display: none"
+                            >
+                                <circle cx="12" cy="12" r="4"></circle>
+                                <path d="M12 2v2"></path>
+                                <path d="M12 20v2"></path>
+                                <path d="m4.93 4.93 1.41 1.41"></path>
+                                <path d="m17.66 17.66 1.41 1.41"></path>
+                                <path d="M2 12h2"></path>
+                                <path d="M20 12h2"></path>
+                                <path d="m6.34 17.66-1.41 1.41"></path>
+                                <path d="m19.07 4.93-1.41 1.41"></path>
+                            </svg>
+                            <!-- Moon Icon -->
+                            <svg
+                                id="moon-icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="w-6 h-6"
+                                style="display: block"
+                            >
+                                <path
+                                    d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"
+                                ></path>
+                            </svg>
+                        </button>
                     </div>
 
-                    <a href="https://makis-life.cn">
-                      <button
-                        class="items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border min-h-10 hidden md:flex rounded-full h-14 px-8 text-lg gap-2 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all hover:-translate-y-1 animate-fade-in"
-                      >
-                        返回主页
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </header>
+                    <div
+                        class="md:hidden flex items-center justify-between p-4 border-b border-border/50 bg-background/80 backdrop-blur-md sticky top-0 z-50 sf-hidden"
+                    ></div>
 
-              <!-- Recent Notes -->
-              <div>
-                <div class="flex items-center justify-between mb-6">
-                  <h2 class="text-2xl font-display font-bold">
-                    pinnnnned 笔记
-                  </h2>
-                  <a href="calendar.html">
+                    <div
+                        class="container max-w-4xl mx-auto p-4 md:p-8 pb-24 md:pb-8 animate-fade-in"
+                    >
+                        <div class="space-y-8">
+                            <!-- Header -->
+                            <header
+                                class="relative rounded-3xl overflow-hidden shadow-2xl border border-white/5 h-64 md:h-80 group"
+                            >
+                                <img
+                                    alt="Cozy Cafe"
+                                    class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                                    src="assets/images/defaultBanner.png"
+                                />
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent"
+                                ></div>
+
+                                <div
+                                    class="absolute bottom-0 left-0 p-6 md:p-10 z-10 w-full"
+                                >
+                                    <div class="flex items-end justify-between">
+                                        <div>
+                                            <p
+                                                id="current-date"
+                                                class="text-primary font-display text-lg mb-1 animate-slide-up"
+                                                style="animation-delay: 0.1s"
+                                            >
+                                                <!-- 日期在下面js -->
+                                            </p>
+                                            <h1
+                                                id="greeting"
+                                                class="text-4xl md:text-6xl font-bold font-display text-foreground tracking-tight animate-slide-up"
+                                                style="animation-delay: 0.2s"
+                                            >
+                                                <!-- 早上好 -->
+                                            </h1>
+                                            <p
+                                                class="text-muted-foreground mt-2 max-w-md font-body text-lg animate-slide-up"
+                                                style="animation-delay: 0.3s"
+                                            >
+                                                记录，存储，分享
+                                            </p>
+                                        </div>
+
+                                        <a href="https://makis-life.cn">
+                                            <button
+                                                class="items-center justify-center whitespace-nowrap font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 bg-primary text-primary-foreground border border-primary-border min-h-10 hidden md:flex rounded-full h-14 px-8 text-lg gap-2 shadow-[0_0_20px_rgba(var(--primary),0.3)] hover:shadow-[0_0_30px_rgba(var(--primary),0.5)] transition-all hover:-translate-y-1 animate-fade-in"
+                                            >
+                                                返回主页
+                                            </button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <!-- Recent Notes -->
+                            <div>
+                                <div
+                                    class="flex items-center justify-between mb-6"
+                                >
+                                    <h2 class="text-2xl font-display font-bold">
+                                        pinnnnned 笔记
+                                    </h2>
+                                    <a href="calendar.html">
+                                        <button
+                                            class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border border-transparent min-h-9 px-4 py-2 text-muted-foreground hover:text-primary cursor-pointer"
+                                        >
+                                            查看全部
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                width="24"
+                                                height="24"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                stroke="currentColor"
+                                                stroke-width="2"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                                class="lucide lucide-arrow-right w-4 h-4 ml-2"
+                                                aria-hidden="true"
+                                            >
+                                                <path d="M5 12h14"></path>
+                                                <path d="m12 5 7 7-7 7"></path>
+                                            </svg>
+                                        </button>
+                                    </a>
+                                </div>
+
+                                <!-- NOTE  文章 -->
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <a
+                                        data-state="closed"
+                                        href="./entry.html?id=4"
+                                    >
+                                        <div
+                                            class="group cursor-pointer bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden"
+                                        >
+                                            <div
+                                                class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="lucide lucide-arrow-right w-5 h-5 -rotate-45"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="M5 12h14"></path>
+                                                    <path
+                                                        d="m12 5 7 7-7 7"
+                                                    ></path>
+                                                </svg>
+                                            </div>
+                                            <div
+                                                class="text-xs font-bold text-primary mb-2 font-display tracking-wider"
+                                            >
+                                                Sep 17, 2025
+                                            </div>
+                                            <h3
+                                                class="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
+                                            >
+                                                📝 停止花里胡哨的炫技
+                                            </h3>
+                                            <p
+                                                class="text-muted-foreground font-body line-clamp-2 leading-relaxed"
+                                            >
+                                                看到很多文章推崇“高级技巧”“优雅代码”，但我越来越觉得，这些花哨并不等于高效。本文记录了我对这些技术花招的思考：什么时候真的有用，什么时候只是为了炫技，以及如何写出既可靠又易维护的代码。
+                                            </p>
+                                        </div>
+                                    </a>
+
+                                    <a
+                                        data-state="closed"
+                                        href="./entry.html?id=1"
+                                    >
+                                        <div
+                                            class="group cursor-pointer bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden"
+                                        >
+                                            <div
+                                                class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="lucide lucide-arrow-right w-5 h-5 -rotate-45"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="M5 12h14"></path>
+                                                    <path
+                                                        d="m12 5 7 7-7 7"
+                                                    ></path>
+                                                </svg>
+                                            </div>
+                                            <div
+                                                class="text-xs font-bold text-primary mb-2 font-display tracking-wider"
+                                            >
+                                                JUN 07, 2025
+                                            </div>
+                                            <h3
+                                                class="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
+                                            >
+                                                📝 生活？还是 RAG？
+                                            </h3>
+                                            <p
+                                                class="text-muted-foreground font-body line-clamp-2 leading-relaxed"
+                                            >
+                                                近期在学习LLM的内容，在我dive in
+                                                RAG时有感。用RAG比喻生活与人际关系，讲述在信息与时间筛选中，\
+                                                如何保留那些重要但易被忽略的温暖片段。
+                                            </p>
+                                        </div>
+                                    </a>
+
+                                    <a
+                                        data-state="closed"
+                                        href="./entry.html?id=3"
+                                    >
+                                        <div
+                                            class="group cursor-pointer bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden"
+                                        >
+                                            <div
+                                                class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width="24"
+                                                    height="24"
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    stroke-width="2"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    class="lucide lucide-arrow-right w-5 h-5 -rotate-45"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="M5 12h14"></path>
+                                                    <path
+                                                        d="m12 5 7 7-7 7"
+                                                    ></path>
+                                                </svg>
+                                            </div>
+                                            <div
+                                                class="text-xs font-bold text-primary mb-2 font-display tracking-wider"
+                                            >
+                                                MAY 26, 2025
+                                            </div>
+                                            <h3
+                                                class="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
+                                            >
+                                                📝 系分考试总结
+                                            </h3>
+                                            <p
+                                                class="text-muted-foreground font-body line-clamp-2 leading-relaxed"
+                                            >
+                                                软考高级，系统分析师。进考场发现全是大师。简说了这三个月的备考，以及我的思维进化。
+                                            </p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="py-8 md:py-12 mt-auto">
+                        <div
+                            class="container max-w-4xl mx-auto px-4 text-center"
+                        >
+                            <h2
+                                class="text-xl md:text-2xl font-bold font-display text-foreground mb-3"
+                            >
+                                Maki's life
+                            </h2>
+
+                            <!-- Desktop -->
+                            <p
+                                class="text-sm text-muted-foreground mb-2 desktop-only"
+                            >
+                                Copyright © 2024-2026 All Rights Reserved ·
+                                <a
+                                    href="https://beian.miit.gov.cn/#/Integrated/index"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
+                                >
+                                    粤ICP备2024180652号-1
+                                </a>
+                            </p>
+
+                            <!-- Mobile -->
+                            <p
+                                class="text-sm text-muted-foreground mb-2 mobile-only"
+                            >
+                                Copyright © 2024-2026 All Rights Reserved
+                                <br />
+                                <a
+                                    href="https://beian.miit.gov.cn/#/Integrated/index"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
+                                >
+                                    粤ICP备2024180652号-1
+                                </a>
+                            </p>
+                        </div>
+                    </footer>
+                </main>
+
+                <!-- Mobile Navigation with Theme Toggle -->
+                <nav
+                    class="md:hidden fixed bottom-0 left-0 right-0 border-t border-border/50 bg-background/90 backdrop-blur-xl p-2 z-50 flex justify-around sf-hidden"
+                >
                     <button
-                      class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border border-transparent min-h-9 px-4 py-2 text-muted-foreground hover:text-primary cursor-pointer"
+                        id="theme-toggle-mobile"
+                        class="flex items-center justify-center p-3 rounded-full hover:bg-card transition-colors"
+                        aria-label="切换明暗模式"
                     >
-                      查看全部
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-arrow-right w-4 h-4 ml-2"
-                        aria-hidden="true"
-                      >
-                        <path d="M5 12h14"></path>
-                        <path d="m12 5 7 7-7 7"></path>
-                      </svg>
+                        <svg
+                            id="sun-icon-mobile"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-5 h-5 hidden"
+                        >
+                            <circle cx="12" cy="12" r="4"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="m4.93 4.93 1.41 1.41"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m6.34 17.66-1.41 1.41"></path>
+                            <path d="m19.07 4.93-1.41 1.41"></path>
+                        </svg>
+                        <svg
+                            id="moon-icon-mobile"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="w-5 h-5 hidden"
+                        >
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+                        </svg>
                     </button>
-                  </a>
-                </div>
-
-                <!-- NOTE  文章 -->
-                <div class="grid md:grid-cols-2 gap-6">
-                  <a data-state="closed" href="./entry.html?id=4">
-                    <div
-                      class="group cursor-pointer bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden"
-                    >
-                      <div
-                        class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="lucide lucide-arrow-right w-5 h-5 -rotate-45"
-                          aria-hidden="true"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </div>
-                      <div
-                        class="text-xs font-bold text-primary mb-2 font-display tracking-wider"
-                      >
-                        Sep 17, 2025
-                      </div>
-                      <h3
-                        class="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
-                      >
-                        📝 停止花里胡哨的炫技
-                      </h3>
-                      <p
-                        class="text-muted-foreground font-body line-clamp-2 leading-relaxed"
-                      >
-                        看到很多文章推崇“高级技巧”“优雅代码”，但我越来越觉得，这些花哨并不等于高效。本文记录了我对这些技术花招的思考：什么时候真的有用，什么时候只是为了炫技，以及如何写出既可靠又易维护的代码。
-                      </p>
-                    </div>
-                  </a>
-
-                  <a data-state="closed" href="./entry.html?id=1">
-                    <div
-                      class="group cursor-pointer bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden"
-                    >
-                      <div
-                        class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="lucide lucide-arrow-right w-5 h-5 -rotate-45"
-                          aria-hidden="true"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </div>
-                      <div
-                        class="text-xs font-bold text-primary mb-2 font-display tracking-wider"
-                      >
-                        JUN 07, 2025
-                      </div>
-                      <h3
-                        class="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
-                      >
-                        📝 生活？还是 RAG？
-                      </h3>
-                      <p
-                        class="text-muted-foreground font-body line-clamp-2 leading-relaxed"
-                      >
-                        近期在学习LLM的内容，在我dive in
-                        RAG时有感。用RAG比喻生活与人际关系，讲述在信息与时间筛选中，\
-                        如何保留那些重要但易被忽略的温暖片段。
-                      </p>
-                    </div>
-                  </a>
-
-                  <a data-state="closed" href="./entry.html?id=3">
-                    <div
-                      class="group cursor-pointer bg-card border border-border/50 rounded-2xl p-6 hover:border-primary/50 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 relative overflow-hidden"
-                    >
-                      <div
-                        class="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity text-primary"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          class="lucide lucide-arrow-right w-5 h-5 -rotate-45"
-                          aria-hidden="true"
-                        >
-                          <path d="M5 12h14"></path>
-                          <path d="m12 5 7 7-7 7"></path>
-                        </svg>
-                      </div>
-                      <div
-                        class="text-xs font-bold text-primary mb-2 font-display tracking-wider"
-                      >
-                        MAY 26, 2025
-                      </div>
-                      <h3
-                        class="text-xl font-bold mb-2 group-hover:text-primary transition-colors"
-                      >
-                        📝 系分考试总结
-                      </h3>
-                      <p
-                        class="text-muted-foreground font-body line-clamp-2 leading-relaxed"
-                      >
-                        软考高级，系统分析师。进考场发现全是大师。简说了这三个月的备考，以及我的思维进化。
-                      </p>
-                    </div>
-                  </a>
-                </div>
-              </div>
+                </nav>
             </div>
-          </div>
-          <footer class="py-8 md:py-12 mt-auto">
-            <div class="container max-w-4xl mx-auto px-4 text-center">
-              <h2
-                class="text-xl md:text-2xl font-bold font-display text-foreground mb-3"
-              >
-                Maki's life
-              </h2>
-
-              <!-- Desktop -->
-              <p class="text-sm text-muted-foreground mb-2 desktop-only">
-                Copyright © 2024-2026 All Rights Reserved ·
-                <a
-                  href="https://beian.miit.gov.cn/#/Integrated/index"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
-                >
-                  粤ICP备2024180652号-1
-                </a>
-              </p>
-
-              <!-- Mobile -->
-              <p class="text-sm text-muted-foreground mb-2 mobile-only">
-                Copyright © 2024-2026 All Rights Reserved <br />
-                <a
-                  href="https://beian.miit.gov.cn/#/Integrated/index"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="hover:text-primary transition-colors underline decoration-muted-foreground/30 hover:decoration-primary"
-                >
-                  粤ICP备2024180652号-1
-                </a>
-              </p>
-            </div>
-          </footer>
-        </main>
-
-        <!-- Mobile Navigation with Theme Toggle -->
-        <nav
-          class="md:hidden fixed bottom-0 left-0 right-0 border-t border-border/50 bg-background/90 backdrop-blur-xl p-2 z-50 flex justify-around sf-hidden"
-        >
-          <button
-            id="theme-toggle-mobile"
-            class="flex items-center justify-center p-3 rounded-full hover:bg-card transition-colors"
-            aria-label="切换明暗模式"
-          >
-            <svg
-              id="sun-icon-mobile"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="w-5 h-5 hidden"
-            >
-              <circle cx="12" cy="12" r="4"></circle>
-              <path d="M12 2v2"></path>
-              <path d="M12 20v2"></path>
-              <path d="m4.93 4.93 1.41 1.41"></path>
-              <path d="m17.66 17.66 1.41 1.41"></path>
-              <path d="M2 12h2"></path>
-              <path d="M20 12h2"></path>
-              <path d="m6.34 17.66-1.41 1.41"></path>
-              <path d="m19.07 4.93-1.41 1.41"></path>
-            </svg>
-            <svg
-              id="moon-icon-mobile"
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="w-5 h-5 hidden"
-            >
-              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-            </svg>
-          </button>
-        </nav>
-      </div>
-    </div>
-    <script src="assets/js/greeting.js" defer></script>
-  </body>
+        </div>
+        <script src="assets/js/greeting.js" defer></script>
+    </body>
 </html>
