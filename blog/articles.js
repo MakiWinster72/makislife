@@ -11,8 +11,8 @@ const articlesConfig = {
     excerpt:
       "近期在学习 LLM 的内容，在我 dive in RAG 时有感。用 RAG 比喻生活与人际关系，讲述在信息与时间筛选中，如何保留那些重要但易被忽略的温暖片段。",
     tags: ["life", "thoughts", "tech"],
-    thumbnail: "assets/images/cover/rag.png",
-    banner: "assets/images/cover/rag.png",
+    thumbnail: "./assets/images/cover/thumbnail/rag.png",
+    banner: "./assets/images/cover/rag.png",
     readingTime: "4 分钟阅读",
     viewCount: "128",
     // 文章内容文件路径
@@ -25,8 +25,8 @@ const articlesConfig = {
     excerpt:
       "把 Ubuntu 和 Arch 装上了 nvme-yao，省电、美化、折腾，Linux 的日常",
     tags: ["life", "tech"],
-    thumbnail: "assets/images/cover/linux.png",
-    banner: "assets/images/cover/linux.png",
+    thumbnail: "./assets/images/cover/thumbnail/linux.png",
+    banner: "./assets/images/cover/linux.png",
     readingTime: "5 分钟阅读",
     viewCount: "256",
     contentFile: "articles/2.md",
@@ -38,8 +38,8 @@ const articlesConfig = {
     excerpt:
       "软考高级，系统分析师。进考场发现全是大师。简说了这三个月的备考，以及我的思维进化。",
     tags: ["life", "thoughts"],
-    thumbnail: "assets/images/cover/ss.png",
-    banner: "assets/images/cover/ss.png",
+    thumbnail: "./assets/images/cover/thumbnail/ss.png",
+    banner: "./assets/images/cover/ss.png",
     readingTime: "12 分钟阅读",
     viewCount: "512",
     contentFile: "articles/3.md",
@@ -51,8 +51,8 @@ const articlesConfig = {
     excerpt:
       "看到很多文章推崇“高级技巧”“优雅代码”，但我越来越觉得，这些花哨并不等于高效。本文记录了我对这些技术花招的思考：什么时候真的有用，什么时候只是为了炫技，以及如何写出既可靠又易维护的代码。",
     tags: ["tech", "thoughts"],
-    thumbnail: "assets/images/cover/stopUsingCodingSuger.png",
-    banner: "assets/images/cover/stopUsingCodingSuger.png",
+    thumbnail: "./assets/images/cover/thumbnail/stopUsingCodingSuger.png",
+    banner: "./assets/images/cover/stopUsingCodingSuger.png",
     readingTime: "4 分钟阅读",
     viewCount: "189",
     contentFile: "articles/4.md",

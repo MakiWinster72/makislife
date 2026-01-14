@@ -1,161 +1,199 @@
-// ========== 主题切换 ==========
+// 优化版 site.js
+const $id = (id) => document.getElementById(id);
+const $qs = (sel, root = document) => root.querySelector(sel);
+const $qsa = (sel, root = document) =>
+  Array.from((root || document).querySelectorAll(sel));
+
+const rafThrottle = (fn) => {
+  let scheduled = false;
+  return (...args) => {
+    if (scheduled) return;
+    scheduled = true;
+    requestAnimationFrame(() => {
+      scheduled = false;
+      fn(...args);
+    });
+  };
+};
+const debounce = (fn, wait = 80) => {
+  let t;
+  return (...a) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...a), wait);
+  };
+};
+
+// 安全 CSS 选择器转义
+const escapeSelector = (s) =>
+  window.CSS && CSS.escape
+    ? CSS.escape(s)
+    : s.replace(/(["'\\#.:,\[\]()>+~*^$|=\/])/g, "\\$1");
+
+// ---------- 主题切换 (themeToggle) ----------
 (function initTheme() {
-  const themeToggle = document.getElementById("themeToggle");
-  const savedTheme =
-    localStorage.getItem("theme") ||
-    (window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light");
-
-  function setTheme(theme) {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }
-
-  setTheme(savedTheme);
-
-  themeToggle.addEventListener("click", () => {
-    const currentTheme = document.documentElement.getAttribute("data-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-  });
+  const toggle = $id("themeToggle");
+  if (!toggle) return;
+  const prefersDark =
+    window.matchMedia &&
+    window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const saved =
+    localStorage.getItem("theme") || (prefersDark ? "dark" : "light");
+  const setTheme = (t) => {
+    document.documentElement.setAttribute("data-theme", t);
+    localStorage.setItem("theme", t);
+  };
+  setTheme(saved);
+  toggle.addEventListener(
+    "click",
+    () => {
+      setTheme(
+        document.documentElement.getAttribute("data-theme") === "dark"
+          ? "light"
+          : "dark",
+      );
+    },
+    { passive: true },
+  );
 })();
 
-// ========== 侧边栏切换 ==========
+// ---------- Sidebar (sidebar) ----------
 (function initSidebar() {
-  const sidebarToggle = document.getElementById("sidebarToggle");
-  const sidebar = document.getElementById("sidebar");
+  const toggle = $id("sidebarToggle");
+  const sidebar = $id("sidebar");
+  if (!toggle || !sidebar) return;
 
-  sidebarToggle.addEventListener("click", () => {
+  const updateLayout = () =>
+    document.body.classList.toggle(
+      "sidebar-collapsed",
+      sidebar.classList.contains("collapsed"),
+    );
+
+  toggle.addEventListener("click", () => {
     sidebar.classList.toggle("collapsed");
+    updateLayout();
     localStorage.setItem(
       "sidebarCollapsed",
       sidebar.classList.contains("collapsed"),
     );
   });
 
-  // 移动端点击外部关闭侧边栏
-  document.addEventListener("click", (e) => {
-    if (
-      window.innerWidth <= 768 &&
-      !sidebar.contains(e.target) &&
-      !sidebarToggle.contains(e.target) &&
-      !sidebar.classList.contains("collapsed")
-    ) {
-      sidebar.classList.add("collapsed");
-    }
-  });
+  document.addEventListener(
+    "click",
+    (e) => {
+      if (
+        window.innerWidth <= 768 &&
+        !sidebar.contains(e.target) &&
+        !toggle.contains(e.target) &&
+        !sidebar.classList.contains("collapsed")
+      ) {
+        sidebar.classList.add("collapsed");
+        updateLayout();
+      }
+    },
+    { passive: true },
+  );
 
-  // 恢复侧边栏状态（仅在桌面端）
-  if (window.innerWidth > 768) {
-    const wasCollapsed = localStorage.getItem("sidebarCollapsed") === "true";
-    if (wasCollapsed) {
-      sidebar.classList.add("collapsed");
-    }
-  }
-
-  // 移动端默认收起侧边栏
-  if (window.innerWidth <= 768) {
+  if (
+    window.innerWidth > 768 &&
+    localStorage.getItem("sidebarCollapsed") === "true"
+  ) {
     sidebar.classList.add("collapsed");
   }
+  if (window.innerWidth <= 768) sidebar.classList.add("collapsed");
+  updateLayout();
 })();
 
-// ========== TOC 管理辅助函数 ==========
-function hideTOC() {
-  const tocSidebar = document.getElementById("tocSidebar");
-  const tocToggleBtn = document.getElementById("tocToggleBtn");
-  if (tocSidebar) {
-    tocSidebar.classList.add("hidden");
-  }
-  if (tocToggleBtn) {
-    tocToggleBtn.style.display = "none";
-  }
-}
+// ---------- 全局缓存节点 ----------
+const GLOBAL = {
+  articleContent: null,
+  tocContent: null,
+  tocSidebar: null,
+  tocToggleBtn: null,
+  fileTree: null,
+  sidebar: null,
+};
 
-// ========== 文章树形结构管理 ==========
+// ---------- ArticleTree ----------
 class ArticleTree {
   constructor(config) {
     this.config = config;
     this.currentArticle = null;
-    this.allArticles = [];
-    this.flattenArticles();
+    this.allArticles = this.flattenArticles();
+    this._mutationObserver = null;
+    this.intersectionObserver = null;
   }
 
-  // 将树形结构扁平化，便于导航
   flattenArticles(node = this.config, result = []) {
-    if (node.type === "article") {
-      result.push(node);
-    }
-    if (node.children) {
-      node.children.forEach((child) => this.flattenArticles(child, result));
-    }
+    if (!node) return result;
+    if (node.type === "article") result.push(node);
+    node.children &&
+      node.children.forEach((c) => this.flattenArticles(c, result));
     return result;
   }
 
-  // 渲染树形结构
   render(container) {
+    if (!container) return;
     container.innerHTML = "";
     const ul = document.createElement("ul");
     ul.style.listStyle = "none";
     ul.style.padding = "0";
-    this.renderNode(this.config, ul, 0);
+    this._renderNode(this.config, ul, 0);
     container.appendChild(ul);
-
-    // 更新统计数据
-    const totalArticles = this.allArticles.length;
-    const totalCategories = this.countFolders(this.config);
-    document.getElementById("totalArticles").textContent = totalArticles;
-    document.getElementById("totalCategories").textContent = totalCategories;
+    $id("totalArticles") &&
+      ($id("totalArticles").textContent = this.allArticles.length);
+    $id("totalCategories") &&
+      ($id("totalCategories").textContent = this.countFolders(this.config));
+    // 事件委托：点击文章节点
+    container.addEventListener("click", (e) => {
+      const node = e.target.closest(".tree-node");
+      if (!node) return;
+      const type = node.dataset.type;
+      const id = node.dataset.id;
+      if (type === "folder") {
+        const parentLi = node.parentElement;
+        const childrenUl = parentLi.querySelector(".tree-children");
+        if (childrenUl) {
+          childrenUl.classList.toggle("expanded");
+          node.querySelector(".tree-icon")?.classList.toggle("expanded");
+        }
+        return;
+      }
+      if (type === "article") {
+        const article = this.allArticles.find((a) => a.id === id);
+        if (article) this.loadArticle(article);
+        if (window.innerWidth <= 768)
+          $id("sidebar")?.classList.add("collapsed");
+      }
+    });
   }
 
-  countFolders(node) {
-    let count = node.type === "folder" ? 1 : 0;
-    if (node.children) {
-      node.children.forEach((child) => {
-        count += this.countFolders(child);
-      });
-    }
-    return count;
-  }
-
-  renderNode(node, container, level) {
+  _renderNode(node, container, level) {
+    if (!node) return;
     if (node.type === "root") {
-      // 根节点，只渲染子节点
-      node.children.forEach((child) =>
-        this.renderNode(child, container, level),
-      );
+      node.children &&
+        node.children.forEach((c) => this._renderNode(c, container, level));
       return;
     }
-
     const li = document.createElement("li");
     li.className = "tree-item";
-
     const nodeDiv = document.createElement("div");
     nodeDiv.className = "tree-node";
     nodeDiv.dataset.id = node.id;
     nodeDiv.dataset.type = node.type;
 
-    // 缩进
     const indent = document.createElement("span");
     indent.className = "tree-indent";
     indent.style.width = `${level * 20}px`;
     nodeDiv.appendChild(indent);
 
-    // 图标
     const icon = document.createElement("span");
     icon.className = "tree-icon";
     if (node.type === "folder") {
-      icon.innerHTML = `
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 18l6-6-6-6"/>
-        </svg>
-      `;
-    } else {
-      icon.textContent = node.icon || "📄";
-    }
+      icon.innerHTML =
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>';
+    } else icon.textContent = node.icon || "📄";
     nodeDiv.appendChild(icon);
 
-    // 标签
     const label = document.createElement("span");
     label.className = "tree-label";
     label.textContent = node.title;
@@ -163,417 +201,317 @@ class ArticleTree {
 
     li.appendChild(nodeDiv);
 
-    // 子节点容器
-    if (node.children && node.children.length > 0) {
+    if (node.children && node.children.length) {
       const childrenUl = document.createElement("ul");
       childrenUl.className = "tree-children";
       childrenUl.style.listStyle = "none";
       childrenUl.style.padding = "0";
-      node.children.forEach((child) =>
-        this.renderNode(child, childrenUl, level + 1),
-      );
+      node.children.forEach((c) => this._renderNode(c, childrenUl, level + 1));
       li.appendChild(childrenUl);
-
-      // 文件夹点击事件
-      nodeDiv.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const children = li.querySelector(".tree-children");
-        const icon = nodeDiv.querySelector(".tree-icon");
-
-        if (children.classList.contains("expanded")) {
-          children.classList.remove("expanded");
-          icon.classList.remove("expanded");
-        } else {
-          children.classList.add("expanded");
-          icon.classList.add("expanded");
-        }
-      });
-    } else if (node.type === "article") {
-      // 文章点击事件
-      nodeDiv.addEventListener("click", (e) => {
-        e.stopPropagation();
-        this.loadArticle(node);
-
-        // 移动端点击文章后收起侧边栏
-        if (window.innerWidth <= 768) {
-          document.getElementById("sidebar").classList.add("collapsed");
-        }
-      });
     }
-
     container.appendChild(li);
   }
 
-  // 加载文章
+  countFolders(node) {
+    if (!node) return 0;
+    let count = node.type === "folder" ? 1 : 0;
+    node.children &&
+      node.children.forEach((c) => (count += this.countFolders(c)));
+    return count;
+  }
+
   async loadArticle(article) {
+    if (!article) return;
     this.currentArticle = article;
 
-    // 更新活动状态
-    document.querySelectorAll(".tree-node").forEach((node) => {
-      node.classList.remove("active");
-    });
-    document.querySelector(`[data-id="${article.id}"]`).classList.add("active");
+    // 激活侧边栏项 - 最小化 DOM 操作
+    $qsa(".tree-node").forEach((n) => n.classList.remove("active"));
+    $qs(`[data-id="${escapeSelector(article.id)}"]`)?.classList.add("active");
 
-    // 隐藏欢迎页，显示文章容器
-    document.getElementById("welcomeScreen").style.display = "none";
-    const articleContainer = document.getElementById("articleContainer");
-    articleContainer.classList.remove("hidden");
+    $id("welcomeScreen") && ($id("welcomeScreen").style.display = "none");
+    $id("articleContainer") &&
+      $id("articleContainer").classList.remove("hidden");
 
-    // 更新面包屑
     this.updateBreadcrumb(article);
+    $id("articleTitle") && ($id("articleTitle").textContent = article.title);
 
-    // 更新文章标题
-    document.getElementById("articleTitle").textContent = article.title;
-
-    // 更新元信息
     const metaHtml = [];
-    if (article.date) {
-      metaHtml.push(`
-        <div class="meta-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-            <path d="M16 2v4M8 2v4M3 10h18"/>
-          </svg>
-          <span>${article.date}</span>
-        </div>
-      `);
-    }
-    if (article.readingTime) {
-      metaHtml.push(`
-        <div class="meta-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
-          </svg>
-          <span>${article.readingTime}</span>
-        </div>
-      `);
-    }
-    if (article.tags && article.tags.length > 0) {
-      metaHtml.push(`
-        <div class="meta-item">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/>
-            <line x1="7" y1="7" x2="7.01" y2="7"/>
-          </svg>
-          <span>${article.tags.join(", ")}</span>
-        </div>
-      `);
-    }
-    document.getElementById("articleMeta").innerHTML = metaHtml.join("");
-
-    // 加载文章内容
-    try {
-      const response = await fetch(article.contentFile);
-      if (!response.ok) throw new Error("文章加载失败");
-      const markdown = await response.text();
-
-       // 配置 marked
-       marked.setOptions({
-         breaks: true,
-         gfm: true,
-         highlight: function(code, lang) {
-           if (lang && hljs.getLanguage(lang)) {
-             return hljs.highlight(lang, code).value;
-           } else {
-             return hljs.highlightAuto(code).value;
-           }
-         }
-       });
-
-      let html = marked.parse(markdown);
-
-      // 处理 ==高亮== 语法
-      html = html.replace(/==([^=]+)==/g, "<mark>$1</mark>");
-
-      // 为标题添加 ID
-      html = html.replace(
-        /<h([1-6])>(.*?)<\/h\1>/g,
-        (match, level, content) => {
-          const id = content.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, "-");
-          return `<h${level} id="${id}">${content}</h${level}>`;
-        },
+    if (article.date)
+      metaHtml.push(
+        `<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/></svg><span>${article.date}</span></div>`,
       );
+    if (article.readingTime)
+      metaHtml.push(
+        `<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg><span>${article.readingTime}</span></div>`,
+      );
+    if (article.tags && article.tags.length)
+      metaHtml.push(
+        `<div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/></svg><span>${article.tags.join(", ")}</span></div>`,
+      );
+    $id("articleMeta") && ($id("articleMeta").innerHTML = metaHtml.join(""));
 
-      document.getElementById("articleContent").innerHTML = html;
+    try {
+      const res = await fetch(article.contentFile);
+      if (!res.ok) throw new Error("文章加载失败");
+      let md = await res.text();
 
-       // 代码高亮
-        document.querySelectorAll("pre code").forEach((block) => {
-          hljs.highlightElement(block);
-        });
+      // marked 解析
+      marked.setOptions({ breaks: true, gfm: true });
+      let html = marked.parse(md);
+      html = html.replace(/==([^=]+)==/g, "<mark>$1</mark>");
+      html = html.replace(/<h([1-6])>(.*?)<\/h\1>/g, (m, level, content) => {
+        const id = content.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, "-");
+        return `<h${level} id="${id}">${content}</h${level}>`;
+      });
 
-        // 添加语言标签
-        document.querySelectorAll("pre").forEach((pre) => {
-          const code = pre.querySelector("code");
-          if (code && code.className) {
-            const langClass = code.className.split(' ').find(cls => cls.startsWith('language-') || cls.startsWith('hljs '));
-            if (langClass) {
-              let lang = '';
-              if (langClass.startsWith('language-')) {
-                lang = langClass.replace('language-', '');
-              } else if (langClass.includes(' ')) {
-                const classes = langClass.split(' ');
-                const langCls = classes.find(cls => cls.startsWith('language-'));
-                if (langCls) lang = langCls.replace('language-', '');
-              }
-              if (lang && lang !== 'plain') {
-                const langLabel = document.createElement('span');
-                langLabel.className = 'code-lang-label';
-                langLabel.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
-                pre.appendChild(langLabel);
-              }
-            }
+      const articleContent = $id("articleContent");
+      if (!articleContent) throw new Error("缺少文章容器");
+      articleContent.innerHTML = html;
+
+      // 代码高亮、语言标签与复制按钮（一次遍历完成）
+      const preBlocks = $qsa("pre", articleContent);
+      preBlocks.forEach((pre) => {
+        const code = pre.querySelector("code");
+        if (code) hljs.highlightElement(code);
+        if (!pre.querySelector(".code-lang-label")) {
+          const cls = code?.className || "";
+          const lc = cls.split(" ").find((c) => c.startsWith("language-"));
+          const lang = lc ? lc.replace("language-", "") : "";
+          if (lang && lang !== "plain") {
+            const lbl = document.createElement("span");
+            lbl.className = "code-lang-label";
+            lbl.textContent = lang.charAt(0).toUpperCase() + lang.slice(1);
+            pre.appendChild(lbl);
           }
-        });
-
-       // 添加复制按钮
-       document.querySelectorAll("pre:not(:has(.copy-btn))").forEach((pre) => {
-         const btn = document.createElement("button");
-         btn.className = "copy-btn";
-         btn.textContent = "Copy";
-
-         btn.addEventListener("click", () => {
-           const code = pre.querySelector("code").innerText;
-           navigator.clipboard.writeText(code);
-
-           btn.textContent = "Copied";
-           setTimeout(() => (btn.textContent = "Copy"), 1500);
-         });
-
-         pre.appendChild(btn);
-       });
-
-      // 增强图片
-      enhanceImages();
-
-      // 生成目录
-      this.generateTOC();
-
-      // 滚动到顶部
-      document.querySelector(".content-area").scrollTop = 0;
-
-      // 更新导航按钮
-      this.updateNavigation();
-     } catch (error) {
-       console.error("加载文章失败:", error);
-       document.getElementById("articleContent").innerHTML = `
-         <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
-           <p>😕 抱歉，文章加载失败</p>
-           <p style="font-size: 14px; margin-top: 8px;">${error.message}</p>
-         </div>
-       `;
-
-       // 隐藏TOC，因为文章加载失败
-       hideTOC();
-     }
-  }
-
-  // 更新面包屑导航
-  updateBreadcrumb(article) {
-    const path = this.getArticlePath(article);
-    const breadcrumbHtml = path
-      .map((item, index) => {
-        if (index === path.length - 1) {
-          return `<span class="breadcrumb-item">${item.title}</span>`;
         }
-        return `
-        <span class="breadcrumb-item">
-          ${item.title}
-          <span class="breadcrumb-separator">/</span>
-        </span>
-      `;
-      })
-      .join("");
+        if (!pre.querySelector(".copy-btn")) {
+          const btn = document.createElement("button");
+          btn.className = "copy-btn";
+          btn.textContent = "Copy";
+          btn.addEventListener("click", async () => {
+            const text = pre.querySelector("code")?.innerText || "";
+            try {
+              await navigator.clipboard.writeText(text);
+              btn.textContent = "Copied";
+              setTimeout(() => (btn.textContent = "Copy"), 1200);
+            } catch (e) {
+              btn.textContent = "Copy";
+            }
+          });
+          pre.appendChild(btn);
+        }
+      });
 
-    document.getElementById("breadcrumb").innerHTML = breadcrumbHtml;
+      // 图片增强 + 构建 TOC（由共享 observer 处理）
+      setupSharedObservers(articleContent, this);
+
+      // 滚到顶部
+      const contentArea = $qs(".content-area");
+      if (contentArea && "scrollTop" in contentArea) contentArea.scrollTop = 0;
+      else window.scrollTo({ top: 0 });
+
+      this.updateNavigation();
+    } catch (err) {
+      console.error("加载文章失败:", err);
+      $id("articleContent") &&
+        ($id("articleContent").innerHTML =
+          `<div style="padding:40px;text-align:center;color:var(--text-secondary);"> <p>😕 抱歉，文章加载失败</p><p style="font-size:14px;margin-top:8px;">${err.message}</p></div>`);
+      hideTOC();
+    }
   }
 
-  // 获取文章路径
+  updateBreadcrumb(article) {
+    const path = this.getArticlePath(article) || [];
+    const html = path
+      .map((item, idx) =>
+        idx === path.length - 1
+          ? `<span class="breadcrumb-item">${item.title}</span>`
+          : `<span class="breadcrumb-item">${item.title}<span class="breadcrumb-separator">/</span></span>`,
+      )
+      .join("");
+    $id("breadcrumb") && ($id("breadcrumb").innerHTML = html);
+  }
+
   getArticlePath(article, node = this.config, path = []) {
-    if (node.id === article.id) {
-      return [...path, node];
-    }
+    if (!node) return null;
+    if (node.id === article.id) return [...path, node];
     if (node.children) {
-      for (const child of node.children) {
-        const result = this.getArticlePath(article, child, [...path, node]);
-        if (result) return result.filter((item) => item.type !== "root");
+      for (const c of node.children) {
+        const res = this.getArticlePath(article, c, [...path, node]);
+        if (res) return res.filter((it) => it.type !== "root");
       }
     }
     return null;
   }
 
-  // 更新上一篇/下一篇导航
   updateNavigation() {
-    const currentIndex = this.allArticles.findIndex(
+    const idx = this.allArticles.findIndex(
       (a) => a.id === this.currentArticle.id,
     );
-    const prevBtn = document.getElementById("prevArticle");
-    const nextBtn = document.getElementById("nextArticle");
-
-    if (currentIndex > 0) {
-      prevBtn.style.display = "flex";
-      prevBtn.onclick = () =>
-        this.loadArticle(this.allArticles[currentIndex - 1]);
-    } else {
-      prevBtn.style.display = "none";
-    }
-
-    if (currentIndex < this.allArticles.length - 1) {
-      nextBtn.style.display = "flex";
-      nextBtn.onclick = () =>
-        this.loadArticle(this.allArticles[currentIndex + 1]);
-    } else {
-      nextBtn.style.display = "none";
-    }
+    const prev = $id("prevArticle");
+    const next = $id("nextArticle");
+    if (!prev || !next) return;
+    if (idx > 0) {
+      prev.style.display = "flex";
+      prev.onclick = () => this.loadArticle(this.allArticles[idx - 1]);
+    } else prev.style.display = "none";
+    if (idx < this.allArticles.length - 1) {
+      next.style.display = "flex";
+      next.onclick = () => this.loadArticle(this.allArticles[idx + 1]);
+    } else next.style.display = "none";
   }
 
-  // 生成目录
+  // 生成 TOC（由 IntersectionObserver 驱动高亮）
   generateTOC() {
-    const content = document.getElementById("articleContent");
-    const tocContent = document.getElementById("tocContent");
-    const tocSidebar = document.getElementById("tocSidebar");
-    const tocToggleBtn = document.getElementById("tocToggleBtn");
+    const articleContent = $id("articleContent");
+    const tocContent = $id("tocContent");
+    const tocSidebar = $id("tocSidebar");
+    const tocToggleBtn = $id("tocToggleBtn");
+    if (!articleContent || !tocContent) return hideTOC();
+    if (!articleContent.textContent.trim()) return hideTOC();
 
-    // 检查是否有文章内容
-    if (!content || !content.textContent.trim()) {
-      hideTOC();
-      return;
-    }
+    const headings = $qsa("h1,h2,h3,h4", articleContent);
+    if (!headings.length) return hideTOC();
 
-    const headings = content.querySelectorAll("h1, h2, h3, h4");
-
-    if (headings.length === 0) {
-      hideTOC();
-      return;
-    }
-
-    tocSidebar.classList.remove("hidden");
-    if (tocToggleBtn) {
+    tocSidebar && tocSidebar.classList.remove("hidden");
+    if (tocToggleBtn)
       tocToggleBtn.style.display = window.innerWidth <= 768 ? "flex" : "none";
-    }
 
-    const tocHTML = Array.from(headings)
-      .map((heading) => {
-        const level = heading.tagName.toLowerCase();
-        const text = heading.textContent;
+    const html = headings
+      .map((h) => {
+        const level = h.tagName.toLowerCase();
+        const text = h.textContent;
         const id =
-          heading.id || text.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, "-");
-
-        if (!heading.id) {
-          heading.id = id;
-        }
-
+          h.id || text.toLowerCase().replace(/[^\w\u4e00-\u9fa5]+/g, "-");
+        if (!h.id) h.id = id;
         return `<a href="#${id}" class="toc-link toc-${level}">${text}</a>`;
       })
       .join("");
+    tocContent.innerHTML = html;
 
-    tocContent.innerHTML = tocHTML;
+    // 事件委托处理点击
+    tocContent.onclick = (e) => {
+      const link = e.target.closest(".toc-link");
+      if (!link) return;
+      e.preventDefault();
+      const id = (link.getAttribute("href") || "").slice(1);
+      const target = $id(id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      if (window.innerWidth <= 1024)
+        $id("tocSidebar")?.classList.remove("show");
+    };
 
-    // TOC 链接点击处理
-    tocContent.querySelectorAll(".toc-link").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute("href").slice(1);
-        const target = document.getElementById(targetId);
-        if (target) {
-          // 手动滚动到目标位置，考虑scroll-margin-top
-          const contentArea = document.querySelector(".content-area");
-          const targetTop = target.offsetTop - 70; // 70px scroll-margin-top
-          contentArea.scrollTo({ top: targetTop, behavior: "smooth" });
-
-          // 更新活动状态
-          tocContent
-            .querySelectorAll(".toc-link")
-            .forEach((l) => l.classList.remove("active"));
-          link.classList.add("active");
-        }
-
-        // 移动端关闭 TOC
-        if (window.innerWidth <= 1024) {
-          tocSidebar.classList.remove("show");
-        }
-      });
-    });
-
-    // 滚动监听，高亮当前标题
-    this.setupTOCScrollSpy();
-  }
-
-  // TOC 滚动监听
-  setupTOCScrollSpy() {
-    const contentArea = document.querySelector(".content-area");
-    const tocLinks = document.querySelectorAll(".toc-link");
-    const headings = document.querySelectorAll(
-      ".markdown-content h1, .markdown-content h2, .markdown-content h3, .markdown-content h4",
+    // IntersectionObserver 用于高亮
+    if (this.intersectionObserver) this.intersectionObserver.disconnect();
+    const tocLinks = {};
+    $qsa(".toc-link", tocContent).forEach(
+      (l) => (tocLinks[l.getAttribute("href").slice(1)] = l),
     );
 
-    if (!contentArea || tocLinks.length === 0) return;
-
-    let ticking = false;
-
-    contentArea.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          const scrollPos = contentArea.scrollTop + 100;
-
-          let currentHeading = null;
-          headings.forEach((heading) => {
-            if (heading.offsetTop <= scrollPos) {
-              currentHeading = heading;
-            }
-          });
-
-          if (currentHeading) {
-            tocLinks.forEach((link) => {
-              link.classList.remove("active");
-              if (link.getAttribute("href") === `#${currentHeading.id}`) {
-                link.classList.add("active");
-              }
+    this.intersectionObserver = new IntersectionObserver(
+      (entries) => {
+        // 找到最先进入视口且占比最大的标题来高亮
+        let visible = [];
+        entries.forEach((en) => {
+          if (en.isIntersecting)
+            visible.push({
+              id: en.target.id,
+              ratio: en.intersectionRatio,
+              y: en.boundingClientRect.top,
             });
-          }
-
-          ticking = false;
         });
-        ticking = true;
-      }
-    });
+        if (!visible.length) return;
+        // 按 ratio 然后按 y 排序
+        visible.sort((a, b) => b.ratio - a.ratio || a.y - b.y);
+        const activeId = visible[0].id;
+        // 更新 DOM 高亮（最小化操作）
+        $qsa(".toc-link.active", tocContent).forEach((n) =>
+          n.classList.remove("active"),
+        );
+        const cur = tocLinks[activeId];
+        cur && cur.classList.add("active");
+      },
+      {
+        root: null,
+        rootMargin: "-20% 0px -60% 0px",
+        threshold: [0.1, 0.4, 0.7, 1],
+      },
+    );
+
+    headings.forEach((h) => this.intersectionObserver.observe(h));
   }
 }
 
-// ========== 图片缩放功能 ==========
-(function initImageZoom() {
+// ---------- 共享观察者（图片、TOC 的 MutationObserver） ----------
+function setupSharedObservers(articleContent, treeInstance) {
+  GLOBAL.articleContent = articleContent;
+  GLOBAL.tocContent = $id("tocContent");
+  GLOBAL.tocSidebar = $id("tocSidebar");
+  GLOBAL.tocToggleBtn = $id("tocToggleBtn");
+  GLOBAL.fileTree = $id("fileTree");
+
+  // 先执行一次
+  enhanceImagesIn(articleContent);
+  treeInstance.generateTOC();
+
+  // 单个 MutationObserver 负责内容变化（代码块懒加载、图片等）
+  if (treeInstance._mutationObserver)
+    treeInstance._mutationObserver.disconnect();
+  treeInstance._mutationObserver = new MutationObserver(
+    debounce(() => {
+      enhanceImagesIn(articleContent);
+      // 重新高亮代码
+      $qsa("pre code", articleContent).forEach((c) => hljs.highlightElement(c));
+      // 重新构建 TOC
+      treeInstance.generateTOC();
+    }, 120),
+  );
+  treeInstance._mutationObserver.observe(articleContent, {
+    childList: true,
+    subtree: true,
+  });
+}
+
+function enhanceImagesIn(container) {
+  if (!container) return;
+  container.querySelectorAll("img:not([data-zoomed])").forEach((i) => {
+    i.dataset.zoomed = "1";
+    i.setAttribute("draggable", "false");
+    i.style.cursor = "zoom-in";
+    // lazy loading 属性
+    if (!i.hasAttribute("loading")) i.setAttribute("loading", "lazy");
+  });
+}
+
+// ---------- Image viewer（轻量） ----------
+(function initImageViewer() {
   if (document.__photoZoom_v2_initialized) return;
   document.__photoZoom_v2_initialized = true;
 
   const overlay = document.createElement("div");
   overlay.className = "image-zoom-overlay";
-  overlay.style.touchAction = "none";
-
   const imgEl = document.createElement("img");
   imgEl.className = "image-zoom-img";
-  imgEl.decoding = "async";
-  imgEl.loading = "eager";
-
   overlay.appendChild(imgEl);
   document.body.appendChild(overlay);
 
   let scale = 1,
     tx = 0,
     ty = 0;
-  let down = false,
-    id = null,
+  let dragging = false,
+    pid = null,
     startX = 0,
     startY = 0,
     baseX = 0,
-    baseY = 0;
-  let moved = false;
-  const THRESH = 6,
-    MIN = 0.2,
-    MAX = 5;
-
+    baseY = 0,
+    moved = false;
+  const MIN = 0.25,
+    MAX = 5,
+    TH = 6;
   const apply = () =>
     (imgEl.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`);
-
   const reset = () => {
     scale = 1;
     tx = 0;
@@ -586,32 +524,13 @@ class ArticleTree {
     imgEl.src = src;
     overlay.classList.add("show");
     reset();
-    requestAnimationFrame(() => {
-      imgEl.style.opacity = "1";
-      imgEl.style.transform = `translate(${tx}px,${ty}px) scale(1)`;
-    });
+    requestAnimationFrame(() => (imgEl.style.opacity = "1"));
   };
-
   const closeViewer = () => {
     imgEl.style.opacity = "0";
     overlay.classList.remove("show");
     setTimeout(reset, 240);
   };
-
-  window.enhanceImages = () => {
-    const container = document.getElementById("articleContent");
-    if (!container) return;
-    container.querySelectorAll("img:not([data-zoomed])").forEach((i) => {
-      i.dataset.zoomed = "1";
-      i.setAttribute("draggable", "false");
-      i.style.cursor = "zoom-in";
-    });
-  };
-
-  new MutationObserver(window.enhanceImages).observe(
-    document.getElementById("articleContent") || document.body,
-    { childList: true, subtree: true },
-  );
 
   document.addEventListener(
     "click",
@@ -621,55 +540,48 @@ class ArticleTree {
           closeViewer();
         return;
       }
-      if (
-        e.target instanceof HTMLImageElement &&
-        e.pointerType !== "touch" &&
-        e.target.style.cursor === "zoom-in"
-      ) {
+      const t = e.target;
+      if (t instanceof HTMLImageElement && t.style.cursor === "zoom-in") {
         e.preventDefault();
-        openViewer(e.target.currentSrc || e.target.src);
+        openViewer(t.currentSrc || t.src);
       }
     },
     true,
   );
 
   imgEl.addEventListener("pointerdown", (e) => {
-    if (e.pointerType === "touch" || e.button !== 0) return;
+    if (e.button !== 0) return;
     e.preventDefault();
-    down = true;
-    id = e.pointerId;
+    dragging = true;
+    pid = e.pointerId;
     startX = e.clientX;
     startY = e.clientY;
     baseX = tx;
     baseY = ty;
     moved = false;
     imgEl.classList.add("dragging");
-    imgEl.setPointerCapture(id);
+    imgEl.setPointerCapture(pid);
   });
-
   imgEl.addEventListener("pointermove", (e) => {
-    if (!down || e.pointerId !== id || e.pointerType === "touch") return;
+    if (!dragging || e.pointerId !== pid) return;
     const dx = e.clientX - startX,
       dy = e.clientY - startY;
-    if (!moved && Math.hypot(dx, dy) > THRESH) moved = true;
+    if (!moved && Math.hypot(dx, dy) > TH) moved = true;
     if (moved) {
       tx = baseX + dx;
       ty = baseY + dy;
       apply();
     }
   });
-
   const end = (e) => {
-    if (!down || e.pointerId !== id) return;
-    down = false;
-    imgEl.releasePointerCapture(id);
+    if (!dragging || e.pointerId !== pid) return;
+    dragging = false;
+    imgEl.releasePointerCapture(pid);
     imgEl.classList.remove("dragging");
     if (!moved) closeViewer();
   };
-
   imgEl.addEventListener("pointerup", end);
   imgEl.addEventListener("pointercancel", end);
-
   overlay.addEventListener(
     "wheel",
     (e) => {
@@ -688,117 +600,105 @@ class ArticleTree {
     },
     { passive: false },
   );
-
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && overlay.classList.contains("show")) closeViewer();
   });
 })();
 
-// ========== 初始化应用 ==========
+// ---------- Init ----------
 document.addEventListener("DOMContentLoaded", () => {
-  // 检查是否有文章配置
   if (typeof articlesConfig === "undefined") {
     console.error("未找到 articlesConfig，请确保已引入 articles-config.js");
     return;
   }
-
-  // 初始化文章树
   const tree = new ArticleTree(articlesConfig);
-  tree.render(document.getElementById("fileTree"));
-
-  // 初始化TOC为隐藏状态
+  tree.render($id("fileTree"));
   hideTOC();
 
   // 键盘快捷键
   document.addEventListener("keydown", (e) => {
-    // Ctrl/Cmd + B 切换侧边栏
-    if ((e.ctrlKey || e.metaKey) && e.key === "b") {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "b") {
       e.preventDefault();
-      document.getElementById("sidebarToggle").click();
+      $id("sidebarToggle")?.click();
     }
-    // Ctrl/Cmd + K 切换主题
-    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
       e.preventDefault();
-      document.getElementById("themeToggle").click();
+      $id("themeToggle")?.click();
     }
   });
+
+  // 绑定 TOC 切换按钮
+  $id("tocToggleBtn")?.addEventListener("click", () =>
+    $id("tocSidebar")?.classList.toggle("show"),
+  );
+
+  // 点击外部收起 TOC
+  document.addEventListener(
+    "click",
+    (e) => {
+      const toc = $id("tocSidebar"),
+        btn = $id("tocToggleBtn");
+      if (
+        window.innerWidth <= 1200 &&
+        toc &&
+        !toc.contains(e.target) &&
+        !btn?.contains(e.target) &&
+        toc.classList.contains("show")
+      )
+        toc.classList.remove("show");
+    },
+    { passive: true },
+  );
+
+  // 响应式与 resize 优化
+  const onResize = debounce(() => {
+    const tocBtn = $id("tocToggleBtn");
+    if (tocBtn)
+      tocBtn.style.display = window.innerWidth <= 768 ? "flex" : "none";
+    const sidebar = $id("sidebar");
+    if (sidebar)
+      sidebar.style.position = window.innerWidth <= 768 ? "fixed" : "";
+    document.body.classList.toggle(
+      "sidebar-collapsed",
+      sidebar?.classList.contains("collapsed"),
+    );
+  }, 120);
+  window.addEventListener("resize", onResize, { passive: true });
 });
 
-// TOC 切换按钮
-document.getElementById("tocToggleBtn")?.addEventListener("click", () => {
-  const tocSidebar = document.getElementById("tocSidebar");
-  tocSidebar.classList.toggle("show");
-});
+// ---------- TOC 隐藏工具 ----------
+function hideTOC() {
+  const tocSidebar = $id("tocSidebar");
+  const btn = $id("tocToggleBtn");
+  if (tocSidebar) tocSidebar.classList.add("hidden");
+  if (btn) btn.style.display = "none";
+}
 
-// 点击遮罩关闭 TOC
-document.addEventListener("click", (e) => {
-  const tocSidebar = document.getElementById("tocSidebar");
-  const tocToggleBtn = document.getElementById("tocToggleBtn");
-
-  if (
-    window.innerWidth <= 1200 &&
-    !tocSidebar.contains(e.target) &&
-    !tocToggleBtn?.contains(e.target) &&
-    tocSidebar.classList.contains("show")
-  ) {
-    tocSidebar.classList.remove("show");
-  }
-});
-
-// ========== 移动端toolbar滚动隐藏 ==========
+// ---------- Mobile toolbar 隐藏（基于内容区滚动） ----------
 (function initMobileToolbar() {
-  const toolbar = document.querySelector('.toolbar');
-  const contentArea = document.querySelector('.content-area');
-
+  const toolbar = $qs(".toolbar");
+  const contentArea = $qs(".content-area");
   if (!toolbar || !contentArea) return;
-
-  let lastScrollTop = 0;
-  let isToolbarHidden = false;
-
-  function toggleToolbar(show) {
-    if (show && isToolbarHidden) {
-      toolbar.classList.remove('hidden');
-      isToolbarHidden = false;
-    } else if (!show && !isToolbarHidden) {
-      toolbar.classList.add('hidden');
-      isToolbarHidden = true;
+  let last = 0,
+    hidden = false;
+  const toggle = (show) => {
+    if (show && hidden) {
+      toolbar.classList.remove("hidden");
+      hidden = false;
+    } else if (!show && !hidden) {
+      toolbar.classList.add("hidden");
+      hidden = true;
     }
-  }
-
-  contentArea.addEventListener('scroll', () => {
-    // 只在移动端生效
+  };
+  const onScroll = () => {
     if (window.innerWidth > 768) return;
-
-    const currentScrollTop = contentArea.scrollTop;
-
-    // 向下滚动（用户往下阅读）时隐藏toolbar
-    if (currentScrollTop > lastScrollTop && currentScrollTop > 100) {
-      toggleToolbar(false);
-    }
-    // 向上滚动时显示toolbar
-    else if (currentScrollTop < lastScrollTop) {
-      toggleToolbar(true);
-    }
-
-    lastScrollTop = currentScrollTop;
-  });
-
-  // 滚动到顶部时确保toolbar可见
-  contentArea.addEventListener('scroll', () => {
-    if (window.innerWidth <= 768 && contentArea.scrollTop <= 50) {
-      toggleToolbar(true);
-    }
+    const curr = contentArea.scrollTop;
+    if (curr > last && curr > 50) toggle(false);
+    else if (curr < last) toggle(true);
+    last = curr;
+    if (window.innerWidth <= 768 && contentArea.scrollTop <= 20) toggle(true);
+  };
+  contentArea.addEventListener("scroll", rafThrottle(onScroll), {
+    passive: true,
   });
 })();
-
-// ========== 响应式处理 ==========
-window.addEventListener("resize", () => {
-  const sidebar = document.getElementById("sidebar");
-  if (window.innerWidth <= 768) {
-    // 移动端：确保侧边栏是固定定位
-    sidebar.style.position = "fixed";
-  } else {
-    // 桌面端：恢复正常定位
-    sidebar.style.position = "";
-  }
-});

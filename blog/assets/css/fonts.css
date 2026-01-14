@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "code";
+  src: url("../fonts/Recursive.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "hm";
+  src: url("../fonts/hm-m.woff2") format("woff2");
+}

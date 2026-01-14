@@ -68,12 +68,14 @@
 }
 
 .markdown-content blockquote {
-  border-left: 4px solid hsl(35.4, 24.8%, 44.3%);
+  border-left: 4px solid hsl(var(--primary));
   padding-left: 1.5rem;
   margin: 2rem 0;
+  font-style: italic;
   color: hsl(var(--muted-foreground));
   background: hsl(var(--card));
   padding: 1.5rem;
+  border-radius: calc(var(--radius) - 4px);
 }
 
 /* ---------- 内联代码 ---------- */
@@ -89,7 +91,7 @@
 .markdown-content :not(pre) > code {
   font-family: "code", "hm", Consolas, Monaco, monospace;
   font-size: 0.9em;
-  background: var(--inline-code-background);
+  background: var(--card);
   color: var(--card-foreground);
   padding: 0.15em 0.4em;
   border-radius: 6px;
@@ -104,11 +106,11 @@
   background: var(--card);
   color: var(--card-foreground);
   border-radius: 0.5rem;
-  padding: 0.5rem 0.5rem;
+  padding: 1rem 1rem;
   margin: 1.5rem 0;
   overflow-x: auto;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  border: 2px solid hsl(var(--border) / 0.3);
+  border: 2px solid hsl(var(--primary) / 0.3);
 }
 
 /* ---------- 代码语言标签 ---------- */
@@ -175,12 +177,11 @@
 }
 
 .markdown-content mark {
-  background-color: hsl(var(--highlight));
-  color: hsl(var(--foreground));
+  background-color: hsl(var(--yellow-light));
+  color: hsl(var(--yellow-dark));
   padding: 0.1em 0.3em;
   border-radius: 0.2em;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin: auto 0.2em;
 }
 
 .markdown-content img {
