@@ -1,3 +1,18 @@
+/* CSS 重置和规范化 */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 /* CSS 变量 */
 :root {
   --bg-start: #0f1724;
@@ -9,10 +24,6 @@
   --card-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
   --radius: 18px;
   --max-width: 980px;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 html,
@@ -30,6 +41,8 @@ body {
     -apple-system,
     "Segoe UI",
     Roboto,
+    "Helvetica Neue",
+    Arial,
     sans-serif;
   background:
     radial-gradient(
@@ -94,6 +107,7 @@ body {
   align-items: center;
   gap: 40px;
   box-shadow: var(--card-shadow);
+  -webkit-backdrop-filter: blur(4px) saturate(1.05);
   backdrop-filter: blur(4px) saturate(1.05);
   border: 1px solid rgba(255, 255, 255, 0.04);
 }
@@ -207,7 +221,7 @@ body {
   font-family: "code", "hm";
   font-size: 16px;
   padding: 12px 22px;
-  border-radius: 1.3cap;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.06);
@@ -348,6 +362,10 @@ footer {
 
   .actions {
     justify-content: center;
+  }
+
+  .btn::after {
+    display: none;
   }
 }
 

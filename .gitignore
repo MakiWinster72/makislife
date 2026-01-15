@@ -2,27 +2,6 @@
 GEMINI.md
 /tmp/
 
-# Node / npm
-vitepress/node_modules/
-vitepress/npm-debug.log*
-vitepress/yarn-debug.log*
-vitepress/yarn-error.log*
-vitepress/pnpm-debug.log*
-
-# VitePress build output & cache
-vitepress/.vitepress/dist/
-vitepress/.vitepress/cache/
-vitepress/docs/.obsidian/
-vitepress/docs/.trash/
-
-# Env files
-vitepress/.env
-vitepress/.env.*
-
-# Logs
-vitepress/logs/
-vitepress/*.log
-
 # OS / Editor（不限定路径也可以）
 .DS_Store
 Thumbs.db
