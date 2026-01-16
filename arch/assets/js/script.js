@@ -374,8 +374,7 @@ class ArticleTree {
     if (!headings.length) return hideTOC();
 
     tocSidebar && tocSidebar.classList.remove("hidden");
-    if (tocToggleBtn)
-      tocToggleBtn.style.display = window.innerWidth <= 768 ? "flex" : "none";
+    if (tocToggleBtn) tocToggleBtn.style.display = "flex";
 
     const html = headings
       .map((h) => {
@@ -628,9 +627,14 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // 绑定 TOC 切换按钮
-  $id("tocToggleBtn")?.addEventListener("click", () =>
-    $id("tocSidebar")?.classList.toggle("show"),
-  );
+  $id("tocToggleBtn")?.addEventListener("click", () => {
+    const toc = $id("tocSidebar");
+    if (window.innerWidth <= 768) {
+      toc?.classList.toggle("show");
+    } else {
+      toc?.classList.toggle("hidden");
+    }
+  });
 
   // 点击外部收起 TOC
   document.addEventListener(
@@ -639,22 +643,22 @@ document.addEventListener("DOMContentLoaded", () => {
       const toc = $id("tocSidebar"),
         btn = $id("tocToggleBtn");
       if (
-        window.innerWidth <= 1200 &&
         toc &&
         !toc.contains(e.target) &&
-        !btn?.contains(e.target) &&
-        toc.classList.contains("show")
-      )
-        toc.classList.remove("show");
+        !btn?.contains(e.target)
+      ) {
+        if (window.innerWidth <= 768) {
+          if (toc.classList.contains("show")) toc.classList.remove("show");
+        } else {
+          if (!toc.classList.contains("hidden")) toc.classList.add("hidden");
+        }
+      }
     },
     { passive: true },
   );
 
   // 响应式与 resize 优化
   const onResize = debounce(() => {
-    const tocBtn = $id("tocToggleBtn");
-    if (tocBtn)
-      tocBtn.style.display = window.innerWidth <= 768 ? "flex" : "none";
     const sidebar = $id("sidebar");
     if (sidebar)
       sidebar.style.position = window.innerWidth <= 768 ? "fixed" : "";

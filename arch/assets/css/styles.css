@@ -107,13 +107,15 @@ body {
   flex-direction: column;
 }
 
-/* ========== 顶部工具栏 ========== */
+/* ========== 底部工具栏 ========== */
 .toolbar {
   height: 48px;
   position: fixed;
-  top: 20px;
-  left: calc(300px + 20px);
-  right: 20px;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 33%;
+  min-width: 300px;
   background: rgba(var(--bg-secondary-rgb), 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -130,12 +132,14 @@ body {
     background 0.3s ease,
     border-color 0.3s ease,
     box-shadow 0.3s ease,
-    transform 0.3s ease,
-    left 0.3s ease;
+    transform 0.3s ease;
 }
 
-body.sidebar-collapsed .toolbar {
-  left: 20px;
+@media (min-width: 769px) {
+  .toolbar:hover {
+    transform: translateX(-50%) scale(1.02);
+    box-shadow: var(--shadow-lg);
+  }
 }
 
 .toolbar-left,
@@ -167,15 +171,6 @@ body.sidebar-collapsed .toolbar {
 .sidebar-toggle svg {
   width: 20px;
   height: 20px;
-}
-
-.site-title {
-  font-size: 18px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-primary);
 }
 
 .logo-icon {
@@ -259,9 +254,9 @@ body.sidebar-collapsed .toolbar {
   flex: 1;
   position: relative;
   margin-left: 300px;
-  padding-top: calc(
+  padding-bottom: calc(
     48px + 20px + 20px
-  ); /* Toolbar height + top offset + spacing */
+  ); /* Toolbar height + bottom offset + spacing */
   transition: margin-left 0.3s ease;
 }
 
@@ -618,27 +613,23 @@ body.sidebar-collapsed .main-container {
   transition: all 0.2s ease !important;
 }
 .toc-toggle-btn {
-  width: 32px;
   height: 32px;
   background: transparent;
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
   border-radius: 4px;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0 8px;
+  font-size: 14px;
   transition: var(--transition);
 }
 
 .toc-toggle-btn:hover {
   background: var(--bg-hover);
   color: var(--text-primary);
-}
-
-.toc-toggle-btn svg {
-  width: 18px;
-  height: 18px;
 }
 
 /* 移动端：TOC 可通过按钮访问 */
@@ -649,36 +640,6 @@ body.sidebar-collapsed .main-container {
 
   .toc-sidebar.show {
     right: 20px;
-  }
-
-  .toc-toggle-btn {
-    position: fixed;
-    right: 16px;
-    bottom: 16px;
-    z-index: 100;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 8px 16px;
-    min-height: 36px;
-
-    width: auto;
-    white-space: nowrap;
-    writing-mode: horizontal-tb;
-
-    font-size: 14px;
-    line-height: 1;
-
-    background: rgba(var(--bg-sidebar-rgb), 0.7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    box-shadow: var(--shadow-lg);
-
-    cursor: pointer;
   }
 }
 
@@ -1184,10 +1145,10 @@ body.sidebar-collapsed .main-container {
   .toolbar {
     left: 20px;
     right: 20px;
-    top: 20px;
+    bottom: 20px;
     width: calc(100% - 40px); /* Full width minus 20px on each side */
+    transform: none;
     z-index: 999; /* Below sidebar */
-    border-bottom: none; /* Remove previous border-bottom */
     border: 1px solid rgba(var(--border-color-rgb), 0.3); /* Add consistent border */
     border-radius: 12px; /* Ensure rounded corners */
     box-shadow: var(--shadow-md); /* Consistent shadow */
@@ -1198,12 +1159,8 @@ body.sidebar-collapsed .main-container {
 
   .toolbar.hidden {
     transform: translateY(
-      calc(-100% - 20px)
-    ); /* Move out of view including the top offset */
-  }
-
-  .site-title span {
-    display: none;
+      calc(100% + 20px)
+    ); /* Move out of view including the bottom offset */
   }
 
   /* Adjust sidebar for mobile */
@@ -1297,12 +1254,5 @@ body.sidebar-collapsed .main-container {
 
   .welcome-stats {
     gap: 20px;
-  }
-}
-
-/* Hide TOC toggle button on desktop */
-@media (min-width: 769px) {
-  .toc-toggle-btn {
-    display: none !important;
   }
 }
