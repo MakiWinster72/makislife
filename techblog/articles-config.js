@@ -12,7 +12,7 @@ const articlesConfig = {
     {
       type: "folder",
       id: "tech",
-      title: "Windows",
+      title: "📁Windows",
       children: [
         {
           type: "article",
@@ -24,29 +24,12 @@ const articlesConfig = {
           tags: ["Mysql", "Windows"],
           contentFile: "./articles/windows/mysql80.md",
         },
-        // {
-        //   type: "folder",
-        //   id: "backend",
-        //   title: "📁 后端开发",
-        //   children: [
-        //     {
-        //       type: "article",
-        //       id: "backend-1",
-        //       title: "Node.js 性能优化",
-        //       icon: "🟢",
-        //       date: "2025-02-10",
-        //       readingTime: "10 分钟",
-        //       tags: ["Node.js", "性能优化"],
-        //       contentFile: "articles/tech/backend/nodejs.md",
-        //     },
-        //   ],
-        // },
       ],
     },
     {
       type: "folder",
       id: "thinking",
-      title: "💭 Tools",
+      title: "📁 Tools",
       children: [
         {
           type: "article",
@@ -67,6 +50,23 @@ const articlesConfig = {
           readingTime: "2 分钟",
           tags: ["工具"],
           contentFile: "./articles/tools/smartInput.md",
+        },
+      ],
+    },
+    {
+      type: "folder",
+      id: "guide",
+      title: "💭 方案",
+      children: [
+        {
+          type: "article",
+          id: "guide-1",
+          title: "部署SSL和Nginx",
+          icon: "",
+          date: "2025-09-17",
+          readingTime: "8 分钟",
+          tags: ["教程"],
+          contentFile: "./articles/guide/deploy_ssl_nginx.md",
         },
       ],
     },
