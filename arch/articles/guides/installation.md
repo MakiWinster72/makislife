@@ -6,11 +6,11 @@
 
 > 确认网络正常连接后，在安装环境的终端中运行：
 
-运行后根据设备和网速，稍等片刻，会进入 `archinstall` 向导。 ![](https://img.makis-life.cn/images/20260109114135715.png)
+运行后根据设备和网速，稍等片刻，会进入 `archinstall` 向导。 ![](https://img.makis-life.cn/images/20260109114135715.png?x-oss-process=style/yasuo)
 
 > 用旧电脑等了超久...但整体来说也比手动安装快很多了，对小白来说也更安全。
 
-![](https://img.makis-life.cn/images/20260109114135716.png) 按照提示选择区域、分区与安装选项。根据你的网络与系统环境，某些步骤可能需要等待下载和检测。
+![](https://img.makis-life.cn/images/20260109114135716.png?x-oss-process=style/yasuo) 按照提示选择区域、分区与安装选项。根据你的网络与系统环境，某些步骤可能需要等待下载和检测。
 
 安装向导界面**支持使用 vim 键**位进行移动，也可以使用方向键选择并确认。按下空格选择，Enter 确认。
 
@@ -24,27 +24,27 @@
 
 ### Mirrors and repositories
 
-选择 `Select regions`，按下 Enter，找到 `China` 按空格选择，按 Enter 确认 ![image.png](https://img.makis-life.cn/images/20260111055436298.png)
+选择 `Select regions`，按下 Enter，找到 `China` 按空格选择，按 Enter 确认 ![image.png](https://img.makis-life.cn/images/20260111055436298.png?x-oss-process=style/yasuo)
 
 ### Disk Configuration
 
-![](https://img.makis-life.cn/images/20260109114135719.png)
+![](https://img.makis-life.cn/images/20260109114135719.png?x-oss-process=style/yasuo)
 
-如果硬盘单独安装 Arch，那选择第一个就可以，注意分辨好是哪个硬盘。 选择 `btrfs` 或者 `exf4` 都可以，home 目录不必分单独分区，方便后续管理。 ![image.png](https://img.makis-life.cn/images/20260111062142733.png) 我这里是虚拟机，分了两个虚拟硬盘。
+如果硬盘单独安装 Arch，那选择第一个就可以，注意分辨好是哪个硬盘。 选择 `btrfs` 或者 `exf4` 都可以，home 目录不必分单独分区，方便后续管理。 ![image.png](https://img.makis-life.cn/images/20260111062142733.png?x-oss-process=style/yasuo) 我这里是虚拟机，分了两个虚拟硬盘。
 
 如果要在一个硬盘中安装**多系统**，比如 Win + Linux，那么需要选择第二个：手动分区。
 
-![image.png](https://img.makis-life.cn/images/20260111062240949.png) 选中硬盘后，这里是问你分配的存储大小，直接回车就是整个分区大小。如果没有单独 EFI 分区，那么应该留下部分空间给它。（既然之前安装有 windows，那应该已经有了，在后续把该分区挂载到/boot 即可）
+![image.png](https://img.makis-life.cn/images/20260111062240949.png?x-oss-process=style/yasuo) 选中硬盘后，这里是问你分配的存储大小，直接回车就是整个分区大小。如果没有单独 EFI 分区，那么应该留下部分空间给它。（既然之前安装有 windows，那应该已经有了，在后续把该分区挂载到/boot 即可）
 
-![image.png](https://img.makis-life.cn/images/20260111062339592.png)
+![image.png](https://img.makis-life.cn/images/20260111062339592.png?x-oss-process=style/yasuo)
 
 同上，选择 `btrfs` 或 `ext4`
 
-![image.png](https://img.makis-life.cn/images/20260111062404305.png)
+![image.png](https://img.makis-life.cn/images/20260111062404305.png?x-oss-process=style/yasuo)
 
 这里是告诉 archinstall 你要挂载到哪里，比如目前我正在处理这个“50GB”的空闲分区，我分配了 49GB 给根目录，1GB 给 EFI。那么我现在先把这个挂载到`/`，后面再创建 EFI 分区的时候把它挂载到`/boot`。
 
-![image.png](https://img.makis-life.cn/images/20260111062757028.png)
+![image.png](https://img.makis-life.cn/images/20260111062757028.png?x-oss-process=style/yasuo)
 
 ### Bootloader
 
@@ -56,29 +56,29 @@
 
 ### Authentication
 
-设置好 root 用户密码，然后添加一个普通用户，在选择添加为 `sudo group` 的时候选择 `yes` ![](https://img.makis-life.cn/images/20260109114135720.png)
+设置好 root 用户密码，然后添加一个普通用户，在选择添加为 `sudo group` 的时候选择 `yes` ![](https://img.makis-life.cn/images/20260109114135720.png?x-oss-process=style/yasuo)
 ==Confirm and exit==
 
 ### profile
 
-![](https://img.makis-life.cn/images/20260109114135721.png)
+![](https://img.makis-life.cn/images/20260109114135721.png?x-oss-process=style/yasuo)
 如果要手动安装 Window Manager 的，建议选择 `Minimal`，最小化安装。
 
-![](https://img.makis-life.cn/images/20260109114135722.png)
+![](https://img.makis-life.cn/images/20260109114135722.png?x-oss-process=style/yasuo)
 
 在 Desktop 下有非常多的界面可以选择，发现居然也有 `Hyprland` 和 `niri`（两个我比较喜欢的 wm） 不过依然会预装小部分的软件，如果喜欢干干净净的（强迫症）用户~我~，还是自己安装 wm 比较好。启动后只进入 tty，然后手动启动 session。
 
-![image.png](https://img.makis-life.cn/images/20260111060717110.png)
+![image.png](https://img.makis-life.cn/images/20260111060717110.png?x-oss-process=style/yasuo)
 
 这个选择 `seatd` 即可，具体区别可以查资料和 ai
 
 选择好后，还需要选择一个登录管理器（greeter），最精简的可以选择 `sddm`
 
 > 如果上述选择了`minimal`，则没有该选项
-> ![image.png](https://img.makis-life.cn/images/20260111060938854.png)
+> ![image.png](https://img.makis-life.cn/images/20260111060938854.png?x-oss-process=style/yasuo)
 
 1. Applications 按需安装蓝牙，声音，电源等功能
-    ![image.png](https://img.makis-life.cn/images/20260111063327740.png)
+   ![image.png](https://img.makis-life.cn/images/20260111063327740.png?x-oss-process=style/yasuo)
 
 > [!note] `power‑profiles‑daemon` 和 `tuned` 的区别 From ChatGPT
 > 在 **archinstall** 里选择电源管理时，`power‑profiles‑daemon` 和 `tuned` 的区别主要在于它们的复杂度和定制能力：
@@ -96,16 +96,16 @@
 1. Kernels 保持默认
 
 2. Network configuration 如果无特殊意外选择 `Network Manager`
-    ![image.png](https://img.makis-life.cn/images/20260111063351276.png)
+   ![image.png](https://img.makis-life.cn/images/20260111063351276.png?x-oss-process=style/yasuo)
 
 3. Timezone 选择 UTC+8 这里没有北京～，选择上海，==可以搭配 vim 搜索==
 
 接下来就可以 Enter Install 确认安装啦！
-![image.png](https://img.makis-life.cn/images/20260111063655588.png)
+![image.png](https://img.makis-life.cn/images/20260111063655588.png?x-oss-process=style/yasuo)
 
 > 开始了开始了，Arch 奴(
 
-![image.png](https://img.makis-life.cn/images/20260111065623089.png)
+![image.png](https://img.makis-life.cn/images/20260111065623089.png?x-oss-process=style/yasuo)
 
 安装好后，会询问你是否重启，重启即可进入崭新的 Arch！
 

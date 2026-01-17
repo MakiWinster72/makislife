@@ -52,15 +52,15 @@
 
 制作好启动盘后，启动 U 盘，进入选择 Arch 的 ISO，会进入如下界面：选择第一个
 
-![](https://img.makis-life.cn/images/20260109114308583.png)
+![](https://img.makis-life.cn/images/20260109114308583.png?x-oss-process=style/yasuo)
 
 等待进入如下界面
 
-![](https://img.makis-life.cn/images/20260109114308584.png)
+![](https://img.makis-life.cn/images/20260109114308584.png?x-oss-process=style/yasuo)
 
 ### （可选）调整字体
 
-![](https://img.makis-life.cn/images/20260109114308586.png)
+![](https://img.makis-life.cn/images/20260109114308586.png?x-oss-process=style/yasuo)
 
 > 舒服多了
 

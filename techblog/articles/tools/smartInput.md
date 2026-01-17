@@ -4,7 +4,7 @@
 
 在多语言输入的时代，输入法的状态管理显得尤为重要。ImTip是一款免费的开源软件，仅占696 KB，作为单文件绿色软件，无需任何外部依赖，兼容从Windows XP到Windows 11等所有主流桌面操作系统。它通过在输入光标处显示两个简单图标，让用户实时了解中英文状态、标点符号、全半角切换、大小写及多语言键盘布局，确保输入无误，避免误操作。
 
-![](https://aly-images472.oss-cn-guangzhou.aliyuncs.com/images/screenshots.gif)
+![](https://aly-images472.oss-cn-guangzhou.aliyuncs.com/images/screenshots.gif?x-oss-process=style/yasuo)
 
 ## 软件特点
 
