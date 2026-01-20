@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>七日代码使用统计</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --yellow: #f8c224;
+        --cucumber: #88a860;
+        --red: #cb392e;
+        --sycamore: #a2903c;
+        --cocoa: #282018;
+        --light-bg: #fffef9;
+        --gradient-main: linear-gradient(135deg, #cb392e 0%, #a2903c 100%);
+        --gradient-accent: linear-gradient(135deg, #88a860 0%, #a2903c 100%);
+      }
+
+      body {
+        font-family: "IBM Plex Sans", sans-serif;
+        background: var(--light-bg);
+        color: var(--cocoa);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+      }
+
+      /* Header */
+      .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        animation: fadeInDown 0.8s ease-out;
+      }
+
+      @keyframes fadeInDown {
+        from {
+          opacity: 0;
+          transform: translateY(-30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .header h1 {
+        font-family: "Playfair Display", serif;
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 900;
+        background: var(--gradient-main);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      /* Loading */
+      .loading {
+        text-align: center;
+        padding: 4rem 2rem;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(203, 57, 46, 0.2);
+        border-top-color: var(--red);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 1.5rem;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Summary Section */
+      .summary {
+        background: white;
+        border-radius: 20px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 12px rgba(40, 32, 24, 0.08);
+        animation: fadeIn 0.8s ease-out;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .summary-item {
+        text-align: center;
+      }
+
+      .summary-label {
+        font-size: 0.875rem;
+        color: var(--sycamore);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .summary-value {
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 700;
+        font-family: "JetBrains Mono", monospace;
+        color: var(--red);
+        line-height: 1.2;
+      }
+
+      .summary-subtitle {
+        font-size: 0.875rem;
+        color: var(--cocoa);
+        margin-top: 0.25rem;
+        opacity: 0.7;
+      }
+
+      .summary-text {
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--cocoa);
+        padding: 1.5rem;
+        background: linear-gradient(
+          135deg,
+          rgba(136, 168, 96, 0.1),
+          rgba(162, 144, 60, 0.1)
+        );
+        border-radius: 12px;
+        border-left: 4px solid var(--cucumber);
+      }
+
+      .summary-text strong {
+        color: var(--red);
+        font-weight: 600;
+      }
+
+      /* Charts Section */
+      .charts-container {
+        display: grid;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .chart-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+      }
+
+      .chart-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 2px 12px rgba(40, 32, 24, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .chart-card:hover {
+        box-shadow: 0 8px 24px rgba(40, 32, 24, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .chart-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--cocoa);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .chart-title::before {
+        content: "";
+        width: 4px;
+        height: 20px;
+        background: var(--gradient-main);
+        border-radius: 2px;
+      }
+
+      .chart-wrapper {
+        position: relative;
+        height: 300px;
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .chart-wrapper canvas {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: var(--sycamore);
+        font-size: 0.875rem;
+        border-top: 1px solid rgba(40, 32, 24, 0.1);
+        margin-top: 3rem;
+      }
+
+      .footer-info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 0.75rem;
+      }
+
+      .footer-divider {
+        color: var(--sycamore);
+        opacity: 0.5;
+      }
+
+      /* Animations */
+      .fade-in {
+        animation: fadeIn 0.8s ease-out backwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .fade-in:nth-child(1) {
+        animation-delay: 0.1s;
+      }
+      .fade-in:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .fade-in:nth-child(3) {
+        animation-delay: 0.3s;
+      }
+      .fade-in:nth-child(4) {
+        animation-delay: 0.4s;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          padding: 1.5rem 1rem;
+        }
+
+        .header {
+          margin-bottom: 2rem;
+        }
+
+        .summary {
+          padding: 1.5rem;
+        }
+
+        .summary-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .summary-value {
+          font-size: 2rem;
+        }
+
+        .summary-text {
+          font-size: 1rem;
+          padding: 1.25rem;
+        }
+
+        .chart-row {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .chart-card {
+          padding: 1.5rem;
+          overflow: hidden;
+        }
+
+        .chart-wrapper {
+          height: 250px;
+          max-width: 100%;
+          overflow: hidden;
+        }
+
+        .chart-wrapper canvas {
+          max-width: 100% !important;
+          width: 100% !important;
+        }
+
+        .chart-title {
+          font-size: 1.1rem;
+        }
+
+        .footer {
+          padding: 1.5rem 0.5rem;
+        }
+
+        .footer-info {
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .footer-divider {
+          display: none;
+        }
+
+        .footer-timezone {
+          display: none;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .chart-wrapper {
+          height: 220px;
+        }
+      }
+
+      /* Error State */
+      .error {
+        text-align: center;
+        padding: 3rem 2rem;
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 2px 12px rgba(40, 32, 24, 0.08);
+      }
+
+      .error h2 {
+        color: var(--red);
+        margin-bottom: 1rem;
+      }
+
+      .error p {
+        color: var(--cocoa);
+        opacity: 0.7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>七日代码使用统计</h1>
+      </div>
+
+      <div id="content">
+        <div class="loading">
+          <div class="spinner"></div>
+          <p style="color: var(--sycamore)">正在加载数据...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script>
+      if (typeof Chart === "undefined") {
+        document.write(
+          '<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"><\/script>',
+        );
+      }
+    </script>
+    <script>
+      const CORS_PROXY = "https://corsproxy.io/?";
+      const API_URL =
+        "https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key=waka_6fbabc2c-18a8-40bc-87b0-17ea9abddacb";
+      const PROXIED_URL = CORS_PROXY + encodeURIComponent(API_URL);
+
+      let charts = {};
+
+      async function fetchWakaTimeData() {
+        try {
+          const response = await fetch(PROXIED_URL);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          const result = await response.json();
+          return result.data;
+        } catch (error) {
+          console.error("Error fetching data:", error);
+          const localData = localStorage.getItem("wakatime_data");
+          if (localData) {
+            return JSON.parse(localData);
+          }
+          throw error;
+        }
+      }
+
+      function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        if (hours > 0) {
+          return `${hours}小时${minutes}分钟`;
+        }
+        return `${minutes}分钟`;
+      }
+
+      function createSummary(data) {
+        // 格式化最佳日期
+        const bestDate = new Date(data.best_day.date);
+        const month = bestDate.getMonth() + 1;
+        const day = bestDate.getDate();
+
+        // 解析时间
+        const bestDayText = data.best_day.text;
+
+        return `
+                <div class="summary fade-in">
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <div class="summary-label">七日总码时</div>
+                            <div class="summary-value">${data.human_readable_total.replace(" hrs", "时").replace(" mins", "分").replace("hr", "时").replace("min", "分")}</div>
+                        </div>
+                        
+                        <div class="summary-item">
+                            <div class="summary-label">日均</div>
+                            <div class="summary-value">${data.human_readable_daily_average.replace(" hrs", "时").replace(" mins", "分").replace("hr", "时").replace("min", "分")}</div>
+                            <div class="summary-subtitle">${data.days_minus_holidays}个工作日</div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-text">
+                        七天内共有<strong>${data.days_minus_holidays}</strong>天在写代码，一共使用过<strong>${data.languages.length}</strong>种语言。其中时间最长的一天是<strong>${month}月${day}日</strong>，总共写了整整<strong>${bestDayText.replace(" hrs", "时").replace(" mins", "分").replace("hr", "时").replace("min", "分")}</strong>！！
+                    </div>
+                </div>
+            `;
+      }
+
+      function createCharts(data) {
+        return `
+                <div class="charts-container">
+                    <div class="chart-row fade-in">
+                        <div class="chart-card">
+                            <div class="chart-title">语言分布</div>
+                            <div class="chart-wrapper">
+                                <canvas id="languageChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <div class="chart-title">项目分布</div>
+                            <div class="chart-wrapper">
+                                <canvas id="projectChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-row fade-in">
+                        <div class="chart-card">
+                            <div class="chart-title">主机和操作系统</div>
+                            <div class="chart-wrapper">
+                                <canvas id="osChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <div class="chart-title">编辑器</div>
+                            <div class="chart-wrapper">
+                                <canvas id="editorChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+      }
+
+      function initializeCharts(data) {
+        if (typeof Chart === "undefined") {
+          console.error("Chart.js not loaded");
+          return;
+        }
+
+        const colors = [
+          "rgba(203, 57, 46, 0.8)",
+          "rgba(136, 168, 96, 0.8)",
+          "rgba(162, 144, 60, 0.8)",
+          "rgba(248, 194, 36, 0.8)",
+          "rgba(203, 57, 46, 0.6)",
+          "rgba(136, 168, 96, 0.6)",
+          "rgba(162, 144, 60, 0.6)",
+          "rgba(248, 194, 36, 0.6)",
+        ];
+
+        const commonOptions = {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "right",
+              labels: {
+                color: "#282018",
+                font: {
+                  size: 11,
+                  family: "'IBM Plex Sans', sans-serif",
+                },
+                padding: 12,
+                usePointStyle: true,
+                pointStyle: "circle",
+              },
+            },
+            tooltip: {
+              backgroundColor: "rgba(40, 32, 24, 0.95)",
+              titleColor: "#F8C224",
+              bodyColor: "#FFFEF9",
+              padding: 12,
+              cornerRadius: 8,
+              titleFont: {
+                size: 13,
+                weight: "600",
+              },
+              bodyFont: {
+                size: 12,
+              },
+              callbacks: {
+                label: function (context) {
+                  const label = context.label || "";
+                  const value = context.parsed || context.parsed.y || 0;
+                  const dataset = context.dataset;
+
+                  // 对于语言、操作系统等饼图/甜甜圈图
+                  if (
+                    context.chart.config.type === "doughnut" ||
+                    context.chart.config.type === "pie"
+                  ) {
+                    const dataIndex = context.dataIndex;
+                    let timeText = "";
+                    let percent = 0;
+
+                    // 根据图表ID获取对应数据
+                    if (
+                      context.chart.canvas.id === "languageChart" &&
+                      data.languages[dataIndex]
+                    ) {
+                      timeText = data.languages[dataIndex].text;
+                      percent = data.languages[dataIndex].percent;
+                    } else if (
+                      context.chart.canvas.id === "osChart" &&
+                      data.operating_systems[dataIndex]
+                    ) {
+                      timeText = data.operating_systems[dataIndex].text;
+                      percent = data.operating_systems[dataIndex].percent;
+                    }
+
+                    return `${label}: ${timeText} (${percent.toFixed(1)}%)`;
+                  }
+
+                  // 对于柱状图
+                  return `${label}: ${value.toFixed(1)}小时`;
+                },
+              },
+            },
+          },
+        };
+
+        // Language Chart - 甜甜圈图
+        if (data.languages && data.languages.length > 0) {
+          const ctx = document.getElementById("languageChart");
+          if (ctx) {
+            charts.language = new Chart(ctx, {
+              type: "doughnut",
+              data: {
+                labels: data.languages.slice(0, 8).map((l) => l.name),
+                datasets: [
+                  {
+                    data: data.languages.slice(0, 8).map((l) => l.percent),
+                    backgroundColor: colors,
+                    borderWidth: 0,
+                    hoverOffset: 10,
+                  },
+                ],
+              },
+              options: {
+                ...commonOptions,
+                cutout: "65%",
+              },
+            });
+          }
+        }
+
+        // Project Chart - 柱状图
+        if (data.projects && data.projects.length > 0) {
+          const ctx = document.getElementById("projectChart");
+          if (ctx) {
+            charts.project = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: data.projects.slice(0, 8).map((p) => p.name),
+                datasets: [
+                  {
+                    label: "小时",
+                    data: data.projects.slice(0, 8).map((p) => p.decimal),
+                    backgroundColor: "rgba(203, 57, 46, 0.7)",
+                    borderColor: "rgba(203, 57, 46, 1)",
+                    borderWidth: 0,
+                    borderRadius: 8,
+                    hoverBackgroundColor: "rgba(203, 57, 46, 0.9)",
+                  },
+                ],
+              },
+              options: {
+                ...commonOptions,
+                plugins: {
+                  ...commonOptions.plugins,
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true,
+                    grid: {
+                      color: "rgba(40, 32, 24, 0.05)",
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: {
+                        size: 11,
+                      },
+                    },
+                  },
+                  x: {
+                    grid: {
+                      display: false,
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: {
+                        size: 11,
+                      },
+                    },
+                  },
+                },
+              },
+            });
+          }
+        }
+
+        // OS Chart - 饼图
+        if (data.operating_systems && data.operating_systems.length > 0) {
+          const ctx = document.getElementById("osChart");
+          if (ctx) {
+            charts.os = new Chart(ctx, {
+              type: "pie",
+              data: {
+                labels: data.operating_systems.map((os) => os.name),
+                datasets: [
+                  {
+                    data: data.operating_systems.map((os) => os.percent),
+                    backgroundColor: colors,
+                    borderWidth: 0,
+                    hoverOffset: 10,
+                  },
+                ],
+              },
+              options: commonOptions,
+            });
+          }
+        }
+
+        // Editor Chart - 横向柱状图
+        if (data.editors && data.editors.length > 0) {
+          const ctx = document.getElementById("editorChart");
+          if (ctx) {
+            charts.editor = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: data.editors.map((e) => e.name),
+                datasets: [
+                  {
+                    label: "小时",
+                    data: data.editors.map((e) => e.decimal),
+                    backgroundColor: "rgba(136, 168, 96, 0.7)",
+                    borderColor: "rgba(136, 168, 96, 1)",
+                    borderWidth: 0,
+                    borderRadius: 8,
+                    hoverBackgroundColor: "rgba(136, 168, 96, 0.9)",
+                  },
+                ],
+              },
+              options: {
+                ...commonOptions,
+                indexAxis: "y",
+                plugins: {
+                  ...commonOptions.plugins,
+                  legend: {
+                    display: false,
+                  },
+                },
+                scales: {
+                  x: {
+                    beginAtZero: true,
+                    grid: {
+                      color: "rgba(40, 32, 24, 0.05)",
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: {
+                        size: 11,
+                      },
+                    },
+                  },
+                  y: {
+                    grid: {
+                      display: false,
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: {
+                        size: 11,
+                      },
+                    },
+                  },
+                },
+              },
+            });
+          }
+        }
+      }
+
+      function renderDashboard(data) {
+        localStorage.setItem("wakatime_data", JSON.stringify(data));
+
+        // 格式化日期范围
+        const startDate = new Date(data.start);
+        const endDate = new Date(data.end);
+        const formatDate = (date) => {
+          return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+        };
+
+        let html = createSummary(data);
+        html += createCharts(data);
+
+        html += `
+                <div class="footer">
+                    <p>WakaTime 数据统计</p>
+                    <div class="footer-info">
+                        <span>${formatDate(startDate)} ~ ${formatDate(endDate)}</span>
+                        <span class="footer-divider">•</span>
+                        <span>更新：${new Date(data.modified_at).toLocaleString("zh-CN", { month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" })}</span>
+                        <span class="footer-divider footer-timezone">•</span>
+                        <span class="footer-timezone">时区：${data.timezone}</span>
+                    </div>
+                </div>
+            `;
+
+        document.getElementById("content").innerHTML = html;
+
+        setTimeout(() => {
+          initializeCharts(data);
+        }, 300);
+      }
+
+      function showError(message) {
+        document.getElementById("content").innerHTML = `
+                <div class="error">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
+                    <h2>无法加载数据</h2>
+                    <p style="margin-top: 1rem;">${message}</p>
+                    <p style="margin-top: 0.5rem;">请检查API密钥或稍后重试</p>
+                </div>
+            `;
+      }
+
+      async function init() {
+        let attempts = 0;
+        const maxAttempts = 50;
+
+        const waitForChart = () => {
+          return new Promise((resolve) => {
+            const check = () => {
+              attempts++;
+              if (typeof Chart !== "undefined") {
+                console.log("Chart.js loaded successfully");
+                resolve();
+              } else if (attempts < maxAttempts) {
+                setTimeout(check, 100);
+              } else {
+                console.error("Chart.js failed to load");
+                resolve();
+              }
+            };
+            check();
+          });
+        };
+
+        await waitForChart();
+
+        try {
+          const data = await fetchWakaTimeData();
+          renderDashboard(data);
+        } catch (error) {
+          showError(error.message);
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+      } else {
+        init();
+      }
+    </script>
+  </body>
+</html>
