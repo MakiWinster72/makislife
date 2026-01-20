@@ -204,7 +204,21 @@
         height: 300px;
         width: 100%;
         max-width: 100%;
-        overflow: hidden;
+        overflow: visible;
+        padding: 10px;
+      }
+
+      .chart-card {
+        background: white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 2px 12px rgba(40, 32, 24, 0.08);
+        transition: all 0.3s ease;
+      }
+
+      .chart-card:hover {
+        box-shadow: 0 12px 40px rgba(203, 57, 46, 0.2), 0 4px 16px rgba(40, 32, 24, 0.12);
+        transform: translateY(-4px);
       }
 
       .chart-wrapper canvas {
@@ -305,13 +319,14 @@
 
         .chart-card {
           padding: 1.5rem;
-          overflow: hidden;
+          overflow: visible;
         }
 
         .chart-wrapper {
           height: 250px;
           max-width: 100%;
-          overflow: hidden;
+          overflow: visible;
+          padding: 8px;
         }
 
         .chart-wrapper canvas {
@@ -541,21 +556,20 @@
               bodyFont: {
                 size: 12,
               },
-              callbacks: {
+                callbacks: {
                 label: function (context) {
                   const label = context.label || "";
                   const value = context.parsed || context.parsed.y || 0;
                   const dataset = context.dataset;
+                  const dataIndex = context.dataIndex;
+                  let timeText = "";
+                  let percent = 0;
 
                   // 对于语言、操作系统等饼图/甜甜圈图
                   if (
                     context.chart.config.type === "doughnut" ||
                     context.chart.config.type === "pie"
                   ) {
-                    const dataIndex = context.dataIndex;
-                    let timeText = "";
-                    let percent = 0;
-
                     // 根据图表ID获取对应数据
                     if (
                       context.chart.canvas.id === "languageChart" &&
@@ -575,6 +589,18 @@
                   }
 
                   // 对于柱状图
+                  if (context.chart.canvas.id === "projectChart" && data.projects[dataIndex]) {
+                    timeText = data.projects[dataIndex].text;
+                    percent = data.projects[dataIndex].percent;
+                    return `${label}: ${timeText} (${percent.toFixed(1)}%)`;
+                  }
+
+                  if (context.chart.canvas.id === "editorChart" && data.editors[dataIndex]) {
+                    timeText = data.editors[dataIndex].text;
+                    percent = data.editors[dataIndex].percent;
+                    return `${label}: ${timeText} (${percent.toFixed(1)}%)`;
+                  }
+
                   return `${label}: ${value.toFixed(1)}小时`;
                 },
               },
@@ -623,7 +649,9 @@
                     borderColor: "rgba(203, 57, 46, 1)",
                     borderWidth: 0,
                     borderRadius: 8,
-                    hoverBackgroundColor: "rgba(203, 57, 46, 0.9)",
+                    hoverBackgroundColor: "rgba(203, 57, 46, 0.95)",
+                    hoverBorderWidth: 2,
+                    hoverBorderColor: "#CB392E",
                   },
                 ],
               },
@@ -661,6 +689,10 @@
                       },
                     },
                   },
+                },
+                interaction: {
+                  intersect: false,
+                  mode: 'index',
                 },
               },
             });
