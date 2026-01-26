@@ -167,6 +167,12 @@
         gap: 2rem;
       }
 
+      .chart-row-full {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
       .chart-card {
         background: white;
         border-radius: 20px;
@@ -176,7 +182,7 @@
       }
 
       .chart-card:hover {
-        box-shadow: 0 8px 24px rgba(40, 32, 24, 0.12);
+        box-shadow: 0 2px 12px rgba(40, 32, 24, 0.08);
         transform: translateY(-2px);
       }
 
@@ -208,14 +214,6 @@
         padding: 10px;
       }
 
-      .chart-card {
-        background: white;
-        border-radius: 20px;
-        padding: 2rem;
-        box-shadow: 0 2px 12px rgba(40, 32, 24, 0.08);
-        transition: all 0.3s ease;
-      }
-
       .chart-card:hover {
         box-shadow:
           0 12px 40px rgba(203, 57, 46, 0.2),
@@ -226,6 +224,14 @@
       .chart-wrapper canvas {
         max-width: 100% !important;
         height: auto !important;
+      }
+
+      .chart-subtitle {
+        font-size: 0.95rem;
+        color: var(--sycamore);
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-weight: 500;
       }
 
       /* Footer */
@@ -314,7 +320,8 @@
           text-align: left;
         }
 
-        .chart-row {
+        .chart-row,
+        .chart-row-full {
           grid-template-columns: 1fr;
           gap: 1.5rem;
         }
@@ -467,7 +474,7 @@
                     </div>
                     
                     <div class="summary-text">
-                        七天内共有<strong>${data.days_minus_holidays}</strong>天在写代码，一共使用过<strong>${data.languages.length}</strong>种语言。其中时间最长的一天是<strong>${month}月${day}日</strong>，总共写了整整<strong>${bestDayText.replace(" hrs", "时").replace(" mins", "分").replace("hr", "时").replace("min", "分")}</strong>！！
+                        七天内共有<strong>${data.days_minus_holidays}</strong>天在写代码,一共使用过<strong>${data.languages.length}</strong>种语言。其中时间最长的一天是<strong>${month}月${day}日</strong>,总共写了整整<strong>${bestDayText.replace(" hrs", "时").replace(" mins", "分").replace("hr", "时").replace("min", "分")}</strong>！！
                     </div>
                 </div>
             `;
@@ -476,6 +483,7 @@
       function createCharts(data) {
         return `
                 <div class="charts-container">
+                    <!-- 第一行：语言分布、操作系统 -->
                     <div class="chart-row fade-in">
                         <div class="chart-card">
                             <div class="chart-title">语言分布</div>
@@ -485,19 +493,19 @@
                         </div>
                         
                         <div class="chart-card">
-                            <div class="chart-title">项目分布</div>
+                            <div class="chart-title">操作系统</div>
                             <div class="chart-wrapper">
-                                <canvas id="projectChart"></canvas>
+                                <canvas id="osChart"></canvas>
                             </div>
                         </div>
                     </div>
                     
+                    <!-- 第二行：主机、编辑器 -->
                     <div class="chart-row fade-in">
                         <div class="chart-card">
-TODO: 补充主机，现在只有操作系统
-                            <div class="chart-title">主机和操作系统</div>
+                            <div class="chart-title">主机分布</div>
                             <div class="chart-wrapper">
-                                <canvas id="osChart"></canvas>
+                                <canvas id="machineChart"></canvas>
                             </div>
                         </div>
                         
@@ -505,6 +513,16 @@ TODO: 补充主机，现在只有操作系统
                             <div class="chart-title">编辑器</div>
                             <div class="chart-wrapper">
                                 <canvas id="editorChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第三行：项目分布（占满整行） -->
+                    <div class="chart-row-full fade-in">
+                        <div class="chart-card">
+                            <div class="chart-title">项目分布</div>
+                            <div class="chart-wrapper">
+                                <canvas id="projectChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -586,6 +604,12 @@ TODO: 补充主机，现在只有操作系统
                     ) {
                       timeText = data.operating_systems[dataIndex].text;
                       percent = data.operating_systems[dataIndex].percent;
+                    } else if (
+                      context.chart.canvas.id === "machineChart" &&
+                      data.machines[dataIndex]
+                    ) {
+                      timeText = data.machines[dataIndex].text;
+                      percent = data.machines[dataIndex].percent;
                     }
 
                     return `${label}: ${timeText} (${percent.toFixed(1)}%)`;
@@ -607,6 +631,24 @@ TODO: 补充主机，现在只有操作系统
                   ) {
                     timeText = data.editors[dataIndex].text;
                     percent = data.editors[dataIndex].percent;
+                    return `${label}: ${timeText} (${percent.toFixed(1)}%)`;
+                  }
+
+                  if (
+                    context.chart.canvas.id === "machineChart" &&
+                    data.machines[dataIndex]
+                  ) {
+                    timeText = data.machines[dataIndex].text;
+                    percent = data.machines[dataIndex].percent;
+                    return `${label}: ${timeText} (${percent.toFixed(1)}%)`;
+                  }
+
+                  if (
+                    context.chart.canvas.id === "osChart" &&
+                    data.operating_systems[dataIndex]
+                  ) {
+                    timeText = data.operating_systems[dataIndex].text;
+                    percent = data.operating_systems[dataIndex].percent;
                     return `${label}: ${timeText} (${percent.toFixed(1)}%)`;
                   }
 
@@ -641,18 +683,311 @@ TODO: 补充主机，现在只有操作系统
           }
         }
 
-        // Project Chart - 柱状图
+        // OS Chart - 横向柱状图
+        if (data.operating_systems && data.operating_systems.length > 0) {
+          const ctx = document.getElementById("osChart");
+          if (ctx) {
+            charts.os = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: data.operating_systems.map((os) => os.name),
+                datasets: [
+                  {
+                    data: data.operating_systems.map((os) => os.decimal),
+                    backgroundColor: "rgba(162, 144, 60, 0.7)",
+                    borderWidth: 0,
+                    borderRadius: 8,
+                    hoverBackgroundColor: "rgba(162, 144, 60, 0.9)",
+                  },
+                ],
+              },
+              options: {
+                ...commonOptions,
+                indexAxis: "y",
+                plugins: {
+                  ...commonOptions.plugins,
+                  legend: { display: false },
+                },
+                scales: {
+                  x: {
+                    beginAtZero: true,
+                    grid: {
+                      color: "rgba(40, 32, 24, 0.05)",
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: { size: 11, family: "code" },
+                    },
+                  },
+                  y: {
+                    grid: { display: false },
+                    ticks: {
+                      color: "#A2903C",
+                      font: { size: 11, family: "code" },
+                    },
+                  },
+                },
+              },
+            });
+          }
+        }
+
+        // Machine Chart - 横向柱状图
+        if (data.machines && data.machines.length > 0) {
+          const ctx = document.getElementById("machineChart");
+          if (ctx) {
+            charts.machine = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: data.machines.map((m) => m.name),
+                datasets: [
+                  {
+                    data: data.machines.map((m) => m.decimal),
+                    backgroundColor: "rgba(136, 168, 96, 0.7)",
+                    borderWidth: 0,
+                    borderRadius: 8,
+                    hoverBackgroundColor: "rgba(136, 168, 96, 0.9)",
+                  },
+                ],
+              },
+              options: {
+                ...commonOptions,
+                indexAxis: "y",
+                plugins: {
+                  ...commonOptions.plugins,
+                  legend: { display: false },
+                },
+                scales: {
+                  x: {
+                    beginAtZero: true,
+                    grid: {
+                      color: "rgba(40, 32, 24, 0.05)",
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: { size: 11, family: "code" },
+                    },
+                  },
+                  y: {
+                    grid: { display: false },
+                    ticks: {
+                      color: "#A2903C",
+                      font: { size: 11, family: "code" },
+                    },
+                  },
+                },
+              },
+            });
+          }
+        }
+
+        // Editor Chart - 横向柱状图（带图标）
+        if (data.editors && data.editors.length > 0) {
+          const ctx = document.getElementById("editorChart");
+          if (ctx) {
+            // 编辑器图标映射
+            const getEditorIcon = (editorName) => {
+              const name = editorName.toLowerCase();
+              const iconMap = {
+                obsidian:
+                  "https://obsidian.md/images/obsidian-logo-gradient.svg",
+                neovim: "https://img.makis-life.cn/icon/neovim.svg",
+                vim: "https://img.makis-life.cn/icon/neovim.svg",
+                "vs code":
+                  "https://code.visualstudio.com/assets/branding/code-stable.png",
+                "visual studio code":
+                  "https://code.visualstudio.com/assets/branding/code-stable.png",
+              };
+              return iconMap[name] || null;
+            };
+
+            // 使用代理服务器加载图标
+            const loadIconWithProxy = (url) => {
+              // 对于某些可能有跨域限制的URL，使用代理
+              if (
+                url.includes("code.visualstudio.com") ||
+                url.includes("makis-life.cn")
+              ) {
+                return "https://corsproxy.io/?" + encodeURIComponent(url);
+              }
+              return url;
+            };
+
+            // 预加载所有图标
+            const iconPromises = data.editors.map((editor) => {
+              return new Promise((resolve) => {
+                const iconUrl = getEditorIcon(editor.name);
+                if (iconUrl) {
+                  const img = new Image();
+                  const proxiedUrl = loadIconWithProxy(iconUrl);
+
+                  img.onload = () => {
+                    console.log(`Icon loaded successfully: ${editor.name}`);
+                    resolve({ name: editor.name, img: img, loaded: true });
+                  };
+                  img.onerror = (e) => {
+                    console.error(
+                      `Failed to load icon for ${editor.name}: ${proxiedUrl}`,
+                      e,
+                    );
+                    // 尝试不使用代理再加载一次
+                    const img2 = new Image();
+                    img2.onload = () => {
+                      console.log(
+                        `Icon loaded successfully (without proxy): ${editor.name}`,
+                      );
+                      resolve({ name: editor.name, img: img2, loaded: true });
+                    };
+                    img2.onerror = () => {
+                      console.error(
+                        `Failed to load icon (retry): ${editor.name}`,
+                      );
+                      resolve({ name: editor.name, img: null, loaded: false });
+                    };
+                    img2.src = iconUrl;
+                  };
+                  img.src = proxiedUrl;
+                } else {
+                  resolve({ name: editor.name, img: null, loaded: false });
+                }
+              });
+            });
+
+            Promise.all(iconPromises).then((loadedIcons) => {
+              const iconMap = {};
+              loadedIcons.forEach((item) => {
+                iconMap[item.name] = item.img;
+                if (item.loaded) {
+                  console.log(`Icon ready for chart: ${item.name}`);
+                }
+              });
+
+              charts.editor = new Chart(ctx, {
+                type: "bar",
+                data: {
+                  labels: data.editors.map((e) => e.name),
+                  datasets: [
+                    {
+                      label: "小时",
+                      data: data.editors.map((e) => e.decimal),
+                      backgroundColor: "rgba(136, 168, 96, 0.7)",
+                      borderColor: "rgba(136, 168, 96, 1)",
+                      borderWidth: 0,
+                      borderRadius: 8,
+                      hoverBackgroundColor: "rgba(136, 168, 96, 0.9)",
+                    },
+                  ],
+                },
+                options: {
+                  ...commonOptions,
+                  indexAxis: "y",
+                  layout: {
+                    padding: {
+                      left: 30, // 为图标留出空间
+                    },
+                  },
+                  plugins: {
+                    ...commonOptions.plugins,
+                    legend: {
+                      display: false,
+                    },
+                  },
+                  scales: {
+                    x: {
+                      beginAtZero: true,
+                      grid: {
+                        color: "rgba(40, 32, 24, 0.05)",
+                      },
+                      ticks: {
+                        color: "#A2903C",
+                        font: {
+                          size: 11,
+                          family: "code",
+                        },
+                      },
+                    },
+                    y: {
+                      grid: {
+                        display: false,
+                      },
+                      ticks: {
+                        color: "#A2903C",
+                        font: {
+                          size: 11,
+                          family: "code",
+                        },
+                        padding: 5,
+                      },
+                    },
+                  },
+                },
+                plugins: [
+                  {
+                    id: "customEditorIcons",
+                    afterDatasetsDraw: function (chart) {
+                      const ctx = chart.ctx;
+                      const yScale = chart.scales.y;
+
+                      chart.data.labels.forEach((label, index) => {
+                        const icon = iconMap[label];
+                        if (icon && icon.complete && icon.naturalWidth > 0) {
+                          const y = yScale.getPixelForValue(index);
+                          const iconSize = 18;
+                          // 将图标绘制在标签文字前面
+                          const x = yScale.left - iconSize - 8;
+
+                          try {
+                            ctx.save();
+                            ctx.drawImage(
+                              icon,
+                              x,
+                              y - iconSize / 2,
+                              iconSize,
+                              iconSize,
+                            );
+                            ctx.restore();
+                          } catch (e) {
+                            console.error(
+                              "Error drawing icon for",
+                              label,
+                              ":",
+                              e,
+                            );
+                          }
+                        } else {
+                          if (icon) {
+                            console.warn(`Icon not ready for ${label}:`, {
+                              complete: icon.complete,
+                              naturalWidth: icon.naturalWidth,
+                              src: icon.src,
+                            });
+                          }
+                        }
+                      });
+                    },
+                  },
+                ],
+              });
+            });
+          }
+        }
+
+        // Project Chart - 柱状图（占满整行）
         if (data.projects && data.projects.length > 0) {
           const ctx = document.getElementById("projectChart");
           if (ctx) {
+            const projectCount = 15;
+
             charts.project = new Chart(ctx, {
               type: "bar",
               data: {
-                labels: data.projects.slice(0, 8).map((p) => p.name),
+                labels: data.projects.slice(0, projectCount).map((p) => p.name),
                 datasets: [
                   {
                     label: "小时",
-                    data: data.projects.slice(0, 8).map((p) => p.decimal),
+                    data: data.projects
+                      .slice(0, projectCount)
+                      .map((p) => p.decimal),
                     backgroundColor: "rgba(203, 57, 46, 0.7)",
                     borderColor: "rgba(203, 57, 46, 1)",
                     borderWidth: 0,
@@ -695,94 +1030,14 @@ TODO: 补充主机，现在只有操作系统
                         size: 11,
                         family: "code",
                       },
+                      maxRotation: 45,
+                      minRotation: 45,
                     },
                   },
                 },
                 interaction: {
                   intersect: false,
                   mode: "index",
-                },
-              },
-            });
-          }
-        }
-
-        // OS Chart - 饼图
-        if (data.operating_systems && data.operating_systems.length > 0) {
-          const ctx = document.getElementById("osChart");
-          if (ctx) {
-            charts.os = new Chart(ctx, {
-              type: "pie",
-              data: {
-                labels: data.operating_systems.map((os) => os.name),
-                datasets: [
-                  {
-                    data: data.operating_systems.map((os) => os.percent),
-                    backgroundColor: colors,
-                    borderWidth: 0,
-                  },
-                ],
-              },
-              options: commonOptions,
-            });
-          }
-        }
-
-        // Editor Chart - 横向柱状图
-        if (data.editors && data.editors.length > 0) {
-          const ctx = document.getElementById("editorChart");
-          if (ctx) {
-            charts.editor = new Chart(ctx, {
-              type: "bar",
-              data: {
-                labels: data.editors.map((e) => e.name),
-                datasets: [
-                  {
-                    label: "小时",
-                    data: data.editors.map((e) => e.decimal),
-                    backgroundColor: "rgba(136, 168, 96, 0.7)",
-                    borderColor: "rgba(136, 168, 96, 1)",
-                    borderWidth: 0,
-                    borderRadius: 8,
-                    hoverBackgroundColor: "rgba(136, 168, 96, 0.9)",
-                  },
-                ],
-              },
-              options: {
-                ...commonOptions,
-                indexAxis: "y",
-                plugins: {
-                  ...commonOptions.plugins,
-                  legend: {
-                    display: false,
-                  },
-                },
-                scales: {
-                  x: {
-                    beginAtZero: true,
-                    grid: {
-                      color: "rgba(40, 32, 24, 0.05)",
-                    },
-                    ticks: {
-                      color: "#A2903C",
-                      font: {
-                        size: 11,
-                        family: "code",
-                      },
-                    },
-                  },
-                  y: {
-                    grid: {
-                      display: false,
-                    },
-                    ticks: {
-                      color: "#A2903C",
-                      font: {
-                        size: 11,
-                        family: "code",
-                      },
-                    },
-                  },
                 },
               },
             });
