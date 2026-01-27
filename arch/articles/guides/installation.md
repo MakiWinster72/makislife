@@ -77,8 +77,10 @@
 > 如果上述选择了`minimal`，则没有该选项
 > ![image.png](https://img.makis-life.cn/images/20260111060938854.png?x-oss-process=style/yasuo)
 
-1. Applications 按需安装蓝牙，声音，电源等功能
-   ![image.png](https://img.makis-life.cn/images/20260111063327740.png?x-oss-process=style/yasuo)
+### Applications
+
+按需安装蓝牙，声音，电源等功能
+![image.png](https://img.makis-life.cn/images/20260111063327740.png?x-oss-process=style/yasuo)
 
 > [!note] `power‑profiles‑daemon` 和 `tuned` 的区别 From ChatGPT
 > 在 **archinstall** 里选择电源管理时，`power‑profiles‑daemon` 和 `tuned` 的区别主要在于它们的复杂度和定制能力：
@@ -93,14 +95,22 @@
 > - **更强调性能调优或高级控制**：选 **tuned**。适合对性能或电源管理有更细粒度需求，或想利用多个预定义/自定义配置文件来调优系统。因为它比 PPD 提供更多系统层面的调优。
 > - 如果你不清楚需要什么，可以先用 **power‑profiles‑daemon**，之后根据需求再切换到 **tuned**。
 
-1. Kernels 保持默认
+### Kernels
 
-2. Network configuration 如果无特殊意外选择 `Network Manager`
-   ![image.png](https://img.makis-life.cn/images/20260111063351276.png?x-oss-process=style/yasuo)
+保持默认
 
-3. Timezone 选择 UTC+8 这里没有北京～，选择上海，==可以搭配 vim 搜索==
+### Network configuration
+
+如果无特殊意外选择 `Network Manager(default)`
+
+![image.png](https://img.makis-life.cn/images/20260111063351276.png?x-oss-process=style/yasuo)
+
+### Timezone
+
+选择 UTC+8 这里没有北京～，选择上海，==可以搭配 vim 搜索==
 
 接下来就可以 Enter Install 确认安装啦！
+
 ![image.png](https://img.makis-life.cn/images/20260111063655588.png?x-oss-process=style/yasuo)
 
 > 开始了开始了，Arch 奴(

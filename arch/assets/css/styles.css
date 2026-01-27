@@ -643,7 +643,12 @@ body.sidebar-collapsed .main-container {
   }
 }
 
-/* ========== 欢迎页面 ========== */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .welcome-screen {
   display: flex;
   align-items: center;
@@ -662,6 +667,10 @@ body.sidebar-collapsed .main-container {
   font-size: 80px;
   margin-bottom: 24px;
   animation: float 3s ease-in-out infinite;
+}
+
+.site-title {
+  font-family: code;
 }
 
 @keyframes float {

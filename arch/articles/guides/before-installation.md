@@ -119,5 +119,3 @@ sudo timedatectl set-timezone Asia/Shanghai
 ```
 
 > 现在，你可以输入`timedatectl`查看输出，是否符合当前的时间。
-
-\==> 下一步[ArchInstall](./installation.md)
