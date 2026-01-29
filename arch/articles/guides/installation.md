@@ -127,14 +127,14 @@
 
 设置开机自启并立即启动 networkmanager 服务，即可连接网络：
 
-```
+```bash
 systemctl enable --now NetworkManager # 设置开机自启并立即启动 NetworkManager 服务
 ping www.baidu.com # 测试网络连接
 ```
 
 若为无线连接，则需要在启动  `networkmanager`  后使用  `nmcli`  连接网络：
 
-```
+```bash
 nmcli dev wifi list # 显示附近的 Wi-Fi 网络
 nmcli dev wifi connect "Wi-Fi名（SSID）" password "网络密码" # 连接指定的无线网络
 ```
