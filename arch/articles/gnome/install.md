@@ -8,7 +8,7 @@
 sudo pacman -S gnome
 ```
 
-![](../../assets/2026-01-28-1.png)
+![](https://img.makis-life.cn/imagesNew/2026-01-28-1.png?x-oss-process=style/yasuo)
 
 > 这会安装非常多的软件，包括你很可能用不上的一些地图啊乱七八糟的。
 
