@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>七日代码使用统计</title>
-    <link rel="stylesheet" href="./assets/css/fonts.css" />
+    <title>七日键盘使用统计</title>
+    <link rel="stylesheet" href="../assets/css/fonts.css" />
     <style>
       * {
         margin: 0;
@@ -37,7 +37,6 @@
         padding: 2rem 1.5rem;
       }
 
-      /* Header */
       .header {
         text-align: center;
         margin-bottom: 3rem;
@@ -68,7 +67,6 @@
         line-height: 1.2;
       }
 
-      /* Loading */
       .loading {
         text-align: center;
         padding: 4rem 2rem;
@@ -90,7 +88,6 @@
         }
       }
 
-      /* Summary Section */
       .summary {
         background: white;
         border-radius: 20px;
@@ -108,6 +105,7 @@
       }
 
       .summary-item {
+        font-family: "hm";
         text-align: center;
       }
 
@@ -154,7 +152,6 @@
         font-weight: 600;
       }
 
-      /* Charts Section */
       .charts-container {
         display: grid;
         gap: 2rem;
@@ -234,7 +231,6 @@
         font-weight: 500;
       }
 
-      /* Footer */
       .footer {
         text-align: center;
         padding: 2rem 1rem;
@@ -287,7 +283,6 @@
         animation-delay: 0.4s;
       }
 
-      /* Responsive */
       @media (max-width: 768px) {
         .container {
           padding: 1.5rem 1rem;
@@ -371,7 +366,6 @@
         }
       }
 
-      /* Error State */
       .error {
         text-align: center;
         padding: 3rem 2rem;
@@ -415,28 +409,24 @@
       }
     </script>
     <script>
-      const CORS_PROXY = "https://corsproxy.io/?";
-      const API_URL =
-        "https://wakatime.com/api/v1/users/current/stats/last_7_days?api_key=waka_6ea485f2-4d98-42bf-a5b4-5e76bf8e77ba";
-      const PROXIED_URL = CORS_PROXY + encodeURIComponent(API_URL);
+      const JSON_FILE_PATH = "./wakatime.json";
 
       let charts = {};
 
       async function fetchWakaTimeData() {
         try {
-          const response = await fetch(PROXIED_URL);
+          const response = await fetch(JSON_FILE_PATH);
           if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw new Error(`无法加载JSON文件: ${response.status}`);
           }
           const result = await response.json();
-          return result.data;
+          // 如果JSON文件包含data字段，则使用data，否则直接使用结果
+          return result.data || result;
         } catch (error) {
           console.error("Error fetching data:", error);
-          const localData = localStorage.getItem("wakatime_data");
-          if (localData) {
-            return JSON.parse(localData);
-          }
-          throw error;
+          throw new Error(
+            "无法加载本地数据文件，请确保 wakatime.json 文件存在",
+          );
         }
       }
 
@@ -517,12 +507,22 @@
                         </div>
                     </div>
                     
-                    <!-- 第三行：项目分布（占满整行） -->
+                    <!-- 第三行：项目分布 -->
                     <div class="chart-row-full fade-in">
                         <div class="chart-card">
                             <div class="chart-title">项目分布</div>
                             <div class="chart-wrapper">
                                 <canvas id="projectChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 第四行：网站访问统计 -->
+                    <div class="chart-row-full fade-in">
+                        <div class="chart-card">
+                            <div class="chart-title">网站访问统计</div>
+                            <div class="chart-wrapper">
+                                <canvas id="websiteChart"></canvas>
                             </div>
                         </div>
                     </div>
@@ -586,7 +586,7 @@
                   let timeText = "";
                   let percent = 0;
 
-                  // 对于语言、操作系统等饼图/甜甜圈图
+                  // 饼图/甜甜圈图
                   if (
                     context.chart.config.type === "doughnut" ||
                     context.chart.config.type === "pie"
@@ -971,7 +971,7 @@
           }
         }
 
-        // Project Chart - 柱状图（占满整行）
+        // Project Chart - 柱状图
         if (data.projects && data.projects.length > 0) {
           const ctx = document.getElementById("projectChart");
           if (ctx) {
@@ -1042,11 +1042,257 @@
             });
           }
         }
+
+        // Website Chart - 横向柱状图
+        initializeWebsiteChart();
+      }
+
+      async function initializeWebsiteChart() {
+        try {
+          // 加载 zen.json 数据
+          const response = await fetch("./zen.json");
+          if (!response.ok) {
+            console.warn("无法加载 zen.json 文件");
+            return;
+          }
+          const zenData = await response.json();
+
+          // 按 focus 时间排序
+          zenData.sort((a, b) => b.focus - a.focus);
+
+          // 根据屏幕宽度决定显示数量
+          const isMobile = window.innerWidth <= 768;
+          const displayCount = isMobile ? 6 : 15;
+          const topWebsites = zenData.slice(0, displayCount);
+
+          const ctx = document.getElementById("websiteChart");
+          if (!ctx) return;
+
+          // 获取 favicon 的函数
+          const getFaviconUrl = (host) => {
+            // 移除端口号
+            const cleanHost = host.split(":")[0];
+
+            // 对于 localhost 和 IP 地址，使用默认图标
+            if (cleanHost === "127.0.0.1" || cleanHost === "localhost") {
+              return `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23A2903C"><circle cx="12" cy="12" r="10"/></svg>')}`;
+            }
+
+            // 使用 Google 的 favicon 服务
+            return `https://www.google.com/s2/favicons?domain=${cleanHost}&sz=32`;
+          };
+
+          // 预加载所有 favicon
+          const faviconPromises = topWebsites.map((site) => {
+            return new Promise((resolve) => {
+              const img = new Image();
+              const faviconUrl = getFaviconUrl(site.host);
+
+              img.onload = () => {
+                resolve({ host: site.host, img: img, loaded: true });
+              };
+              img.onerror = () => {
+                // 如果加载失败，使用默认图标
+                const defaultImg = new Image();
+                const defaultIcon = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23A2903C"><circle cx="12" cy="12" r="10"/></svg>')}`;
+                defaultImg.src = defaultIcon;
+                resolve({ host: site.host, img: defaultImg, loaded: true });
+              };
+              img.src = faviconUrl;
+            });
+          });
+
+          Promise.all(faviconPromises).then((loadedFavicons) => {
+            const faviconMap = {};
+            loadedFavicons.forEach((item) => {
+              faviconMap[item.host] = item.img;
+            });
+
+            // 格式化时间（秒转分钟）
+            const formatFocusTime = (seconds) => {
+              const minutes = Math.floor(seconds / 60);
+              if (minutes >= 60) {
+                const hours = Math.floor(minutes / 60);
+                const mins = minutes % 60;
+                return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+              }
+              return `${minutes}m`;
+            };
+
+            charts.website = new Chart(ctx, {
+              type: "bar",
+              data: {
+                labels: topWebsites.map((site) => site.host),
+                datasets: [
+                  {
+                    label: "时间",
+                    data: topWebsites.map((site) => site.focus / 60), // 转换为分钟
+                    backgroundColor: "rgba(248, 194, 36, 0.7)",
+                    borderWidth: 0,
+                    borderRadius: 8,
+                    hoverBackgroundColor: "rgba(248, 194, 36, 0.9)",
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: "y",
+                layout: {
+                  padding: {
+                    left: 30, // 为 favicon 留出空间
+                  },
+                },
+                plugins: {
+                  legend: {
+                    display: false,
+                  },
+                  tooltip: {
+                    backgroundColor: "rgba(40, 32, 24, 0.95)",
+                    titleColor: "#F8C224",
+                    bodyColor: "#FFFEF9",
+                    padding: 12,
+                    cornerRadius: 8,
+                    titleFont: {
+                      size: 13,
+                      weight: "600",
+                    },
+                    bodyFont: {
+                      size: 12,
+                    },
+                    callbacks: {
+                      label: function (context) {
+                        const dataIndex = context.dataIndex;
+                        const site = topWebsites[dataIndex];
+                        const focusTime = formatFocusTime(site.focus);
+                        const visits = site.time;
+                        return [`时间: ${focusTime}`, `访问次数: ${visits}次`];
+                      },
+                    },
+                  },
+                },
+                scales: {
+                  x: {
+                    beginAtZero: true,
+                    grid: {
+                      color: "rgba(40, 32, 24, 0.05)",
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: {
+                        size: 11,
+                        family: "code",
+                      },
+                      callback: function (value) {
+                        // 显示为分钟
+                        return value >= 60
+                          ? `${Math.floor(value / 60)}h`
+                          : `${value}m`;
+                      },
+                    },
+                    title: {
+                      display: true,
+                      text: "时间（分钟）",
+                      color: "#A2903C",
+                      font: {
+                        size: 11,
+                        family: "code",
+                      },
+                    },
+                  },
+                  y: {
+                    grid: {
+                      display: false,
+                    },
+                    ticks: {
+                      color: "#A2903C",
+                      font: {
+                        size: 11,
+                        family: "code",
+                      },
+                      padding: 5,
+                    },
+                  },
+                },
+              },
+              plugins: [
+                {
+                  id: "customWebsiteFavicons",
+                  afterDatasetsDraw: function (chart) {
+                    const ctx = chart.ctx;
+                    const yScale = chart.scales.y;
+
+                    chart.data.labels.forEach((label, index) => {
+                      const favicon = faviconMap[label];
+                      if (
+                        favicon &&
+                        favicon.complete &&
+                        favicon.naturalWidth > 0
+                      ) {
+                        const y = yScale.getPixelForValue(index);
+                        const iconSize = 16;
+                        const x = yScale.left - iconSize - 10;
+
+                        try {
+                          ctx.save();
+                          // 绘制圆形背景
+                          ctx.beginPath();
+                          ctx.arc(
+                            x + iconSize / 2,
+                            y,
+                            iconSize / 2 + 2,
+                            0,
+                            Math.PI * 2,
+                          );
+                          ctx.fillStyle = "rgba(255, 255, 255, 0.9)";
+                          ctx.fill();
+                          ctx.strokeStyle = "rgba(162, 144, 60, 0.2)";
+                          ctx.lineWidth = 1;
+                          ctx.stroke();
+
+                          // 绘制 favicon
+                          ctx.drawImage(
+                            favicon,
+                            x,
+                            y - iconSize / 2,
+                            iconSize,
+                            iconSize,
+                          );
+                          ctx.restore();
+                        } catch (e) {
+                          console.error(
+                            "Error drawing favicon for",
+                            label,
+                            ":",
+                            e,
+                          );
+                        }
+                      }
+                    });
+                  },
+                },
+              ],
+            });
+          });
+
+          // 监听窗口大小变化，重新渲染图表
+          let resizeTimer;
+          window.addEventListener("resize", () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+              const newIsMobile = window.innerWidth <= 768;
+              if (newIsMobile !== isMobile && charts.website) {
+                charts.website.destroy();
+                initializeWebsiteChart();
+              }
+            }, 250);
+          });
+        } catch (error) {
+          console.error("加载网站统计数据失败:", error);
+        }
       }
 
       function renderDashboard(data) {
-        localStorage.setItem("wakatime_data", JSON.stringify(data));
-
         // 格式化日期范围
         const startDate = new Date(data.start);
         const endDate = new Date(data.end);
@@ -1059,7 +1305,7 @@
 
         html += `
                 <div class="footer">
-                    <p>WakaTime 数据统计</p>
+                    <p>WakaTime 数据统计 ✅ 网费很贵！</p>
                     <div class="footer-info">
                         <span>${formatDate(startDate)} ~ ${formatDate(endDate)}</span>
                         <span class="footer-divider">•</span>
@@ -1083,7 +1329,7 @@
                     <div style="font-size: 3rem; margin-bottom: 1rem;">⚠️</div>
                     <h2>无法加载数据</h2>
                     <p style="margin-top: 1rem;">${message}</p>
-                    <p style="margin-top: 0.5rem;">请检查API密钥或稍后重试</p>
+                    <p style="margin-top: 0.5rem;">请检查 wakatime.json 文件是否存在</p>
                 </div>
             `;
       }

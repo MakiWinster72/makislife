@@ -1,0 +1,248 @@
+[
+  {
+    "host": "youtube.com",
+    "date": "20260129",
+    "focus": "4950",
+    "time": 13
+  },
+  {
+    "host": "chatgpt.com",
+    "date": "20260129",
+    "focus": "2535",
+    "time": 26
+  },
+  {
+    "host": "github.com",
+    "date": "20260129",
+    "focus": "843",
+    "time": 30
+  },
+  {
+    "host": "google.com",
+    "date": "20260129",
+    "focus": "792",
+    "time": 21
+  },
+  {
+    "host": "aliyun.com",
+    "date": "20260129",
+    "focus": "442",
+    "time": 12
+  },
+  {
+    "host": "huaweicloud.com",
+    "date": "20260129",
+    "focus": "407",
+    "time": 24
+  },
+  {
+    "host": "zen-browser.app",
+    "date": "20260129",
+    "focus": "384",
+    "time": 25
+  },
+  {
+    "host": "claude.ai",
+    "date": "20260130",
+    "focus": "305",
+    "time": 1
+  },
+  {
+    "host": "coddingtonbear.github.io",
+    "date": "20260130",
+    "focus": "303",
+    "time": 1
+  },
+  {
+    "host": "google.com.hk",
+    "date": "20260129",
+    "focus": "231",
+    "time": 16
+  },
+  {
+    "host": "makis-life.cn",
+    "date": "20260129",
+    "focus": "129",
+    "time": 11
+  },
+  {
+    "host": "shengsuanyun.com",
+    "date": "20260130",
+    "focus": "98",
+    "time": 6
+  },
+  {
+    "host": "wakatime.com",
+    "date": "20260129",
+    "focus": "93",
+    "time": 11
+  },
+  {
+    "host": "live.com",
+    "date": "20260129",
+    "focus": "61",
+    "time": 5
+  },
+  {
+    "host": "geology.com",
+    "date": "20260130",
+    "focus": "60",
+    "time": 1
+  },
+  {
+    "host": "yalter.github.io",
+    "date": "20260130",
+    "focus": "57",
+    "time": 1
+  },
+  {
+    "host": "1ms.run",
+    "date": "20260130",
+    "focus": "49",
+    "time": 5
+  },
+  {
+    "host": "reddit.com",
+    "date": "20260129",
+    "focus": "44",
+    "time": 2
+  },
+  {
+    "host": "huawei.com",
+    "date": "20260129",
+    "focus": "37",
+    "time": 5
+  },
+  {
+    "host": "chagpt.com",
+    "date": "20260129",
+    "focus": "37",
+    "time": 2
+  },
+  {
+    "host": "happyhues.co",
+    "date": "20260130",
+    "focus": "34",
+    "time": 2
+  },
+  {
+    "host": "127.0.0.1:37945",
+    "date": "20260130",
+    "focus": "29",
+    "time": 1
+  },
+  {
+    "host": "search.com",
+    "date": "20260129",
+    "focus": "28",
+    "time": 1
+  },
+  {
+    "host": "google.com.tw",
+    "date": "20260129",
+    "focus": "22",
+    "time": 2
+  },
+  {
+    "host": "warp.dev",
+    "date": "20260129",
+    "focus": "19",
+    "time": 1
+  },
+  {
+    "host": "frankknow.com",
+    "date": "20260130",
+    "focus": "19",
+    "time": 1
+  },
+  {
+    "host": "127.0.0.1:45077",
+    "date": "20260130",
+    "focus": "17",
+    "time": 1
+  },
+  {
+    "host": "rclone.org",
+    "date": "20260129",
+    "focus": "16",
+    "time": 2
+  },
+  {
+    "host": "zed.dev",
+    "date": "20260130",
+    "focus": "15",
+    "time": 2
+  },
+  {
+    "host": "nodejs.org",
+    "date": "20260129",
+    "focus": "15",
+    "time": 1
+  },
+  {
+    "host": "nouveau.freedesktop.org",
+    "date": "20260130",
+    "focus": "15",
+    "time": 1
+  },
+  {
+    "host": "gnome.org",
+    "date": "20260129",
+    "focus": "13",
+    "time": 1
+  },
+  {
+    "host": "neovide.dev",
+    "date": "20260129",
+    "focus": "12",
+    "time": 1
+  },
+  {
+    "host": "openai.com",
+    "date": "20260129",
+    "focus": "12",
+    "time": 2
+  },
+  {
+    "host": "immersivetranslate.com",
+    "date": "20260129",
+    "focus": "12",
+    "time": 5
+  },
+  {
+    "host": "bonsai.cool",
+    "date": "20260129",
+    "focus": "10",
+    "time": 1
+  },
+  {
+    "host": "neovim.io",
+    "date": "20260129",
+    "focus": "5",
+    "time": 2
+  },
+  {
+    "host": "infoplease.com",
+    "date": "20260130",
+    "focus": "4",
+    "time": 1
+  },
+  {
+    "host": "wfhg.cc",
+    "date": "20260130",
+    "focus": "1",
+    "time": 1
+  },
+  {
+    "host": "clashverge.dev",
+    "date": "20260129",
+    "focus": "1",
+    "time": 1
+  },
+  {
+    "host": "adguard.com",
+    "date": "20260129",
+    "focus": "0",
+    "time": 1
+  }
+]
