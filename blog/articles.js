@@ -41,7 +41,7 @@ const articlesConfig = {
     thumbnail: "./assets/images/cover/thumbnail/ss.png",
     banner: "./assets/images/cover/ss.png",
     readingTime: "12 分钟阅读",
-    viewCount: "512",
+    viewCount: "112",
     contentFile: "articles/3.md",
   },
   4: {
@@ -57,19 +57,20 @@ const articlesConfig = {
     viewCount: "189",
     contentFile: "articles/4.md",
   },
-  // 5: {
-  //   id: 5,
-  //   title: "关于创造力的思考",
-  //   date: "2024-11-08",
-  //   excerpt:
-  //     "创造力不是凭空而来的,它需要持续的积累、观察和思考。灵感往往在最意想不到的时刻出现...",
-  //   tags: ["thoughts"],
-  //   thumbnail: "assets/images/defaultBanner.png",
-  //   banner: "assets/images/defaultBanner.png",
-  //   readingTime: "6 分钟阅读",
-  //   viewCount: "342",
-  //   contentFile: "articles/5.md",
-  // },
+  5: {
+    id: 5,
+    title: "十四年，我第一次通关了我的世界",
+    date: "2026-01-31",
+    excerpt: "五个小时游戏，七个小时最终上传视频。我的世界，就是我的世界。",
+    tags: ["thoughts"],
+    thumbnail:
+      "https://img.makis-life.cn/imagesNew/makiAndDoggy.png?x-oss-process=style/yasuo",
+    banner:
+      "https://img.makis-life.cn/imagesNew/makiAndDoggy.png?x-oss-process=style/yasuo",
+    readingTime: "12 分钟阅读",
+    viewCount: "12",
+    contentFile: "articles/mc.md",
+  },
   // 6: {
   //   id: 6,
   //   title: "秋天的故事",
