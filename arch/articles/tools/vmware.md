@@ -10,6 +10,12 @@
 lscpu | grep Virtualization
 ```
 
+以下指令确保输出是大于 0 的，如果不是，请前往 BIOS 打开虚拟化
+
+```bash
+egrep -c '(svm|vmx)' /proc/cpuinfo
+```
+
 安装 AUR 助手
 [install_AUR_Assis](../install_AUR_Assis.md)
 

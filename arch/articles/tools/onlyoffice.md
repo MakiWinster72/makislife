@@ -4,7 +4,7 @@
 
 ## 安装
 
-需要先安装 AUR 助手 ==> [install_AUR_Assis](../install_AUR_Assis.md)
+需要先安装 AUR 助手 ==> [install_AUR_Assis](install_AUR_Assis.md)
 然后
 
 ```bash

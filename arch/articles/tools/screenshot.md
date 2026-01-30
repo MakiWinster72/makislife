@@ -2,10 +2,10 @@
 ## 安装
 
 ```bash
-sudo pacman -S slurp satty wl-clipboard
+sudo pacman -S grim slurp satty wl-clipboard
 ```
 
-> slurp 用于截屏
+> grim slurp 用于截屏
 > wl-clipboard 配合 satty 复制到剪贴板
 > satty 方便编辑图片
 
