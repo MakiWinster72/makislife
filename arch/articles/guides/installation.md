@@ -62,17 +62,19 @@
 ### profile
 
 ![](https://img.makis-life.cn/images/20260109114135721.png?x-oss-process=style/yasuo)
-如果要手动安装 Window Manager 的，建议选择 `Minimal`，最小化安装。
+如果要手动安装 Window Manager/ DE 的，建议选择 `Minimal`，最小化安装。
 
 ![](https://img.makis-life.cn/images/20260109114135722.png?x-oss-process=style/yasuo)
 
 在 Desktop 下有非常多的界面可以选择，发现居然也有 `Hyprland` 和 `niri`（两个我比较喜欢的 wm） 不过依然会预装小部分的软件，如果喜欢干干净净的（强迫症）用户~我~，还是自己安装 wm 比较好。启动后只进入 tty，然后手动启动 session。
 
+> 当然，还是建议这里就选好，然后开机进去后再删掉不必要的吧，会节省很多时间。但小白就错过了折腾各种环境了，少学很多
+
 ![image.png](https://img.makis-life.cn/images/20260111060717110.png?x-oss-process=style/yasuo)
 
-这个选择 `seatd` 即可，具体区别可以查资料和 ai
+这个选择 `polkit` 即可，具体区别可以查资料和 ai
 
-选择好后，还需要选择一个登录管理器（greeter），最精简的可以选择 `sddm`
+选择好后，还需要选择一个登录管理器（greeter），最精简的可以选择 `sddm`, `gdm`也不错，就是 gnome 的，可以理解为 Ubuntu 那个登录界面。
 
 > 如果上述选择了`minimal`，则没有该选项
 > ![image.png](https://img.makis-life.cn/images/20260111060938854.png?x-oss-process=style/yasuo)
@@ -81,19 +83,6 @@
 
 按需安装蓝牙，声音，电源等功能
 ![image.png](https://img.makis-life.cn/images/20260111063327740.png?x-oss-process=style/yasuo)
-
-> [!note] `power‑profiles‑daemon` 和 `tuned` 的区别 From ChatGPT
-> 在 **archinstall** 里选择电源管理时，`power‑profiles‑daemon` 和 `tuned` 的区别主要在于它们的复杂度和定制能力：
->
-> **power‑profiles‑daemon（PPD）** 这是一个较简单的电源配置守护进程，通过 `powerprofilesctl` 提供三个基本模式：平衡（balanced）、省电（power‑saver）、性能（performance）。对大多数笔记本或桌面用户来说，它足够日常使用，而且 GNOME/KDE 的电源模式开关就是基于它的。它与其它完整调优工具（比如 TLP、tuned）会冲突，通常只能单独使用。(\[ArchWiki\]\[1\])
->
-> **tuned** 这是一个更全面、更“重”的系统调优守护进程。它不仅管理 CPU 和节能模式，还可以调整 I/O、网络、USB、内核 sysctl、PCIe 等多个维度的性能或省电策略。它自带更多预定义配置文件，并支持自定义调优；通过 `tuned‑adm` 切换或创建自定义配置文件。`tuned‑ppd` 提供了与 PPD API 的兼容层，使得桌面环境可以像使用 PPD 一样调用 tuned 功能。(\[ArchWiki\]\[1\])
->
-> **选择建议** 如果你希望：
->
-> - **简单可靠、开箱即用**：选 **power‑profiles‑daemon**。适合日常笔记本电源模式切换（省电/平衡/性能），特别是在 GNOME/KDE 环境里通过系统设置切换。
-> - **更强调性能调优或高级控制**：选 **tuned**。适合对性能或电源管理有更细粒度需求，或想利用多个预定义/自定义配置文件来调优系统。因为它比 PPD 提供更多系统层面的调优。
-> - 如果你不清楚需要什么，可以先用 **power‑profiles‑daemon**，之后根据需求再切换到 **tuned**。
 
 ### Kernels
 
