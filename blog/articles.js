@@ -16,7 +16,7 @@ const articlesConfig = {
     readingTime: "4 分钟阅读",
     viewCount: "128",
     // 文章内容文件路径
-    contentFile: "articles/1.md",
+    contentFile: "blogs/1.md",
   },
   2: {
     id: 2,
@@ -29,7 +29,7 @@ const articlesConfig = {
     banner: "./assets/images/cover/linux.png",
     readingTime: "5 分钟阅读",
     viewCount: "256",
-    contentFile: "articles/2.md",
+    contentFile: "blogs/2.md",
   },
   3: {
     id: 3,
@@ -42,7 +42,7 @@ const articlesConfig = {
     banner: "./assets/images/cover/ss.png",
     readingTime: "12 分钟阅读",
     viewCount: "112",
-    contentFile: "articles/3.md",
+    contentFile: "blogs/3.md",
   },
   4: {
     id: 4,
@@ -55,7 +55,7 @@ const articlesConfig = {
     banner: "./assets/images/cover/stopUsingCodingSuger.png",
     readingTime: "4 分钟阅读",
     viewCount: "189",
-    contentFile: "articles/4.md",
+    contentFile: "blogs/4.md",
   },
   5: {
     id: 5,
@@ -69,7 +69,7 @@ const articlesConfig = {
       "https://img.makis-life.cn/imagesNew/makiAndDoggy.png?x-oss-process=style/yasuo",
     readingTime: "12 分钟阅读",
     viewCount: "12",
-    contentFile: "articles/mc.md",
+    contentFile: "blogs/mc.md",
   },
   // 6: {
   //   id: 6,
