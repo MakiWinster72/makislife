@@ -22,7 +22,7 @@ const articlesConfig = {
           date: "2026-01-17",
           readingTime: "8 分钟",
           tags: ["env"],
-          contentFile: "./articles/guides/before-installation.md",
+          contentFile: "./archNotes/guides/before-installation.md",
         },
         {
           type: "article",
@@ -32,10 +32,67 @@ const articlesConfig = {
           date: "2026-01-17",
           readingTime: "10 分钟",
           tags: ["installation"],
-          contentFile: "./articles/guides/installation.md",
+          contentFile: "./archNotes/guides/installation.md",
         },
       ],
     },
+    {
+      type: "folder",
+      id: "essential",
+      title: "📁 必要工具",
+      children: [
+        {
+          type: "article",
+          id: "disktool",
+          title: "磁盘格式支持",
+          icon: "",
+          date: "2026-02-01",
+          readingTime: "3 分钟",
+          tags: ["Tools", "disk"],
+          contentFile: "./archNotes/essential/disk.md",
+        },
+        {
+          type: "article",
+          id: "driver",
+          title: "驱动 driver",
+          icon: "",
+          date: "2026-02-01",
+          readingTime: "5 分钟",
+          tags: ["NVIDIA", "AMD", "driver"],
+          contentFile: "./archNotes/essential/driver.md",
+        },
+      ],
+    },
+
+    {
+      type: "folder",
+      id: "tech",
+      title: "📁🎮 游戏",
+      children: [
+        {
+          type: "article",
+          id: "steam",
+          title: "安装 Steam",
+          icon: "",
+          date: "2026-02-01",
+          readingTime: "4 分钟",
+          tags: ["steam", "game"],
+          contentFile: "./archNotes/game/steam.md",
+        },
+        {
+          type: "article",
+          id: "epic",
+          title: "Epic",
+          icon: "",
+          date: "2026-02-01",
+          readingTime: "3 分钟",
+          tags: ["epic", "game"],
+          contentFile: "./archNotes/game/Epic.md",
+        },
+      ],
+    },
+
+    //JUMP:gnome
     {
       type: "folder",
       id: "tech",
@@ -50,7 +107,7 @@ const articlesConfig = {
           date: "2026-01-29",
           readingTime: "3 分钟",
           tags: ["Gnome", "DE"],
-          contentFile: "./articles/gnome/install.md",
+          contentFile: "./archNotes/gnome/install.md",
         },
         {
           type: "article",
@@ -60,10 +117,12 @@ const articlesConfig = {
           date: "2026-01-29",
           readingTime: "2 分钟",
           tags: ["Gnome", "Theme"],
-          contentFile: "./articles/gnome/theme.md",
+          contentFile: "./archNotes/gnome/theme.md",
         },
       ],
     },
+
+    // JUMP:niri
     {
       type: "folder",
       id: "tech",
@@ -77,7 +136,7 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "3 分钟",
           tags: ["niri"],
-          contentFile: "./articles/niri/runJavaProgram.md",
+          contentFile: "./archNotes/niri/runJavaProgram.md",
         },
         {
           type: "article",
@@ -87,10 +146,12 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "2 分钟",
           tags: ["niri"],
-          contentFile: "./articles/niri/xwayland.md",
+          contentFile: "./archNotes/niri/xwayland.md",
         },
       ],
     },
+
+    // JUMP:tools
     {
       type: "folder",
       id: "tools",
@@ -109,7 +170,7 @@ const articlesConfig = {
               date: "2026-01-30",
               readingTime: "3 分钟",
               tags: ["IDE"],
-              contentFile: "./articles/tools/ide/intellij IDEA.md",
+              contentFile: "./archNotes/tools/ide/intellij IDEA.md",
             },
             {
               type: "article",
@@ -119,7 +180,7 @@ const articlesConfig = {
               date: "2026-01-30",
               readingTime: "2 分钟",
               tags: ["IDE"],
-              contentFile: "./articles/tools/ide/rustrover.md",
+              contentFile: "./archNotes/tools/ide/rustrover.md",
             },
             {
               type: "article",
@@ -129,7 +190,7 @@ const articlesConfig = {
               date: "2026-01-30",
               readingTime: "2 分钟",
               tags: ["IDE"],
-              contentFile: "./articles/tools/ide/vscode.md",
+              contentFile: "./archNotes/tools/ide/vscode.md",
             },
             {
               type: "article",
@@ -139,7 +200,7 @@ const articlesConfig = {
               date: "2026-01-30",
               readingTime: "2 分钟",
               tags: ["IDE"],
-              contentFile: "./articles/tools/ide/zed.md",
+              contentFile: "./archNotes/tools/ide/zed.md",
             },
             {
               type: "article",
@@ -149,7 +210,7 @@ const articlesConfig = {
               date: "2026-01-30",
               readingTime: "4 分钟",
               tags: ["IDE"],
-              contentFile: "./articles/tools/ide/neovim.md",
+              contentFile: "./archNotes/tools/ide/neovim.md",
             },
           ],
         },
@@ -161,7 +222,17 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "4 分钟",
           tags: ["Tools", "vpn"],
-          contentFile: "./articles/tools/clash.md",
+          contentFile: "./archNotes/tools/clash.md",
+        },
+        {
+          type: "article",
+          id: "envycontrol",
+          title: "开关显卡",
+          icon: "",
+          date: "2026-02-01",
+          readingTime: "2 分钟",
+          tags: ["NVIDIA", "Tools", "GPU"],
+          contentFile: "./archNotes/tools/envycontrol.md",
         },
         {
           type: "article",
@@ -171,7 +242,7 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "3 分钟",
           tags: ["输入法", "Tools"],
-          contentFile: "./articles/tools/fcitx 5.md",
+          contentFile: "./archNotes/tools/fcitx 5.md",
         },
         {
           type: "article",
@@ -181,7 +252,17 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "3 分钟",
           tags: ["Arch", "Tools"],
-          contentFile: "./articles/tools/install_AUR_Assis.md",
+          contentFile: "./archNotes/tools/install_AUR_Assis.md",
+        },
+        {
+          type: "article",
+          id: "yesplaymusic",
+          title: "网易云",
+          icon: "🎵",
+          date: "2026-02-01",
+          readingTime: "5 分钟",
+          tags: ["yesplaymusic", "Music", "Tools"],
+          contentFile: "./archNotes/tools/yesplaymusic.md",
         },
         {
           type: "article",
@@ -191,7 +272,7 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "5 分钟",
           tags: ["输入法", "Tools"],
-          contentFile: "./articles/tools/onlyoffice.md",
+          contentFile: "./archNotes/tools/onlyoffice.md",
         },
         {
           type: "article",
@@ -201,7 +282,7 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "3 分钟",
           tags: ["截屏", "Tools"],
-          contentFile: "./articles/tools/screenshot.md",
+          contentFile: "./archNotes/tools/screenshot.md",
         },
         {
           type: "article",
@@ -211,7 +292,7 @@ const articlesConfig = {
           date: "2026-01-30",
           readingTime: "8 分钟",
           tags: ["VM", "Tools"],
-          contentFile: "./articles/tools/vmware.md",
+          contentFile: "./archNotes/tools/vmware.md",
         },
       ],
     },
@@ -223,7 +304,7 @@ const articlesConfig = {
       date: "2026-01-30",
       readingTime: "3 分钟",
       tags: ["docker", "代理"],
-      contentFile: "./articles/dockerProxy.md",
+      contentFile: "./archNotes/dockerProxy.md",
     },
     {
       type: "article",
@@ -233,7 +314,7 @@ const articlesConfig = {
       date: "2026-01-31",
       readingTime: "3 分钟",
       tags: ["arch", "sudo"],
-      contentFile: "./articles/visudo.md",
+      contentFile: "./archNotes/visudo.md",
     },
     {
       type: "article",
@@ -243,7 +324,7 @@ const articlesConfig = {
       date: "2026-02-01",
       readingTime: "5 分钟",
       tags: ["AMD", "NVIDIA"],
-      contentFile: "./articles/essential/driver.md",
+      contentFile: "./archNotes/essential/driver.md",
     },
   ],
 };
