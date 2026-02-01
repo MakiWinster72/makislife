@@ -2,32 +2,74 @@
   {
     "host": "youtube.com",
     "date": "20260129",
-    "focus": "4950",
-    "time": 13
+    "focus": "10771",
+    "time": 18
+  },
+  {
+    "host": "bilibili.com",
+    "date": "20260130",
+    "focus": "8997",
+    "time": 68
   },
   {
     "host": "chatgpt.com",
     "date": "20260129",
-    "focus": "2535",
-    "time": 26
+    "focus": "5850",
+    "time": 42
+  },
+  {
+    "host": "huawei.com",
+    "date": "20260129",
+    "focus": "3368",
+    "time": 46
+  },
+  {
+    "host": "rust-lang.org",
+    "date": "20260131",
+    "focus": "1459",
+    "time": 6
   },
   {
     "host": "github.com",
     "date": "20260129",
-    "focus": "843",
-    "time": 30
+    "focus": "1326",
+    "time": 42
+  },
+  {
+    "host": "google.com.hk",
+    "date": "20260129",
+    "focus": "1272",
+    "time": 53
+  },
+  {
+    "host": "qq.com",
+    "date": "20260131",
+    "focus": "1023",
+    "time": 3
   },
   {
     "host": "google.com",
     "date": "20260129",
-    "focus": "792",
-    "time": 21
+    "focus": "974",
+    "time": 32
+  },
+  {
+    "host": "reddit.com",
+    "date": "20260129",
+    "focus": "830",
+    "time": 6
+  },
+  {
+    "host": "claude.ai",
+    "date": "20260130",
+    "focus": "631",
+    "time": 1
   },
   {
     "host": "aliyun.com",
     "date": "20260129",
-    "focus": "442",
-    "time": 12
+    "focus": "448",
+    "time": 13
   },
   {
     "host": "huaweicloud.com",
@@ -36,16 +78,28 @@
     "time": 24
   },
   {
+    "host": "archlinuxcn.org",
+    "date": "20260131",
+    "focus": "392",
+    "time": 4
+  },
+  {
     "host": "zen-browser.app",
     "date": "20260129",
     "focus": "384",
     "time": 25
   },
   {
-    "host": "claude.ai",
-    "date": "20260130",
-    "focus": "305",
-    "time": 1
+    "host": "darwinkvm.com",
+    "date": "20260131",
+    "focus": "364",
+    "time": 5
+  },
+  {
+    "host": "icloud.com",
+    "date": "20260131",
+    "focus": "340",
+    "time": 4
   },
   {
     "host": "coddingtonbear.github.io",
@@ -54,16 +108,40 @@
     "time": 1
   },
   {
-    "host": "google.com.hk",
-    "date": "20260129",
-    "focus": "231",
-    "time": 16
+    "host": "medium.com",
+    "date": "20260201",
+    "focus": "285",
+    "time": 1
+  },
+  {
+    "host": "rustwiki.org",
+    "date": "20260201",
+    "focus": "263",
+    "time": 2
   },
   {
     "host": "makis-life.cn",
     "date": "20260129",
-    "focus": "129",
-    "time": 11
+    "focus": "254",
+    "time": 19
+  },
+  {
+    "host": "minecraft.wiki",
+    "date": "20260130",
+    "focus": "142",
+    "time": 5
+  },
+  {
+    "host": "proxmox.com",
+    "date": "20260131",
+    "focus": "121",
+    "time": 2
+  },
+  {
+    "host": "wakatime.com",
+    "date": "20260129",
+    "focus": "105",
+    "time": 13
   },
   {
     "host": "shengsuanyun.com",
@@ -72,10 +150,16 @@
     "time": 6
   },
   {
-    "host": "wakatime.com",
-    "date": "20260129",
-    "focus": "93",
-    "time": 11
+    "host": "archlinux.org",
+    "date": "20260131",
+    "focus": "95",
+    "time": 4
+  },
+  {
+    "host": "windows.com",
+    "date": "20260131",
+    "focus": "76",
+    "time": 1
   },
   {
     "host": "live.com",
@@ -96,22 +180,28 @@
     "time": 1
   },
   {
+    "host": "harmonyos.cool",
+    "date": "20260201",
+    "focus": "51",
+    "time": 1
+  },
+  {
     "host": "1ms.run",
     "date": "20260130",
     "focus": "49",
     "time": 5
   },
   {
-    "host": "reddit.com",
-    "date": "20260129",
-    "focus": "44",
-    "time": 2
+    "host": "csdn.net",
+    "date": "20260201",
+    "focus": "46",
+    "time": 4
   },
   {
-    "host": "huawei.com",
-    "date": "20260129",
-    "focus": "37",
-    "time": 5
+    "host": "arraynetworks.net",
+    "date": "20260131",
+    "focus": "38",
+    "time": 1
   },
   {
     "host": "chagpt.com",
@@ -124,6 +214,12 @@
     "date": "20260130",
     "focus": "34",
     "time": 2
+  },
+  {
+    "host": "quark.cn",
+    "date": "20260130",
+    "focus": "33",
+    "time": 1
   },
   {
     "host": "127.0.0.1:37945",
@@ -144,6 +240,12 @@
     "time": 2
   },
   {
+    "host": "hicloud.com",
+    "date": "20260201",
+    "focus": "21",
+    "time": 1
+  },
+  {
     "host": "warp.dev",
     "date": "20260129",
     "focus": "19",
@@ -154,6 +256,18 @@
     "date": "20260130",
     "focus": "19",
     "time": 1
+  },
+  {
+    "host": "bing.com",
+    "date": "20260131",
+    "focus": "19",
+    "time": 2
+  },
+  {
+    "host": "neovim.io",
+    "date": "20260129",
+    "focus": "18",
+    "time": 4
   },
   {
     "host": "127.0.0.1:45077",
@@ -186,6 +300,12 @@
     "time": 1
   },
   {
+    "host": "3dmgame.com",
+    "date": "20260131",
+    "focus": "14",
+    "time": 1
+  },
+  {
     "host": "gnome.org",
     "date": "20260129",
     "focus": "13",
@@ -210,21 +330,51 @@
     "time": 5
   },
   {
+    "host": "iloveimg.com",
+    "date": "20260131",
+    "focus": "10",
+    "time": 1
+  },
+  {
     "host": "bonsai.cool",
     "date": "20260129",
     "focus": "10",
     "time": 1
   },
   {
-    "host": "neovim.io",
-    "date": "20260129",
-    "focus": "5",
+    "host": "lazyvim.org",
+    "date": "20260130",
+    "focus": "10",
     "time": 2
+  },
+  {
+    "host": "nvchad.com",
+    "date": "20260130",
+    "focus": "10",
+    "time": 2
+  },
+  {
+    "host": "opencode.ai",
+    "date": "20260131",
+    "focus": "9",
+    "time": 1
+  },
+  {
+    "host": "discord.com",
+    "date": "20260130",
+    "focus": "7",
+    "time": 1
   },
   {
     "host": "infoplease.com",
     "date": "20260130",
     "focus": "4",
+    "time": 1
+  },
+  {
+    "host": "stackoverflow.com",
+    "date": "20260201",
+    "focus": "2",
     "time": 1
   },
   {
@@ -242,6 +392,12 @@
   {
     "host": "adguard.com",
     "date": "20260129",
+    "focus": "0",
+    "time": 1
+  },
+  {
+    "host": "danklinux.com",
+    "date": "20260131",
     "focus": "0",
     "time": 1
   }

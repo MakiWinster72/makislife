@@ -105,7 +105,6 @@
       }
 
       .summary-item {
-        font-family: "hm";
         text-align: center;
       }
 
@@ -121,7 +120,7 @@
       .summary-value {
         font-size: clamp(2rem, 4vw, 2.8rem);
         font-weight: 700;
-        font-family: "code", "JetBrains Mono", monospace;
+        font-family: "code", "hm", "JetBrains Mono", monospace;
         color: var(--red);
         line-height: 1.2;
       }
@@ -281,6 +280,12 @@
       }
       .fade-in:nth-child(4) {
         animation-delay: 0.4s;
+      }
+
+      @media {
+        .chart-wrapper-website {
+          height: 600px;
+        }
       }
 
       @media (max-width: 768px) {
@@ -520,8 +525,8 @@
                     <!-- 第四行：网站访问统计 -->
                     <div class="chart-row-full fade-in">
                         <div class="chart-card">
-                            <div class="chart-title">网站访问统计</div>
-                            <div class="chart-wrapper">
+                            <div class="chart-title">Who took my time?</div>
+                            <div class="chart-wrapper chart-wrapper-website">
                                 <canvas id="websiteChart"></canvas>
                             </div>
                         </div>
