@@ -2,26 +2,32 @@
   {
     "host": "youtube.com",
     "date": "20260129",
-    "focus": "10771",
-    "time": 18
+    "focus": "18980",
+    "time": 24
   },
   {
     "host": "bilibili.com",
     "date": "20260130",
-    "focus": "8997",
-    "time": 68
+    "focus": "11366",
+    "time": 87
   },
   {
     "host": "chatgpt.com",
     "date": "20260129",
-    "focus": "5850",
-    "time": 42
+    "focus": "11088",
+    "time": 58
   },
   {
     "host": "huawei.com",
     "date": "20260129",
-    "focus": "3368",
-    "time": 46
+    "focus": "3398",
+    "time": 54
+  },
+  {
+    "host": "github.com",
+    "date": "20260129",
+    "focus": "1942",
+    "time": 71
   },
   {
     "host": "rust-lang.org",
@@ -30,16 +36,22 @@
     "time": 6
   },
   {
-    "host": "github.com",
-    "date": "20260129",
-    "focus": "1326",
-    "time": 42
+    "host": "zread.ai",
+    "date": "20260202",
+    "focus": "1458",
+    "time": 10
   },
   {
     "host": "google.com.hk",
     "date": "20260129",
-    "focus": "1272",
-    "time": 53
+    "focus": "1440",
+    "time": 71
+  },
+  {
+    "host": "feishu.cn",
+    "date": "20260201",
+    "focus": "1109",
+    "time": 19
   },
   {
     "host": "qq.com",
@@ -48,16 +60,28 @@
     "time": 3
   },
   {
+    "host": "47.119.119.243:9080",
+    "date": "20260201",
+    "focus": "1001",
+    "time": 5
+  },
+  {
     "host": "google.com",
     "date": "20260129",
-    "focus": "974",
-    "time": 32
+    "focus": "989",
+    "time": 36
   },
   {
     "host": "reddit.com",
     "date": "20260129",
     "focus": "830",
     "time": 6
+  },
+  {
+    "host": "minecraft.wiki",
+    "date": "20260130",
+    "focus": "818",
+    "time": 11
   },
   {
     "host": "claude.ai",
@@ -74,8 +98,8 @@
   {
     "host": "huaweicloud.com",
     "date": "20260129",
-    "focus": "407",
-    "time": 24
+    "focus": "430",
+    "time": 32
   },
   {
     "host": "archlinuxcn.org",
@@ -96,10 +120,22 @@
     "time": 5
   },
   {
+    "host": "makis-life.cn",
+    "date": "20260129",
+    "focus": "345",
+    "time": 21
+  },
+  {
     "host": "icloud.com",
     "date": "20260131",
     "focus": "340",
     "time": 4
+  },
+  {
+    "host": "urongda.com",
+    "date": "20260201",
+    "focus": "323",
+    "time": 1
   },
   {
     "host": "coddingtonbear.github.io",
@@ -116,20 +152,20 @@
   {
     "host": "rustwiki.org",
     "date": "20260201",
-    "focus": "263",
+    "focus": "274",
+    "time": 4
+  },
+  {
+    "host": "apache.org",
+    "date": "20260201",
+    "focus": "253",
     "time": 2
   },
   {
-    "host": "makis-life.cn",
-    "date": "20260129",
-    "focus": "254",
-    "time": 19
-  },
-  {
-    "host": "minecraft.wiki",
-    "date": "20260130",
-    "focus": "142",
-    "time": 5
+    "host": "modrinth.com",
+    "date": "20260202",
+    "focus": "122",
+    "time": 2
   },
   {
     "host": "proxmox.com",
@@ -138,10 +174,16 @@
     "time": 2
   },
   {
+    "host": "lazyvim.org",
+    "date": "20260130",
+    "focus": "117",
+    "time": 3
+  },
+  {
     "host": "wakatime.com",
     "date": "20260129",
-    "focus": "105",
-    "time": 13
+    "focus": "116",
+    "time": 15
   },
   {
     "host": "shengsuanyun.com",
@@ -160,6 +202,18 @@
     "date": "20260131",
     "focus": "76",
     "time": 1
+  },
+  {
+    "host": "trae.cn",
+    "date": "20260202",
+    "focus": "74",
+    "time": 3
+  },
+  {
+    "host": "127.0.0.1:3000",
+    "date": "20260201",
+    "focus": "73",
+    "time": 20
   },
   {
     "host": "live.com",
@@ -204,6 +258,12 @@
     "time": 1
   },
   {
+    "host": "openai.com",
+    "date": "20260129",
+    "focus": "37",
+    "time": 5
+  },
+  {
     "host": "chagpt.com",
     "date": "20260129",
     "focus": "37",
@@ -219,6 +279,12 @@
     "host": "quark.cn",
     "date": "20260130",
     "focus": "33",
+    "time": 1
+  },
+  {
+    "host": "resourcepack.net",
+    "date": "20260202",
+    "focus": "30",
     "time": 1
   },
   {
@@ -246,6 +312,12 @@
     "time": 1
   },
   {
+    "host": "wikipedia.org",
+    "date": "20260201",
+    "focus": "20",
+    "time": 1
+  },
+  {
     "host": "warp.dev",
     "date": "20260129",
     "focus": "19",
@@ -268,6 +340,12 @@
     "date": "20260129",
     "focus": "18",
     "time": 4
+  },
+  {
+    "host": "kuaipng.com",
+    "date": "20260201",
+    "focus": "17",
+    "time": 1
   },
   {
     "host": "127.0.0.1:45077",
@@ -300,6 +378,18 @@
     "time": 1
   },
   {
+    "host": "iconfont.cn",
+    "date": "20260201",
+    "focus": "14",
+    "time": 2
+  },
+  {
+    "host": "xiaohongshu.com",
+    "date": "20260201",
+    "focus": "14",
+    "time": 1
+  },
+  {
     "host": "3dmgame.com",
     "date": "20260131",
     "focus": "14",
@@ -318,16 +408,28 @@
     "time": 1
   },
   {
-    "host": "openai.com",
-    "date": "20260129",
+    "host": "gdufe.edu.cn",
+    "date": "20260201",
     "focus": "12",
-    "time": 2
+    "time": 1
   },
   {
     "host": "immersivetranslate.com",
     "date": "20260129",
     "focus": "12",
     "time": 5
+  },
+  {
+    "host": "svgtopng.com",
+    "date": "20260201",
+    "focus": "11",
+    "time": 1
+  },
+  {
+    "host": "ctfile.com",
+    "date": "20260201",
+    "focus": "10",
+    "time": 1
   },
   {
     "host": "iloveimg.com",
@@ -342,14 +444,14 @@
     "time": 1
   },
   {
-    "host": "lazyvim.org",
+    "host": "nvchad.com",
     "date": "20260130",
     "focus": "10",
     "time": 2
   },
   {
-    "host": "nvchad.com",
-    "date": "20260130",
+    "host": "z.ai",
+    "date": "20260202",
     "focus": "10",
     "time": 2
   },
@@ -363,6 +465,12 @@
     "host": "discord.com",
     "date": "20260130",
     "focus": "7",
+    "time": 1
+  },
+  {
+    "host": "wikimedia.org",
+    "date": "20260201",
+    "focus": "6",
     "time": 1
   },
   {
