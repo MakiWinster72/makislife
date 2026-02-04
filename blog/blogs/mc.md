@@ -1,3 +1,10 @@
+<div class="bili-wrapper">
+  <iframe
+    src="//player.bilibili.com/player.html?isOutside=true&aid=115986833347711&bvid=BV1M36CBKEdr&cid=35719089450&p=1"
+    allowfullscreen
+  ></iframe>
+</div>
+
 十几年了，这是我第一次通关我的世界。标题说十四年是瞎说的，只是大概吧。不是所有人都清晰记得第一次玩我的世界是什么版本，甚至是哪一年。其实，我觉得大部分人都不会记得。只会记得那一个小小的屏幕，长按方块的时候会有一个空心圆，然后慢慢被填满，方块就爆了，只会记得对着脚下挖了好久，也没有到达所谓的”地狱“，只会记得那个正在流水的“天堂”传送门，还有会把自己围起来生成怪物的神秘方块。
 
 <div style="
