@@ -71,6 +71,21 @@ const articlesConfig = {
     viewCount: "12",
     contentFile: "blogs/mc.md",
   },
+  6: {
+    id: 6,
+    title: "Yao",
+    date: "2026-02-04",
+    excerpt: "姚，再见。",
+    tags: ["life", "love"],
+    hidden: true,
+    thumbnail:
+      "https://img.makis-life.cn/imagesNew/IMG_5756.jpeg?x-oss-process=style/yasuo",
+    banner:
+      "https://img.makis-life.cn/imagesNew/IMG_5756.jpeg?x-oss-process=style/yasuo",
+    readingTime: "也许要花很多时间",
+    viewCount: "只有你和我",
+    contentFile: "blogs/yao.md",
+  },
   // 6: {
   //   id: 6,
   //   title: "秋天的故事",
@@ -88,9 +103,9 @@ const articlesConfig = {
 
 // 获取所有文章列表（用于calendar.html）
 function getAllArticles() {
-  return Object.values(articlesConfig).sort(
-    (a, b) => new Date(b.date) - new Date(a.date),
-  );
+  return Object.values(articlesConfig)
+    .filter((article) => !article.hidden)
+    .sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
 // 获取单篇文章配置（用于entry.html）
