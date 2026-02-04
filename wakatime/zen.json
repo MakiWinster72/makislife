@@ -2,20 +2,32 @@
   {
     "host": "youtube.com",
     "date": "20260129",
-    "focus": "18980",
-    "time": 24
-  },
-  {
-    "host": "bilibili.com",
-    "date": "20260130",
-    "focus": "11366",
-    "time": 87
+    "focus": "27101",
+    "time": 28
   },
   {
     "host": "chatgpt.com",
     "date": "20260129",
-    "focus": "11088",
-    "time": 58
+    "focus": "15636",
+    "time": 78
+  },
+  {
+    "host": "bilibili.com",
+    "date": "20260130",
+    "focus": "12661",
+    "time": 107
+  },
+  {
+    "host": "localhost",
+    "date": "20260203",
+    "focus": "4330",
+    "time": 42
+  },
+  {
+    "host": "github.com",
+    "date": "20260129",
+    "focus": "4276",
+    "time": 109
   },
   {
     "host": "huawei.com",
@@ -24,46 +36,40 @@
     "time": 54
   },
   {
-    "host": "github.com",
-    "date": "20260129",
-    "focus": "1942",
-    "time": 71
-  },
-  {
-    "host": "rust-lang.org",
-    "date": "20260131",
-    "focus": "1459",
-    "time": 6
-  },
-  {
-    "host": "zread.ai",
-    "date": "20260202",
-    "focus": "1458",
-    "time": 10
-  },
-  {
     "host": "google.com.hk",
     "date": "20260129",
-    "focus": "1440",
-    "time": 71
+    "focus": "1596",
+    "time": 85
   },
   {
     "host": "feishu.cn",
     "date": "20260201",
-    "focus": "1109",
-    "time": 19
+    "focus": "1503",
+    "time": 25
   },
   {
-    "host": "qq.com",
+    "host": "rust-lang.org",
     "date": "20260131",
-    "focus": "1023",
-    "time": 3
+    "focus": "1496",
+    "time": 7
+  },
+  {
+    "host": "zread.ai",
+    "date": "20260202",
+    "focus": "1468",
+    "time": 10
   },
   {
     "host": "47.119.119.243:9080",
     "date": "20260201",
-    "focus": "1001",
-    "time": 5
+    "focus": "1259",
+    "time": 8
+  },
+  {
+    "host": "qq.com",
+    "date": "20260131",
+    "focus": "1030",
+    "time": 4
   },
   {
     "host": "google.com",
@@ -82,6 +88,12 @@
     "date": "20260130",
     "focus": "818",
     "time": 11
+  },
+  {
+    "host": "rustwiki.org",
+    "date": "20260201",
+    "focus": "685",
+    "time": 23
   },
   {
     "host": "claude.ai",
@@ -114,16 +126,22 @@
     "time": 25
   },
   {
+    "host": "makis-life.cn",
+    "date": "20260129",
+    "focus": "368",
+    "time": 25
+  },
+  {
     "host": "darwinkvm.com",
     "date": "20260131",
     "focus": "364",
     "time": 5
   },
   {
-    "host": "makis-life.cn",
-    "date": "20260129",
-    "focus": "345",
-    "time": 21
+    "host": "apache.org",
+    "date": "20260201",
+    "focus": "347",
+    "time": 3
   },
   {
     "host": "icloud.com",
@@ -150,16 +168,34 @@
     "time": 1
   },
   {
-    "host": "rustwiki.org",
+    "host": "curseforge.com",
+    "date": "20260203",
+    "focus": "222",
+    "time": 1
+  },
+  {
+    "host": "iconfont.cn",
     "date": "20260201",
-    "focus": "274",
+    "focus": "214",
     "time": 4
   },
   {
-    "host": "apache.org",
-    "date": "20260201",
-    "focus": "253",
-    "time": 2
+    "host": "deepseek.com",
+    "date": "20260204",
+    "focus": "211",
+    "time": 4
+  },
+  {
+    "host": "kimi.com",
+    "date": "20260204",
+    "focus": "131",
+    "time": 1
+  },
+  {
+    "host": "wakatime.com",
+    "date": "20260129",
+    "focus": "124",
+    "time": 17
   },
   {
     "host": "modrinth.com",
@@ -178,12 +214,6 @@
     "date": "20260130",
     "focus": "117",
     "time": 3
-  },
-  {
-    "host": "wakatime.com",
-    "date": "20260129",
-    "focus": "116",
-    "time": 15
   },
   {
     "host": "shengsuanyun.com",
@@ -300,6 +330,12 @@
     "time": 1
   },
   {
+    "host": "pexels.com",
+    "date": "20260204",
+    "focus": "22",
+    "time": 1
+  },
+  {
     "host": "google.com.tw",
     "date": "20260129",
     "focus": "22",
@@ -316,6 +352,12 @@
     "date": "20260201",
     "focus": "20",
     "time": 1
+  },
+  {
+    "host": "699pic.com",
+    "date": "20260204",
+    "focus": "20",
+    "time": 3
   },
   {
     "host": "warp.dev",
@@ -376,12 +418,6 @@
     "date": "20260130",
     "focus": "15",
     "time": 1
-  },
-  {
-    "host": "iconfont.cn",
-    "date": "20260201",
-    "focus": "14",
-    "time": 2
   },
   {
     "host": "xiaohongshu.com",
@@ -474,6 +510,12 @@
     "time": 1
   },
   {
+    "host": "photo-ac.com",
+    "date": "20260204",
+    "focus": "4",
+    "time": 1
+  },
+  {
     "host": "infoplease.com",
     "date": "20260130",
     "focus": "4",
@@ -495,6 +537,18 @@
     "host": "clashverge.dev",
     "date": "20260129",
     "focus": "1",
+    "time": 1
+  },
+  {
+    "host": "douyin.com",
+    "date": "20260204",
+    "focus": "1",
+    "time": 2
+  },
+  {
+    "host": "istockphoto.com",
+    "date": "20260204",
+    "focus": "0",
     "time": 1
   },
   {
